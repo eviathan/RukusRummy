@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
@@ -9,17 +8,28 @@ import {
 
 import './index.css';
 import Layout from './Components/Layout';
+import CreateGame from './Pages/CreateGame';
+import LandingPage from './Pages/LandingPage';
+import Session from './Pages/Session';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <LandingPage />,
+  },
+  {
+    path: "/:id",
+    element: <Session />,
+  },
+  {
+    path: "/create-game",
+    element: <CreateGame />,
   },
 ]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
-);
+)
 
 root.render(
   <React.StrictMode>
