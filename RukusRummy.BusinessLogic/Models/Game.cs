@@ -14,5 +14,13 @@ namespace RukusRummy.BusinessLogic.Models
         public List<Player> Players { get; set; }
 
         public List<Round> Rounds { get; set; }
+
+        public bool AutoReveal { get; set; }
+        
+        public bool EnableFunFeatures { get; set; }
+        
+        public PlayerPermissionType ManageIssuesPermission { get; set; }
+
+        public PlayerPermissionType RevealCardsPermission { get; set; }
     }
 }

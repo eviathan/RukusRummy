@@ -7,18 +7,35 @@ namespace RukusRummy.BusinessLogic.Services
     public class GameService
     {
         private readonly IRepository<Game> _gameRepository;
+        private readonly IRepository<Deck> _deckRepository;
 
-        public GameService(IRepository<Game> gameRepository)
+        public GameService(IRepository<Game> gameRepository, IRepository<Deck> deckRepository)
         {
             _gameRepository = gameRepository;
+            _deckRepository = deckRepository;
         }
 
         // TODO: Finish game creation logic
         public async Task<Guid> CreateGameAsync(CreateGameDTO model)
         {
+            var deck = await _deckRepository.GetAsync(model.Deck) ?? throw new ArgumentOutOfRangeException(nameof(model));
+
             var game = new Game 
             {
                 Name = model.Name,
+                Deck = deck,
+                Rounds = new List<Round>
+                { 
+                    new Round()
+                },
+                Players = new List<Player>
+                {  
+                    // TODO: Add the player who created the game
+                },
+                AutoReveal = model.AutoReveal,
+                EnableFunFeatures = model.EnableFunFeatures,
+                ManageIssuesPermission = model.ManageIssuesPermission,
+                RevealCardsPermission = model.RevealCardsPermission
             };
             
             return await _gameRepository.CreateAsync(game);            
@@ -26,7 +43,7 @@ namespace RukusRummy.BusinessLogic.Services
 
         public async Task<Game> GetGameAsync(Guid gameId)
         {
-            throw new NotImplementedException();
+            return await _gameRepository.GetAsync(gameId);
         }
 
         public async Task PickCardAsync(PickCardDTO model)

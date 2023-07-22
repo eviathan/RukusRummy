@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RukusRummy.BusinessLogic.Models;
 
 namespace RukusRummy.BusinessLogic
 {
-    public class Round
+    public class Round : Entity
     {
         public string Name { get; set; }
 
