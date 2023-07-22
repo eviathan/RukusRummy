@@ -15,6 +15,6 @@ namespace RukusRummy.BusinessLogic.Repositories
 
         Task UpdateAsync(TEntity entity);
         
-        Task Delete(Guid id);
+        Task DeleteAsync(Guid id);
     }
 }

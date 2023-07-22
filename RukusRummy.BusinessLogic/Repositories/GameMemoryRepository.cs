@@ -15,18 +15,7 @@ namespace RukusRummy.BusinessLogic.Repositories
         {
             _games.Add(entity);
             return await Task.FromResult<Guid>(entity.Id);
-        }
-
-        public async Task Delete(Guid id)
-        {
-            var game = _games.FirstOrDefault(game => game.Id == id);
-
-            if(game == null)
-                throw new ArgumentOutOfRangeException($"Could not find game with id: {id}");
-
-            _games.Remove(game);            
-            await Task.Delay(10);
-        }
+        }      
 
         public async Task<Game> GetAsync(Guid id)
         {
@@ -51,6 +40,17 @@ namespace RukusRummy.BusinessLogic.Repositories
                 throw new ArgumentOutOfRangeException($"Could not find game");
 
             _games[index] = entity;
+            await Task.Delay(10);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var game = _games.FirstOrDefault(game => game.Id == id);
+
+            if(game == null)
+                throw new ArgumentOutOfRangeException($"Could not find game with id: {id}");
+
+            _games.Remove(game);            
             await Task.Delay(10);
         }
     }

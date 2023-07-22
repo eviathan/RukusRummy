@@ -12,5 +12,14 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
         public string Name { get; set; }
 
         public string Values { get; set; }
+
+        public DeckDTO() { }
+
+        public DeckDTO(string name, string values)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            Values = values;
+        }
     }
 }

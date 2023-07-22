@@ -29,7 +29,7 @@ namespace RukusRummy.BusinessLogic.Repositories
             return await Task.FromResult<Guid>(entity.Id);
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var deck = _decks.FirstOrDefault(deck => deck.Id == id);
 

@@ -16,9 +16,9 @@ namespace RukusRummy.BusinessLogic.Services
         }
 
         // TODO: Finish game creation logic
-        public async Task<Guid> CreateGameAsync(CreateGameDTO model)
+        public async Task<Guid> CreateAsync(CreateGameDTO model)
         {
-            var deck = await _deckRepository.GetAsync(model.Deck) ?? throw new ArgumentOutOfRangeException(nameof(model));
+            var deck = await _deckRepository.GetAsync(model.Deck) ?? throw new ArgumentOutOfRangeException(nameof(model.Deck));
 
             var game = new Game 
             {
@@ -41,9 +41,27 @@ namespace RukusRummy.BusinessLogic.Services
             return await _gameRepository.CreateAsync(game);            
         }
 
-        public async Task<Game> GetGameAsync(Guid gameId)
+        public async Task<GameDTO> GetAsync(Guid id)
         {
-            return await _gameRepository.GetAsync(gameId);
+            var game = await _gameRepository.GetAsync(id);
+            return MapToDTO(game);
+        }
+
+        public async Task<IEnumerable<GameDTO>> GetAllAsync()
+        {
+            var games = await _gameRepository.GetAllAsync();
+            return await Task.FromResult(games.Select(MapToDTO));
+        }
+
+        public async Task UpdateAsync(GameDTO dto)
+        {
+            var game = MapFromDTO(dto);
+            await _gameRepository.UpdateAsync(game);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            await _gameRepository.DeleteAsync(id);
         }
 
         public async Task PickCardAsync(PickCardDTO model)
@@ -58,15 +76,22 @@ namespace RukusRummy.BusinessLogic.Services
             await _gameRepository.UpdateAsync(game);
         }
 
-        public async Task RevealCardsAsync(Guid gameId)
+        private Game MapFromDTO(GameDTO dto)
         {
-            var game = await _gameRepository.GetAsync(gameId);
-
-            foreach (var player in game.Players)
+            return new Game
             {
-                // player.Notify(GameNotificationType.UpdateCards);   
-            }
-            await Task.Delay(12);
+                Id = dto.Id,
+                Name = dto.Name,                
+            };
+        }
+
+        private GameDTO MapToDTO(Game game)
+        {
+            return new GameDTO
+            {
+                Id = game.Id,
+                Name = game.Name,                
+            };
         }
     }
 }

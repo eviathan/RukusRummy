@@ -27,7 +27,7 @@ namespace RukusRummy.Test.Unit
             var autoReveal = true;
             var enableFunFeatures = true;
 
-            var id = await _gameService.CreateGameAsync(new CreateGameDTO
+            var id = await _gameService.CreateAsync(new CreateGameDTO
             {
                 Name = name,
                 AutoReveal = autoReveal,
@@ -37,7 +37,7 @@ namespace RukusRummy.Test.Unit
             });
 
             // Act
-            var game = await _gameService.GetGameAsync(id);
+            var game = await _gameService.GetAsync(id);
 
             // Assert
             Assert.NotNull(game);
@@ -53,7 +53,7 @@ namespace RukusRummy.Test.Unit
         public async Task GivenAnInvalidGameId_WhenGetGameAsyncIsInvoked_ArgumentOutOfRangeExceptionThrown()
         {
             // Act
-            var act = () => _gameService.GetGameAsync(Guid.Empty);
+            var act = () => _gameService.GetAsync(Guid.Empty);
 
             // Assert
             await Assert.ThrowsAsync<ArgumentOutOfRangeException>(act);

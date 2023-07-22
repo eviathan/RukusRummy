@@ -17,21 +17,46 @@ namespace RukusRummy.BusinessLogic.Services
             _deckRepository = deckRepository;
         }
 
-        public async Task<Guid> CreateDeck()
+        public async Task<Guid> CreateAsync(string name, string values)
         {
-            throw new NotImplementedException();
+            if(string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(values))
+                throw new ArgumentNullException();
+
+            var dto = new DeckDTO(name, values);
+            return await _deckRepository.CreateAsync(MapFromDTO(dto));
         }
 
-        public async Task<DeckDTO> GetDeck(Guid id)
+        public async Task<DeckDTO> GetAsync(Guid id)
         {
             var deck = await _deckRepository.GetAsync(id);
             return MapToDTO(deck);
         }
 
-        public async Task<IEnumerable<DeckDTO>> GetDecks()
+        public async Task<IEnumerable<DeckDTO>> GetAllAsync()
         {
             var decks = await _deckRepository.GetAllAsync();
-            return await Task.FromResult(decks.Select(MapToDTO));
+            return decks.Select(MapToDTO);
+        }
+
+        public async Task UpdateAsync(DeckDTO dto)
+        {
+            var deck = MapFromDTO(dto);
+            await _deckRepository.UpdateAsync(deck);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            await _deckRepository.DeleteAsync(id);
+        }
+
+        private Deck MapFromDTO(DeckDTO dto)
+        {
+            return new Deck
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Values = dto.Values
+            };
         }
 
         private DeckDTO MapToDTO(Deck deck)
