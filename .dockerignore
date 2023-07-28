@@ -1,0 +1,18 @@
+# Ignore .git and .svn directories
+.git
+.svn
+
+# Ignore build directories
+**/bin
+**/obj
+
+# Ignore logs
+*.log
+
+# Ignore local configuration files
+**/appsettings.Local.json
+
+# Ignore node modules - they should be re-installed as part of the build
+RukusRummy.Web/node_modules
+
+# Any other files or directories you feel should not be part of the Docker context

@@ -30,7 +30,7 @@ try
         return;
     }
 
-    app.Run();
+    app.Run("http://*:5002");
 }
 catch (Exception ex) when (
                             // https://github.com/dotnet/runtime/issues/60600

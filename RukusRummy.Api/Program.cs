@@ -36,4 +36,4 @@ app.MapHub<GameHub>("/gamehub");
 
 app.MapControllers();
 
-app.Run();
+app.Run("http://*:5001");
