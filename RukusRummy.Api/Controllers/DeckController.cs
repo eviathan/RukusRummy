@@ -7,7 +7,7 @@ using RukusRummy.BusinessLogic.Services;
 namespace RukusRummy.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class DeckController : ControllerBase
 {
     private readonly ILogger<DeckController> _logger;

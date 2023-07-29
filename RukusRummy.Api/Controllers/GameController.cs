@@ -8,7 +8,7 @@ using RukusRummy.BusinessLogic.Models.DTOs;
 namespace RukusRummy.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class GameController : ControllerBase
 {
     private readonly ILogger<GameController> _logger;
