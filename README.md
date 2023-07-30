@@ -20,10 +20,15 @@ The website is built and run from a single docker image for portability. It uses
 cd ./RukusRummy.Api
 dotnet watch run
 
+Swagger is avaliable when runnning in the development environment at
+
+http://localhost:5001/swagger
+
 cd ./RukusRummy.Web
 npm i
 npm run start
 
+http://localhost:3000/
 
 ## DOCKER
 
