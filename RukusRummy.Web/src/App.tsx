@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react"
+
 // import React, { useState, useEffect } from "react";
 // import * as signalR from "@microsoft/signalr";
 
@@ -49,11 +50,31 @@ import React from "react";
  
 // export default App;
 
+
+
 function App() {
+
+  const [response, setResponse] = useState("")
+
+  const fetchUserData = () => {
+    fetch("http://localhost:5001/api/test")
+      .then(response => {
+        return response.text()
+      })
+      .then(data => {
+        setResponse(data)
+      })
+  }
+
+  useEffect(() => {
+  fetchUserData()
+  }, [])
+
+
   return (
     <div className="App">
       <header className="App-header">
-        <h1>WIP</h1>
+        <h1>WIP {response}</h1>
       </header>
     </div>
   );

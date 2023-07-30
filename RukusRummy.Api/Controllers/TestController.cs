@@ -21,6 +21,6 @@ public class TestController : ControllerBase
     [HttpGet]  
     public async Task<string> Get()  
     {
-        return await Task.FromResult("WORKING");
+        return await Task.FromResult("WORKING: This is coming from the test endpoint!");
     }
 }
