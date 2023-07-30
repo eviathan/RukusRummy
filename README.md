@@ -29,7 +29,7 @@ npm run start
 
 #### Building docker image
 
-docker build -t ruckusrummy-
+docker build -t ruckusrummy:latest .
 
 #### Running Docker image
 
