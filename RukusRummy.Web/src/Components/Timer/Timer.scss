@@ -1,3 +1,38 @@
+@import '../../variables.scss';
+
 .timer {
-    
+    align-items: center;
+    background: #ebf4ff;
+    border: 0;
+    border-radius: 5.6rem;
+    color: #3993ff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 1.8rem;
+    font-weight: 700;
+    height: 6.4rem;
+    justify-content: center;
+    letter-spacing: .02em;
+    outline: 0;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all .09s linear;
+    -webkit-user-select: none;
+    user-select: none;
+    width: 6.4rem;
+    appearance: auto;
+    opacity: .6;
+    transition: all .09s linear;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    button {
+        border: none;
+        cursor: pointer;
+        fill: $brand-blue;
+    }
 }

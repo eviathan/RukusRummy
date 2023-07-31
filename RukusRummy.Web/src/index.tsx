@@ -5,7 +5,7 @@ import {
   BrowserRouter
 } from "react-router-dom";
 
-import './index.css';
+import './index.scss';
 import Layout from './Components/Layout';
 
 const root = ReactDOM.createRoot(

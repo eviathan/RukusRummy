@@ -1,9 +1,10 @@
 import './Timer.scss';
+import { BsFillStopwatchFill } from 'react-icons/bs';
 
 export const Timer: React.FC<React.PropsWithChildren<{}>> = () => {
     return (
         <div className="timer">
-            <button>Timer</button>
+            <button><BsFillStopwatchFill fill='#469ada;' size={40}/></button>
         </div>
     );
   }

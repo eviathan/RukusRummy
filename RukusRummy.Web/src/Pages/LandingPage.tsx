@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import HeroSection from "../Components/Sections/HeroSection"
 
 function Landing() {
   const [response, setResponse] = useState("")
@@ -18,10 +19,8 @@ function Landing() {
   }, [])
   
     return (
-      <div className="App">
-        <div className="App-header">
-          <h1>Landing {response}</h1>
-        </div>
+      <div className="landing-page">
+        <HeroSection />
       </div>
     );
   }

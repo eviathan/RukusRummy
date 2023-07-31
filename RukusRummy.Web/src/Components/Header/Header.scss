@@ -3,14 +3,19 @@
 header {
     display: flex;
     align-items: center;
-
+    width: 100%;
+    position: sticky;
+    
     .wrapper {
         display: flex;
         flex-direction: column;
+        width: 100%;
         
         .main {
             display: flex;
+            align-items: center;
             flex-direction: row;
+            justify-content: space-between;
             height: 120px;
             width: 100%;
             
@@ -23,6 +28,7 @@ header {
         .sub-header {
             display: flex;
             height: 120px;
+            margin: 48px 0;
         }
     }
 }
