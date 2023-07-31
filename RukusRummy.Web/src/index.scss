@@ -25,7 +25,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0;
 }
 
-button {
+button.primary, button.secondary {
   align-items: center;
   border-radius: 0.4rem;
   cursor: pointer;
@@ -45,7 +45,7 @@ button {
   transition: all .09s linear;
 }
 
-button:hover {
+button.primary:hover {
   background: #74b3ff;
 }
 
