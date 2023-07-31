@@ -5,6 +5,8 @@ import CreateGame from '../Pages/CreateGame';
 import LandingPage from '../Pages/LandingPage';
 import Session from '../Pages/Session';
 
+import './Layout.scss';
+
 export const Layout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     return (
       <div className="layout">

@@ -1,9 +1,28 @@
+@import '../../variables.scss';
+
 header {
     display: flex;
-    background: blue;
-    height: 100px;
+    align-items: center;
 
-    .main {
+    .wrapper {
         display: flex;
+        flex-direction: column;
+        
+        .main {
+            display: flex;
+            flex-direction: row;
+            height: 120px;
+            width: 100%;
+            
+            .logo {
+                margin: 10px 0;
+                fill: $brand-blue;
+            }
+        }
+        
+        .sub-header {
+            display: flex;
+            height: 120px;
+        }
     }
 }
