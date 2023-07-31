@@ -2,9 +2,9 @@
 function CreateGame() {
     return (
       <div className="App">
-        <header className="App-header">
+        <div className="App-header">
           <h1>Create Game</h1>
-        </header>
+        </div>
       </div>
     );
   }

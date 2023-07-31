@@ -2,30 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import {
-  createBrowserRouter,
-  RouterProvider,
+  BrowserRouter
 } from "react-router-dom";
 
 import './index.css';
 import Layout from './Components/Layout';
-import CreateGame from './Pages/CreateGame';
-import LandingPage from './Pages/LandingPage';
-import Session from './Pages/Session';
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LandingPage />,
-  },
-  {
-    path: "/:id",
-    element: <Session />,
-  },
-  {
-    path: "/create-game",
-    element: <CreateGame />,
-  },
-]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -33,9 +14,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Layout>
-      <RouterProvider router={router} />
-    </Layout>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
   </React.StrictMode>
 );
 

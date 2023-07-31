@@ -19,9 +19,9 @@ function Landing() {
   
     return (
       <div className="App">
-        <header className="App-header">
+        <div className="App-header">
           <h1>Landing {response}</h1>
-        </header>
+        </div>
       </div>
     );
   }
