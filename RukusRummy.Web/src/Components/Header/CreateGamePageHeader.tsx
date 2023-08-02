@@ -2,9 +2,9 @@ import './Header.scss';
 
 const CreateGamePageHeader: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     return (
-      <>
-        <h1>CreateGamePageHeader</h1>
-      </>
+      <div className='create-game-header'>
+        <h1>Create Game</h1>
+      </div>
     );
   }
   

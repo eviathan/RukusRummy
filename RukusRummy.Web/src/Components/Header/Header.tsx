@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { LandingPageHeader, LandingPageSubheader } from "./LandingPageHeader";
-import SessionPageHeader from "./SessionPageHeader";
-import CreateGamePageHeader from "./CreateGamePageHeader";
 import { ReactComponent as Logo } from '../../assets/logo-black.svg';
+
+import { LandingPageHeader } from "./LandingPageHeader";
+import SessionPageHeader, { SessionPageSubheader } from "./SessionPageHeader";
+import CreateGamePageHeader from "./CreateGamePageHeader";
 
 import './Header.scss';
 
@@ -33,7 +34,7 @@ export const Header: React.FC<React.PropsWithChildren<{}>> = () => {
               <HeaderWrapper header={<LandingPageHeader />} />
           }/>
           <Route path="/:id" element={
-              <HeaderWrapper header={<SessionPageHeader />} subheader={<LandingPageSubheader />} />
+              <HeaderWrapper header={<SessionPageHeader />} subheader={<SessionPageSubheader />} />
           }/>
           <Route path="/create-game" element={
               <HeaderWrapper header={<CreateGamePageHeader />} />

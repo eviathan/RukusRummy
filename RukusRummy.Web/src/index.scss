@@ -43,6 +43,7 @@ button.primary, button.secondary {
   padding: 0 3.4rem;
   font-size: 1.4rem;
   transition: all .09s linear;
+  max-width: 300px;
 }
 
 button.primary:hover {

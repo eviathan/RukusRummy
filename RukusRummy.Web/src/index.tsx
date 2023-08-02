@@ -5,8 +5,10 @@ import {
   BrowserRouter
 } from "react-router-dom";
 
-import './index.scss';
 import Layout from './Components/Layout';
+import { ApiProvider } from './Contexts/ApiContext';
+
+import './index.scss';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,9 +16,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Layout />
-    </BrowserRouter>
+    <ApiProvider>
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
+    </ApiProvider>
   </React.StrictMode>
 );
 
