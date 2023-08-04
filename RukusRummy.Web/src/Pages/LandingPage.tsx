@@ -1,30 +1,37 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+
 import HeroSection from "../Components/Sections/HeroSection"
+import { Api } from "../Contexts/ApiContext";
 
 function Landing() {
-  const [response, setResponse] = useState("")
+    
+    const [data, setData] = useState<string | undefined>();
+    const [loading, setLoading] = useState(true);
+    
+    const api = useContext(Api);
 
-  const fetchUserData = () => {
-    fetch(`${process.env.NODE_ENV === "development" ? 'http://localhost:5001' : ''}/api/test`)
-      .then(response => {
-        return response.text()
-      })
-      .then(data => {
-        setResponse(data)
-      })
-  }
+    useEffect(() => {
+        const load = async () => {
+            try {
+                const result = await api?.test.get();
+                setData(result);
+                setLoading(false);
+            } catch (e) {
+                setLoading(false);
+            }
+        };
 
-  useEffect(() => {
-  fetchUserData()
-  }, [])
+        load();
+    }, [api]);
   
     return (
       <div className="landing-page">
+        {data}
         <HeroSection />
       </div>
     );
   }
-  
+
   export default Landing;
   
   
