@@ -1,11 +1,16 @@
 import StartNewGameButton from '../Buttons/StartNewGameButton';
 import './HeroSection.scss';
 
-export const HeroSection: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+interface IProps {
+  title?: string;
+  subTitle?: string;
+}
+
+export const HeroSection: React.FC<React.PropsWithChildren<IProps>> = ({ children, title, subTitle }) => {
     return (
       <section className="hero">
-        <h1>Scrum Poker for agile development teams</h1>
-        <p>Have fun while being productive with our simple and complete tool.</p>
+        <h1>{title}</h1>
+        <p>{subTitle}</p>
         <StartNewGameButton />
       </section>
     );

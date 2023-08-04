@@ -10,22 +10,23 @@ export default class DeckApi extends BaseApi {
 		});
 	}
 
-	async get(name: string, values: string): Promise<string> {
-		return await this.getAsync({
-			name,
-			values
-		});
+	async get(id: string): Promise<string> {
+		return await this.getAsync(null, `/${id}`);
 	}
 
-	async getAll(name: string, values: string): Promise<string> {
+	async getAll(): Promise<string> {
 		return await this.getAsync();
 	}
 
-	async update(name: string, values: string): Promise<string> {
-		return "";
+	async update(id: string, name: string, values: string): Promise<void> {
+		await this.putAsync({
+            id,
+            name,
+            values
+        });
 	}
 
-	async delete(name: string, values: string): Promise<string> {
-		return "";
+	async delete(id: string): Promise<void> {
+        await this.deleteAsync({ id })
 	}
 }

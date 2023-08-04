@@ -11,16 +11,22 @@ export interface IApiFactory {
 
 export interface IApiProviderProps { }
 
-export const Api = React.createContext<IApiFactory | undefined>(undefined);
+export const Api = React.createContext<IApiFactory>({
+	game: new GameApi(),
+	deck: new DeckApi(),
+	test: new TestApi()
+});
 
 export const ApiProvider: React.FC<React.PropsWithChildren<IApiProviderProps>> = ({ children }) => {
+	const apiFactoryValue = React.useMemo(() => ({
+		game: new GameApi(),
+		deck: new DeckApi(),
+		test: new TestApi()
+	}), []);
+
 	return (
 		<Api.Provider
-			value={{
-				game: new GameApi(),
-				deck: new DeckApi(),
-				test: new TestApi()
-			}}>
+			value={apiFactoryValue}>
 			{children}
 		</Api.Provider>
 	);
