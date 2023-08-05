@@ -11,9 +11,9 @@ namespace RukusRummy.BusinessLogic.Models
 
         public Guid Deck { get; set; }
 
-        public List<Guid> Players { get; set; }
+        public List<Guid> Players { get; set; } = new List<Guid>();
 
-        public List<Guid> Rounds { get; set; }
+        public List<Guid> Rounds { get; set; } = new List<Guid>();
 
         public bool AutoReveal { get; set; }
         

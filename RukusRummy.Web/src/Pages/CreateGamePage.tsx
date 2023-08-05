@@ -122,10 +122,10 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
                 }}
             />
 
-            <Toggle label='Auto-reveal cards' />
-            <Toggle label='Enable fun features' />
-            <Toggle label='Show average in the results' />
-            <Toggle label='Autoclose session when empty' />
+            <Toggle label='Auto-reveal cards' onChange={(value) => handleChange({ autoReveal: value })} />
+            <Toggle label='Enable fun features' onChange={(value) => handleChange({ enableFunFeatures: value})} />
+            <Toggle label='Show average in the results' onChange={(value) => handleChange({ manageIssuesPermission: value})} />
+            <Toggle label='Autoclose session when empty' onChange={(value) => handleChange({ revealCardsPermission: value})} />
 
             <button className="primary" onClick={handleSubmit}>Create Game</button>
         </div>

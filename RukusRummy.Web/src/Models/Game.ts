@@ -14,6 +14,7 @@ export enum PlayerPermissionType {
 }
 
 export interface IGame {
+    id: string;
     name: string;
     deck: string;
     players: Array<string>;
@@ -22,4 +23,9 @@ export interface IGame {
     enableFunFeatures: boolean;
     manageIssuesPermission: PlayerPermissionType;
     revealCardsPermission: PlayerPermissionType;
+}
+
+export interface IPlayer {
+    name: string;
+    isSpectator: boolean;
 }

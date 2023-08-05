@@ -12,7 +12,6 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     const params = useParams();
 
     const [game, setGame] = useState<IGame | undefined>();
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const load = async () => {
@@ -20,19 +19,32 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 if(params?.id) {
                     const game = await api.game.get(params.id);
                     setGame(game);
-                    setLoading(false);
                 }
             } catch (e) {
-                setLoading(false);
             }
         };
 
         load();
     }, [api]);
 
+    async function getGame() {
+        if(params?.id) {
+            const game = await api.game.get(params.id);
+            setGame(game);
+        }
+    }
+
+    async function handleContinue() {
+        await getGame()
+    }
+
+    if(!game) {
+        return <h1>Loading</h1> // TODO: ADD SPINNER HERE
+    }
+
     return (
         <div className="Session">
-            {game?.players 
+            {game.players && game.players.length > 0 
                 ? 
                 <div>
                     <h1>Session</h1>
@@ -40,7 +52,7 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 </div>
                 : 
                 <Modal>
-                    <ChooseYourNameModal />
+                    <ChooseYourNameModal game={game} onContinue={handleContinue} />
                 </Modal>
             }
             

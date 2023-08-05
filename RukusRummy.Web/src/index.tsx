@@ -9,6 +9,7 @@ import Layout from './Components/Layout';
 import { ApiProvider } from './Contexts/ApiContext';
 
 import './index.scss';
+import { AppSateProvider } from './Contexts/AppContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,9 +18,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApiProvider>
-      <BrowserRouter>
-        <Layout />
-      </BrowserRouter>
+      <AppSateProvider>
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
+      </AppSateProvider>
     </ApiProvider>
   </React.StrictMode>
 );

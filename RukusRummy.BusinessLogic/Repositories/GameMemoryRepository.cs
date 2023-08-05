@@ -18,6 +18,8 @@ namespace RukusRummy.BusinessLogic.Repositories
                 Name = "Test Room",
                 Deck = Guid.Empty,
                 AutoReveal = true,
+                Players = new List<Guid>(),
+                Rounds = new List<Guid>()
             }
         };
 

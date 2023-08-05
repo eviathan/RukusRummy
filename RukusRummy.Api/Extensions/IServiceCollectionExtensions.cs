@@ -14,8 +14,11 @@ namespace RukusRummy.Api.Extensions
         {
             serviceCollection.AddSingleton<GameService>();
             serviceCollection.AddSingleton<DeckService>();
+            serviceCollection.AddSingleton<PlayerService>();
+
             serviceCollection.AddSingleton<IRepository<Game>, GameMemoryRepository>();
             serviceCollection.AddSingleton<IRepository<Deck>, DeckMemoryRepository>();
+            serviceCollection.AddSingleton<IRepository<Player>, PlayerMemoryRepository>();
         }
     }
 }

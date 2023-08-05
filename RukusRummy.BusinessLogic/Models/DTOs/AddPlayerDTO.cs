@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RukusRummy.BusinessLogic.Models
+namespace RukusRummy.BusinessLogic.Models.DTOs
 {
-    public class Player : Entity
+    public class AddPlayerDTO
     {
+        public Guid GameId { get; set; }
+        
         public string Name { get; set; }
 
         public bool IsSpectator { get; set; }
-
-        public dynamic Connection { get; set; }
     }
 }

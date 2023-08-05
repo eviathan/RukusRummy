@@ -2,10 +2,12 @@ import React from "react";
 import DeckApi from "../Api/DeckApi";
 import GameApi from "../Api/GameApi";
 import TestApi from "../Api/TestApi";
+import PlayerApi from "../Api/PlayerApi";
 
 export interface IApiFactory {
 	game: GameApi;
 	deck: DeckApi;
+	player: PlayerApi;
 	test: TestApi;
 }
 
@@ -14,6 +16,7 @@ export interface IApiProviderProps { }
 export const Api = React.createContext<IApiFactory>({
 	game: new GameApi(),
 	deck: new DeckApi(),
+	player: new PlayerApi(),
 	test: new TestApi()
 });
 
@@ -21,6 +24,7 @@ export const ApiProvider: React.FC<React.PropsWithChildren<IApiProviderProps>> =
 	const apiFactoryValue = React.useMemo(() => ({
 		game: new GameApi(),
 		deck: new DeckApi(),
+		player: new PlayerApi(),
 		test: new TestApi()
 	}), []);
 

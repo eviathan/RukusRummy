@@ -63,9 +63,9 @@ namespace RukusRummy.BusinessLogic.Services
             await _gameRepository.DeleteAsync(id);
         }
 
-        public async Task PickCardAsync(PickCardDTO model)
+        public async Task PickCardAsync(PickCardDTO dto)
         {
-            var game = await _gameRepository.GetAsync(model.GameId);
+            var game = await _gameRepository.GetAsync(dto.GameId);
             // var votes = game?.Rounds[model.Round]?.Votes;
 
             // if(game == null || votes == null)
