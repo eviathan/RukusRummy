@@ -47,7 +47,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapHub<GameHub>("/gamehub");
+app.MapHub<GameHub>("/api/gamehub");
 
 app.MapControllers();
 

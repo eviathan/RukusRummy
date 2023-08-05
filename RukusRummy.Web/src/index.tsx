@@ -4,12 +4,14 @@ import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter
 } from "react-router-dom";
+import { Provider } from 'react-redux';
 
 import Layout from './Components/Layout';
 import { ApiProvider } from './Contexts/ApiContext';
+import { AppSateProvider } from './Contexts/AppContext';
+// import store from './Store/Store';
 
 import './index.scss';
-import { AppSateProvider } from './Contexts/AppContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,13 +19,15 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <ApiProvider>
-      <AppSateProvider>
-        <BrowserRouter>
-          <Layout />
-        </BrowserRouter>
-      </AppSateProvider>
-    </ApiProvider>
+    {/* <Provider store={store}> */}
+      <ApiProvider>
+        <AppSateProvider>
+          <BrowserRouter>
+            <Layout />
+          </BrowserRouter>
+        </AppSateProvider>
+      </ApiProvider>
+    {/* </Provider> */}
   </React.StrictMode>
 );
 
