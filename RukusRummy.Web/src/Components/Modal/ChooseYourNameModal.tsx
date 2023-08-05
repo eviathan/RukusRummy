@@ -6,8 +6,8 @@ import './ChooseYourNameModal.scss';
 export const ChooseYourNameModal: React.FC<React.PropsWithChildren<{}>> = ({ }) => {
     return (
         <div className="choose-your-name-modal">
-            <h1>Choose your name</h1>
-            <TextInput label="Name" onChange={(event) => console.log(event.target.value)} />
+            <h1>Choose your display name</h1>
+            <TextInput label="Display Name" onChange={(event) => console.log(event.target.value)} />
             <Toggle label="Join as spectator" />
             <button className='primary'>Continue</button>
             

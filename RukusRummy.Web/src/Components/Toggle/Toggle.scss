@@ -1,11 +1,18 @@
 .toggle {
     display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+
+    p {
+          font-size: 18px;
+    }
     
     .switch {
         position: relative;
         display: inline-block;
         width: 60px;
         height: 34px;
+        margin-left: 24px;
     
         input {
           opacity: 0;
