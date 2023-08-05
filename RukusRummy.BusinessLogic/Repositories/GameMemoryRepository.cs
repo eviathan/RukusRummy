@@ -9,7 +9,17 @@ namespace RukusRummy.BusinessLogic.Repositories
     // NOTE: This will ultimately be replaced with a repo that stores the games in a database
     public class GameMemoryRepository : IRepository<Game>
     {
-        private List<Game> _games { get; set; } = new List<Game>();
+        private List<Game> _games { get; set; } = new List<Game>
+        {
+            // TODO: REMOVE THIS ITS JUST FOR TESTING
+            // NOTE: MOVE TO SEEDING AND ONLY IN DEV IF WE WANT TO KEEP IT
+            new Game {
+                Id = Guid.Empty,
+                Name = "Test Room",
+                Deck = Guid.Empty,
+                AutoReveal = true,
+            }
+        };
 
         public async Task<Guid> CreateAsync(Game entity)
         {

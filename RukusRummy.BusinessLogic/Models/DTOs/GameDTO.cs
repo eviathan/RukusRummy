@@ -13,9 +13,9 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
 
         public Guid Deck { get; set; }
 
-        public List<Player> Players { get; set; }
+        public List<Guid> Players { get; set; }
 
-        public List<Round> Rounds { get; set; }
+        public List<Guid> Rounds { get; set; }
 
         public bool AutoReveal { get; set; }
         

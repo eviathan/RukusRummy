@@ -1,3 +1,4 @@
+import IDeck from "../Models/Deck";
 import BaseApi from "./BaseApi";
 
 export default class DeckApi extends BaseApi {
@@ -14,7 +15,7 @@ export default class DeckApi extends BaseApi {
 		return await this.getAsync(null, `/${id}`);
 	}
 
-	async getAll(): Promise<string> {
+	async getAll(): Promise<Array<IDeck>> {
 		return await this.getAsync();
 	}
 

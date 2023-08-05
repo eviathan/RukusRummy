@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./Header/Header";
 
-import CreateGame from '../Pages/CreateGame';
+import CreateGamePage from '../Pages/CreateGamePage';
 import LandingPage from '../Pages/LandingPage';
-import Session from '../Pages/Session';
+import SessionPage from '../Pages/SessionPage';
 
 import './Layout.scss';
 
@@ -15,8 +15,8 @@ export const Layout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
           <main className="wrapper">
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="/:id" element={<Session />} />
-              <Route path="/create-game" element={<CreateGame />} />
+              <Route path="/session/:id" element={<SessionPage />} />
+              <Route path="/create-game" element={<CreateGamePage />} />
             </Routes>
           </main>
       </div>

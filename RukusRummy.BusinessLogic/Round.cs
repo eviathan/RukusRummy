@@ -19,7 +19,7 @@ namespace RukusRummy.BusinessLogic
         public Dictionary<Guid, int?> Votes { get; set; }
 
         public int VoteCount => Votes
-            .Where(vote => vote.Value != null)
-            .Count();
+            ?.Where(vote => vote.Value != null)
+            ?.Count() ?? 0;
     }
 }

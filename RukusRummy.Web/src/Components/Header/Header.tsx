@@ -33,7 +33,7 @@ export const Header: React.FC<React.PropsWithChildren<{}>> = () => {
           <Route path="/" element={
               <HeaderWrapper header={<LandingPageHeader />} />
           }/>
-          <Route path="/:id" element={
+          <Route path="/session/:id" element={
               <HeaderWrapper header={<SessionPageHeader />} subheader={<SessionPageSubheader />} />
           }/>
           <Route path="/create-game" element={
