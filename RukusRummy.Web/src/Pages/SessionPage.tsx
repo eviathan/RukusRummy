@@ -5,11 +5,32 @@ import { IGame } from "../Models/Game";
 import { Api } from "../Contexts/ApiContext";
 import ChooseYourNameModal from "../Components/Modal/ChooseYourNameModal";
 import Modal from "../Components/Modal/Modal";
+import { SignalRContext } from "../Contexts/SignalRContext";
 
 
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     const api = useContext(Api);
     const params = useParams();
+
+    const { connection } = useContext(SignalRContext);
+
+    useEffect(() => {
+        // debugger;
+        if(connection) {
+            connection.on("UserConnected", (user: string) => {
+                // debugger;
+                // Handle messages
+                console.log(`User ${user}`);
+            });
+        }
+
+        // Clean up
+        return () => {
+            if(connection) {
+                connection.off("ReceiveMessage");
+            }
+        };
+    }, [connection]);
 
     const [game, setGame] = useState<IGame | undefined>();
 

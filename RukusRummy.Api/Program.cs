@@ -15,7 +15,8 @@ builder.Services.AddCors(options =>
             policy
                 .WithOrigins("http://localhost:3000")
                 .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                .AllowCredentials();
         }
     );
 });
@@ -47,7 +48,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapHub<GameHub>("/api/gamehub");
+app.MapHub<GameHub>("/hubs/gamehub");
 
 app.MapControllers();
 

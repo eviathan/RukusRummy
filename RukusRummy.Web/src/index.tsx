@@ -12,6 +12,7 @@ import { AppSateProvider } from './Contexts/AppContext';
 // import store from './Store/Store';
 
 import './index.scss';
+import { SignalRProvider } from './Contexts/SignalRContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -21,11 +22,13 @@ root.render(
   <React.StrictMode>
     {/* <Provider store={store}> */}
       <ApiProvider>
-        <AppSateProvider>
-          <BrowserRouter>
-            <Layout />
-          </BrowserRouter>
-        </AppSateProvider>
+        <SignalRProvider>
+          <AppSateProvider>
+            <BrowserRouter>
+              <Layout />
+            </BrowserRouter>
+          </AppSateProvider>
+        </SignalRProvider>
       </ApiProvider>
     {/* </Provider> */}
   </React.StrictMode>
