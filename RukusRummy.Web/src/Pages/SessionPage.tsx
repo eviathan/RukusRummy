@@ -5,22 +5,22 @@ import { IGame } from "../Models/Game";
 import { Api } from "../Contexts/ApiContext";
 import ChooseYourNameModal from "../Components/Modal/ChooseYourNameModal";
 import Modal from "../Components/Modal/Modal";
-import { SignalRContext } from "../Contexts/SignalRContext";
+import { GameHubContext } from "../Contexts/GameHubContext";
 
 
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     const api = useContext(Api);
     const params = useParams();
 
-    const { connection } = useContext(SignalRContext);
+    const { connection } = useContext(GameHubContext);
 
     useEffect(() => {
         // debugger;
         if(connection) {
-            connection.on("UserConnected", (user: string) => {
+            connection.on("UserConnected", (user: any) => {
                 // debugger;
                 // Handle messages
-                console.log(`User ${user}`);
+                console.log(`User ${JSON.stringify(user)}`);
             });
         }
 

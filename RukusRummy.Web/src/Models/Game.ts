@@ -21,6 +21,8 @@ export interface IGame {
     rounds: Array<string>;
     autoReveal: boolean;
     enableFunFeatures: boolean;
+    showAverage: boolean;
+    autoCloseSessionL: boolean;
     manageIssuesPermission: PlayerPermissionType;
     revealCardsPermission: PlayerPermissionType;
 }

@@ -12,7 +12,7 @@ import { AppSateProvider } from './Contexts/AppContext';
 // import store from './Store/Store';
 
 import './index.scss';
-import { SignalRProvider } from './Contexts/SignalRContext';
+import { GameHubProvider } from './Contexts/GameHubContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,13 +22,13 @@ root.render(
   <React.StrictMode>
     {/* <Provider store={store}> */}
       <ApiProvider>
-        <SignalRProvider>
-          <AppSateProvider>
+        <AppSateProvider>
+          <GameHubProvider>
             <BrowserRouter>
               <Layout />
             </BrowserRouter>
-          </AppSateProvider>
-        </SignalRProvider>
+          </GameHubProvider>
+        </AppSateProvider>
       </ApiProvider>
     {/* </Provider> */}
   </React.StrictMode>

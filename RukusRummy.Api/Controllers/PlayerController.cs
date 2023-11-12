@@ -34,7 +34,7 @@ public class PlayerController : ControllerBase
         try
         {
             var id = await _playerService.AddPlayerToGame(dto);
-            await _hubContext.Clients.All.SendAsync("UserConnected", id);
+            await _hubContext.Clients.All.SendAsync("UserConnected", dto);
             return Ok(id);
         }
         catch(ArgumentNullException)

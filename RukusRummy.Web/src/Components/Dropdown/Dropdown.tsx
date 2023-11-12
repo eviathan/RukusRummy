@@ -17,42 +17,39 @@ interface IProps {
 }
 
 export const Dropdown: React.FC<React.PropsWithChildren<IProps>> = ({ options, label, onChange }) => {
-    const [selectedOption, setSelectedOption] = useState("");
+    const [selectedOption, setSelectedOption] = useState(options[0].value);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     var optionCssClass = (option: IDropdownOption) => {
         return `option${option.cssClass ? ` ${option.cssClass}` : ''}`;
     }
 
-    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedOption(event.target.value);
-        onChange(event.target.value);
+    const handleOnChange = (value: string) => {
+
+        const label = options.find(x => x.value === value)?.label;
+
+        if(label === 'Create a custom Deck') {
+            console.log('Create a custom deck');
+        } else {
+            setSelectedOption(value);
+            onChange(value);
+        }
+
+        setMenuOpen(false);
     };
 
     return (
-        <div className="dropdown">
+        <div className="dropdown" onMouseLeave={() => setMenuOpen(false)}>
             <p className='label'>{label}</p>
-            <div className="selection">
-                {options.map((option, index) => {
-                    return (
-                        <div className={optionCssClass(option)} key={index}>
-                            <input                                
-                                className="backing-field"
-                                type="radio" id={`${index}`}
-                                value={option.value}
-                                name={label}
-                                checked={selectedOption === option.value}
-                                onChange={handleOnChange} />
-                            <p className="label">{option.label}</p>
-                        </div>
-                    );
-                })}
-                <BiSolidChevronDown size={40} />
+            <div className="selection" onClick={() => setMenuOpen(!menuOpen)}>
+                <label>{options.find(x => x.value === selectedOption)?.label}</label>
+                <BiSolidChevronDown size={24} />
             </div>
-            <ul className="list">
-                {options.map((option, index) => { 
+            <ul className={`list${menuOpen ? ' visible' : ''}`}>
+                {options.filter(x => x.value !== selectedOption).map((option, index) => {
                     return (
-                        <li key={index}>
-                            <label className="option" htmlFor={`${index}`} >{option.label}</label>
+                        <li key={index} onClick={() => handleOnChange(option.value) }>
+                            <label className={`option${ selectedOption === option.value ? ' selected' : ''}`} htmlFor={`${index}`}>{option.label}</label>
                         </li>
                     );
                 })}

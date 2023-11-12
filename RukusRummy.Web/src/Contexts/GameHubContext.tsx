@@ -1,22 +1,22 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
-interface SignalRContextType {
+interface GameHubContextType {
     connection: HubConnection | null;
 }
 
-export const SignalRContext = createContext<SignalRContextType>({ connection: null });
+export const GameHubContext = createContext<GameHubContextType>({ connection: null });
 
-interface SignalRProviderProps {
+interface GameHubProviderProps {
     children: ReactNode;
 }
 
-export const SignalRProvider: React.FC<SignalRProviderProps> = ({ children }) => {
+export const GameHubProvider: React.FC<GameHubProviderProps> = ({ children }) => {
     const [connection, setConnection] = useState<HubConnection | null>(null);
 
     useEffect(() => {
         const createConnection = new HubConnectionBuilder()
-            .withUrl("http://localhost:5001/hubs/gamehub") // Your Hub URL
+            .withUrl("http://localhost:5001/hubs/gamehub")
             .configureLogging(LogLevel.Information)
             .build();
 
@@ -32,8 +32,8 @@ export const SignalRProvider: React.FC<SignalRProviderProps> = ({ children }) =>
     }, []);
 
     return (
-        <SignalRContext.Provider value={{ connection }}>
+        <GameHubContext.Provider value={{ connection }}>
             {children}
-        </SignalRContext.Provider>
+        </GameHubContext.Provider>
     );
 };

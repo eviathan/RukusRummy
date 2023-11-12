@@ -18,6 +18,10 @@ namespace RukusRummy.BusinessLogic.Models
         public bool AutoReveal { get; set; }
         
         public bool EnableFunFeatures { get; set; }
+
+        public bool ShowAverage { get; set; }
+        
+        public bool AutoCloseSession { get; set; }
         
         public PlayerPermissionType ManageIssuesPermission { get; set; }
 
