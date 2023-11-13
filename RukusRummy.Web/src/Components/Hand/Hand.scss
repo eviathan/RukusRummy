@@ -1,0 +1,57 @@
+@import '../../variables.scss';
+
+.hand {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+        font-size: 1.6em;
+        font-weight: 600;
+    }
+    
+    .wrapper {
+        display: flex;
+        justify-content: space-around;
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            
+    
+            .card {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 120px;
+                width: 80px;
+                border-radius: 16px;
+                border: 3px solid $brand-blue;
+                margin-bottom: 24px;
+                margin-right: 16px;
+                text-align: center;
+                font-size: 2.4em;
+                font-weight: 600;
+                color: $brand-blue;
+                transition: all .1s linear;
+
+                &:hover {
+                    margin-top: -0.45rem;
+                    background-color: rgba($brand-blue, 0.2);
+                }
+                
+                &.selected {
+                    color: white;
+                    background-color: $brand-blue;
+                    margin-top: -0.45rem;
+                }
+            }
+        }
+    }
+    
+}

@@ -1,13 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 import { IGame } from "../Models/Game";
 import { Api } from "../Contexts/ApiContext";
 import ChooseYourNameModal from "../Components/Modal/ChooseYourNameModal";
 import Modal from "../Components/Modal/Modal";
 import { GameHubContext } from "../Contexts/GameHubContext";
+import Hand from "../Components/Hand/Hand";
+import IDeck from "../Models/Deck";
 
+import "./SessionPage.scss"
+import Table from "../Components/Table/Table";
 
+// TODO: Move this guff into the App Context
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     const api = useContext(Api);
     const params = useParams();
@@ -60,17 +65,28 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     }
 
     if(!game) {
-        return <h1>Loading</h1> // TODO: ADD SPINNER HERE
+        return <h1>Loading</h1>// <Navigate to={"/"} />
     }
 
+    let testDeck: IDeck = {
+        "id": "59f03b02-8337-4e91-81c8-8cb1fea5a0a0",
+        "name": "T-Shirt Sizes",
+        "values": "XS, S, M, L, XL, ?, ☕️"
+      }
+
     return (
-        <div className="Session">
+        <div className="session">
             {game.players && game.players.length > 0 
                 ? 
-                <div>
-                    <h1>Session</h1>
-                    <p>{JSON.stringify(game, null, 4)}</p>
-                </div>
+                <>
+                    <div className="body">
+                        {/* <p>{JSON.stringify(game, null, 4)}</p> */}
+                        <Table /> 
+                    </div>
+                    <div className="footer">
+                        <Hand deck={testDeck} onSelectCard={(card) => connection?.send("UpdateCard", card)} />
+                    </div>
+                </>
                 : 
                 <Modal>
                     <ChooseYourNameModal game={game} onContinue={handleContinue} />

@@ -1,7 +1,12 @@
 .layout {
     padding: 48px;
+    height: 100%;
     
     & > .wrapper {
         
+    }
+
+    .wrapper {
+        height: 100%;
     }
 }

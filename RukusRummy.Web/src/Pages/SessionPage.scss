@@ -1,0 +1,17 @@
+.session {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .body {
+        display: flex;
+        // flex-grow: 1;
+    }
+
+    .footer {
+        display: flex;
+        // flex-grow: 0;
+    }
+}
