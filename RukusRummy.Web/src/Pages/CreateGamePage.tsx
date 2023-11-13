@@ -74,7 +74,7 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
                 label='Deck' 
                 options={[...decks?.map(mapDeckToOption), {
                     label: "Create a custom Deck",
-                    value: "Create a custom Deck",
+                    value: "button",
                     cssClass: "bold"
                 }]}
                 onChange={(value) => {

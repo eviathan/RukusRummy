@@ -17,7 +17,7 @@ interface IProps {
 }
 
 export const Dropdown: React.FC<React.PropsWithChildren<IProps>> = ({ options, label, onChange }) => {
-    const [selectedOption, setSelectedOption] = useState(options[0].value);
+    const [selectedOption, setSelectedOption] = useState(options.filter(x => x.value !== 'button')[0]?.value);
     const [menuOpen, setMenuOpen] = useState(false);
 
     var optionCssClass = (option: IDropdownOption) => {
@@ -25,10 +25,7 @@ export const Dropdown: React.FC<React.PropsWithChildren<IProps>> = ({ options, l
     }
 
     const handleOnChange = (value: string) => {
-
-        const label = options.find(x => x.value === value)?.label;
-
-        if(label === 'Create a custom Deck') {
+        if(value === 'button') {
             console.log('Create a custom deck');
         } else {
             setSelectedOption(value);
@@ -42,14 +39,14 @@ export const Dropdown: React.FC<React.PropsWithChildren<IProps>> = ({ options, l
         <div className="dropdown" onMouseLeave={() => setMenuOpen(false)}>
             <p className='label'>{label}</p>
             <div className="selection" onClick={() => setMenuOpen(!menuOpen)}>
-                <label>{options.find(x => x.value === selectedOption)?.label}</label>
+                <label>{options.find(x => x.value === selectedOption)?.label ?? "Please Select a Deck…"}</label>
                 <BiSolidChevronDown size={24} />
             </div>
             <ul className={`list${menuOpen ? ' visible' : ''}`}>
                 {options.filter(x => x.value !== selectedOption).map((option, index) => {
                     return (
                         <li key={index} onClick={() => handleOnChange(option.value) }>
-                            <label className={`option${ selectedOption === option.value ? ' selected' : ''}`} htmlFor={`${index}`}>{option.label}</label>
+                            <label className={`option${ selectedOption === option.value ? ' selected' : ''} ${option.cssClass}`} htmlFor={`${index}`}>{option.label}</label>
                         </li>
                     );
                 })}
