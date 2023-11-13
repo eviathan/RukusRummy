@@ -1,0 +1,52 @@
+.played-card {
+    color: #1a2935;
+    font-size: 1.4rem;
+    font-weight: 700;
+    
+    .card {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        border-radius: 0.6rem;
+        cursor: default;
+        display: flex;
+        font-size: 1.8rem;
+        height: 6rem;
+        justify-content: center;
+        outline: 0;
+        position: relative;
+        transform: rotateY(0deg);
+        transform-style: preserve-3d;
+        height: 6rem;
+        width: 3.5rem;
+        color:transparent;
+        background-color: #e8e9ea;
+        
+        &.front {
+            border: solid 3px #469ada;
+            background-color: white;
+            color: #469ada;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+
+        &.backside {
+            align-items: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            background: #3993ff;
+            background: linear-gradient(45deg,#3993ff 12%,transparent 0,transparent 88%,#3993ff 0),linear-gradient(135deg,transparent 37%,#1a7bf2 0,#1a7bf2 63%,transparent 0),linear-gradient(45deg,transparent 37%,#3993ff 0,#3993ff 63%,transparent 0),#74b3ff;
+            background-size: 17px 17px;
+            border: 1px solid hsla(204,6%,68%,.4);
+            border-radius: 0.6rem;
+            box-shadow: 0 2px 4px hsla(204,6%,68%,.4);
+            display: flex;
+            height: 6rem;
+            justify-content: center;
+            overflow: hidden;
+            width: 3.5rem;
+        }
+    }
+}
