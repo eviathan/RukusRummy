@@ -4,7 +4,8 @@ header {
     display: flex;
     align-items: center;
     width: 100%;
-    position: sticky;
+    height: 10%;
+    // position: sticky;
     
     .wrapper {
         display: flex;
@@ -16,11 +17,11 @@ header {
             align-items: center;
             flex-direction: row;
             justify-content: space-between;
-            height: 120px;
+            // height: 120px;
             width: 100%;
             
             .logo {
-                margin: 10px 0;
+                // margin: 10px 0;
                 fill: $brand-blue;
             }
         }

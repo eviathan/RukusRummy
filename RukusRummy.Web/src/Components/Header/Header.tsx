@@ -13,7 +13,9 @@ const HeaderWrapper: React.FC<React.PropsWithChildren<{ header: ReactNode, subhe
   return (
     <div className="wrapper">
       <div className="main">
-        <Logo className="logo" height={120} />
+        <a href="/">
+          <Logo className="logo" height={120} />
+        </a>
         <div>
           {header}
         </div>
