@@ -1,9 +1,36 @@
 .table {
+    display: flex;
+    justify-content: center;
+    
     .center {
         background-color: #d7e9ff;
         min-width: 16rem;
         padding:0 1.6rem;
         border-radius: 2.8rem;
+
+        background: #d7e9ff;
+        border-radius: 2.8rem;
+        grid-area: table;
+        min-width: 16rem;
+        padding: 0 1.6rem;
+        position: relative;
+
+        &.cards-on-table::before {
+            animation: glow 20s linear infinite;
+            background: linear-gradient(45deg,#ebf4ff,#d7e9ff,#74b3ff,#3993ff,#0061d6,#3993ff,#74b3ff,#d7e9ff,#ebf4ff);
+            background-size: 400%;
+            border-radius: 2.8rem;
+            content: "";
+            filter: blur(5px);
+            height: calc(100% + 4px);
+            left: -2px;
+            opacity: 1;
+            position: absolute;
+            top: -2px;
+            transition: opacity .3s ease-in-out;
+            width: calc(100% + 4px);
+            z-index: -2;
+        }
 
         button {
             color: white;
@@ -12,6 +39,20 @@
             font-weight: 700;
             height: 5.6rem;
             border-radius: 0.8rem;
+            border: white solid 0.1rem;
         }
+    }
+}
+
+@keyframes glow {
+    0% {
+        background-position: 0 0;
+    }
+    
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
     }
 }

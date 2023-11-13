@@ -12,6 +12,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
+  background-color: #f9f9f9;
 }
 
 code {
@@ -49,6 +50,13 @@ button.primary, button.secondary {
   font-size: 1.4rem;
   transition: all .09s linear;
   max-width: 300px;
+}
+
+button.primary:disabled,
+button.primary:disabled:hover {
+  background-color: grey;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 button.primary:hover {

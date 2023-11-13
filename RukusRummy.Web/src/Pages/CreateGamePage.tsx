@@ -57,6 +57,15 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
         }
     }
 
+    function isFormDataValid(): boolean{
+        return formData !== null    
+            && formData !== undefined
+            && formData.name !== ''
+            && formData.deck !== undefined
+            && formData.deck !== ""
+            && formData.deck !== "button";
+    }
+
     return (
         <div className="create-game">
             {/* <h1>Create Game</h1> */}
@@ -123,11 +132,11 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
             />
 
             <Toggle label='Auto-reveal cards' onChange={(value) => handleChange({ autoReveal: value })} />
-            <Toggle label='Enable fun features' onChange={(value) => handleChange({ enableFunFeatures: value})} />
+            {/* <Toggle label='Enable fun features' onChange={(value) => handleChange({ enableFunFeatures: value})} /> */}
             <Toggle label='Show average in the results' onChange={(value) => handleChange({ showAverage: value})} />
             <Toggle label='Autoclose session when empty' onChange={(value) => handleChange({ autoCloseSession: value})} />
 
-            <button className="primary submit" onClick={handleSubmit}>Create Game</button>
+            <button className="primary submit" disabled={!isFormDataValid()} onClick={handleSubmit}>Create Game</button>
         </div>
     );
 }

@@ -5,8 +5,11 @@
     width: 100%;
     flex-direction: column;
     align-items: center;
+    padding: 1.3rem 0;
+    overflow-x: auto;
 
     p {
+        display: none;
         font-size: 1.6em;
         font-weight: 600;
     }
@@ -17,7 +20,6 @@
 
         .cards {
             display: flex;
-            flex-wrap: wrap;
             width: 100%;
             -webkit-user-select: none;
             -ms-user-select: none;
@@ -28,11 +30,9 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 120px;
-                width: 80px;
                 border-radius: 16px;
                 border: 3px solid $brand-blue;
-                margin-bottom: 24px;
+                // margin-bottom: 24px;
                 margin-right: 16px;
                 text-align: center;
                 font-size: 2.4em;
@@ -40,18 +40,29 @@
                 color: $brand-blue;
                 transition: all .1s linear;
 
+                height: 8rem;
+                width: 4.8rem;
+
                 &:hover {
-                    margin-top: -0.45rem;
+                    margin-top: -0.35rem;
                     background-color: rgba($brand-blue, 0.2);
                 }
                 
                 &.selected {
                     color: white;
                     background-color: $brand-blue;
-                    margin-top: -0.45rem;
+                    margin-top: -0.75rem;
                 }
             }
         }
     }
     
+}
+
+@media (min-width: 920px) {
+    .hand {
+        p {
+            display: block;
+        }
+    }
 }
