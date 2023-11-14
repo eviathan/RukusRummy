@@ -2,7 +2,7 @@ import './PlayedCard.scss';
 
 interface IProps {
     flipped?: boolean;
-    name: string;
+    name?: string;
     value?: string;
 }
 
@@ -20,12 +20,19 @@ export const PlayedCard: React.FC<React.PropsWithChildren<IProps>> = ({ flipped,
     }
 
     return (
-        <div className='played-card'>
-            <div className={getCSSClass()}>
-                {value}
-            </div>
-            <p>{name}</p>
-        </div>
+        <>
+        { !!name  
+            ?
+                <div className='played-card'>
+                    <div className={getCSSClass()}>
+                        {value}
+                    </div>
+                    <p>{name}</p>
+                </div>
+            : 
+                null
+        }
+        </>
     );
 }
   

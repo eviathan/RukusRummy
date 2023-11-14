@@ -13,12 +13,13 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = () => {
                 <PlayedCard name="Brian" value="1" />
                 <PlayedCard name="John" value=""  />
                 <PlayedCard name="Alice" value="1" flipped />
+                <PlayedCard name="Alice" value="1" flipped />
             </div>
             <div className="middle-side">
                 <div className="top-side">
                     <PlayedCard name="Brian" value="1" />
                     <PlayedCard name="John" value=""  />
-                    <PlayedCard name="Alice" value="1" flipped />
+                    <PlayedCard name="some" value="" flipped />
                     <PlayedCard name="Jane" value="1" flipped />
                 </div>
                 {/* TODO: Add this to center "cards-on-table" when you have placed your card  */}
@@ -35,6 +36,7 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = () => {
             <div className="right-side">
                 <PlayedCard name="Brian" value="1" />
                 <PlayedCard name="John" value=""  />
+                <PlayedCard name="Alice" value="1" flipped />
                 <PlayedCard name="Alice" value="1" flipped />
             </div>
         </div>
