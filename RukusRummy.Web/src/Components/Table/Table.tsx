@@ -1,61 +1,61 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext} from "react";
+import { GameHubContext } from "../../Contexts/GameHubContext";
 import PlayedCard from "../PlayedCard/PlayedCard";
+import { IPlayer } from "../../Models/Game";
 
 import "./Table.scss";
-import { GameHubContext } from "../../Contexts/GameHubContext";
 
-interface IProps {
-}
+interface IProps { }
 
 export const Table: React.FC<React.PropsWithChildren<IProps>> = () => {
-    const { connection } = useContext(GameHubContext);
+    const players: Array<IPlayer> = [
+        {
+            name: 'Test',
+            isSpectator: false
+        },
+    ];
 
-    useEffect(() => {
-        if(connection) {
-            connection.on("UserUpdatedCard", (user: string, card: string) => {
-                // debugger;
-                console.log(`User ${JSON.stringify(user)} Card: ${card}`);
-            });
+    function getPlayerCard(index: number) {
+        if(players.length > index)
+        {
+            return <PlayedCard name="Brian" value="1" />
         }
+        
+        return null;
+    }
 
-        // Clean up
-        return () => {
-            if(connection) {
-                connection.off("ReceiveMessage");
-            }
-        };
-    }, [connection]);
     return (
         <div className="table">
             <div className="left-side">
-                <PlayedCard name="Brian" value="1" />
-                <PlayedCard name="John" value=""  />
-                <PlayedCard name="Alice" value="1" flipped />
-                <PlayedCard name="Alice" value="1" flipped />
+                {getPlayerCard(10)}
+                {getPlayerCard(6)}
+                {getPlayerCard(15)}
+                {getPlayerCard(3)}
             </div>
             <div className="middle-side">
                 <div className="top-side">
-                    <PlayedCard name="Brian" value="1" />
-                    <PlayedCard name="John" value=""  />
-                    <PlayedCard name="some" value="" flipped />
-                    <PlayedCard name="Jane" value="1" flipped />
+                    {getPlayerCard(5)}
+                    {getPlayerCard(14)}
+                    {getPlayerCard(1)}
+                    {getPlayerCard(7)}
                 </div>
                 {/* TODO: Add this to center "cards-on-table" when you have placed your card  */}
                 <div className="center cards-on-table">
+
                     <button className="primary">Reveal cards</button>
                 </div>
                 <div className="bottom-side">
-                    <PlayedCard name="Brian" value="1" />
-                    <PlayedCard name="James" value="1" />
-                    <PlayedCard name="John" value=""  />
-                    <PlayedCard name="Alice" value="1" flipped />
+                    {getPlayerCard(13)}
+                    {getPlayerCard(0)}
+                    {getPlayerCard(11)}
+                    {getPlayerCard(8)}
                 </div>
             </div>
             <div className="right-side">
-                <PlayedCard name="Brian" value="1" />
-                <PlayedCard name="John" value=""  />
-                <PlayedCard name="Alice" value="1" flipped />
-                <PlayedCard name="Alice" value="1" flipped />
+                {getPlayerCard(12)}
+                {getPlayerCard(9)}
+                {getPlayerCard(2)}
+                {getPlayerCard(4)}
             </div>
         </div>
     );
