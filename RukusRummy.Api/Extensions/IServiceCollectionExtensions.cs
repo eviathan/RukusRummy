@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RukusRummy.BusinessLogic;
 using RukusRummy.BusinessLogic.Models;
 using RukusRummy.BusinessLogic.Repositories;
 using RukusRummy.BusinessLogic.Services;
@@ -19,6 +20,7 @@ namespace RukusRummy.Api.Extensions
             serviceCollection.AddSingleton<IRepository<Game>, GameMemoryRepository>();
             serviceCollection.AddSingleton<IRepository<Deck>, DeckMemoryRepository>();
             serviceCollection.AddSingleton<IRepository<Player>, PlayerMemoryRepository>();
+            serviceCollection.AddSingleton<IRepository<Round>, RoundMemoryRepository>();
 
             serviceCollection.ConfigureAuth();
         }

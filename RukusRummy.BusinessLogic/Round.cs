@@ -8,6 +8,7 @@ namespace RukusRummy.BusinessLogic
 {
     public class Round : Entity
     {
+        // NOTE: Named Rounds is a feature on planningpokeronline.com and could be useful
         public string Name { get; set; }
 
         public string Result { get; set; }

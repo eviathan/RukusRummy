@@ -9,32 +9,37 @@ namespace RukusRummy.BusinessLogic.Services
         private readonly IRepository<Game> _gameRepository;
         private readonly IRepository<Deck> _deckRepository;
         private readonly IRepository<Player> _playerRepository;
+        private readonly IRepository<Round> _roundRepository;
 
         public GameService(
             IRepository<Game> gameRepository, 
             IRepository<Deck> deckRepository,
-            IRepository<Player> playerRepository)
+            IRepository<Player> playerRepository,
+            IRepository<Round> roundRepository)
         {
             _gameRepository = gameRepository;
             _deckRepository = deckRepository;
             _playerRepository = playerRepository;
+            _roundRepository = roundRepository;
         }
 
         // TODO: Finish game creation logic
         public async Task<Guid> CreateAsync(CreateGameDTO model)
         {
+            var initalRound = await _roundRepository.CreateAsync(
+                new Round
+                {
+                    Id = Guid.NewGuid(),
+                    StartDate = DateTime.Now
+                }
+            );
+
             var game = new Game 
             {
                 Name = model.Name,
                 Deck = model.Deck,
-                Rounds = new List<Guid>
-                { 
-                    // Guid.Empty
-                },
-                Players = new List<Guid>
-                {  
-                    // TODO: Add logged in user if exists
-                },
+                Rounds = new List<Guid>{ initalRound },
+                Players = new List<Guid>{  },
                 AutoReveal = model.AutoReveal,
                 EnableFunFeatures = model.EnableFunFeatures,
                 ManageIssuesPermission = model.ManageIssuesPermission,
@@ -80,6 +85,21 @@ namespace RukusRummy.BusinessLogic.Services
             await _gameRepository.UpdateAsync(game);
         }
 
+        public async Task StartNewRoundAsync(Guid gameId)
+        {
+            var game = await _gameRepository.GetAsync(gameId);
+
+            var roundId = await _roundRepository.CreateAsync(new Round
+                {
+                    Id = Guid.NewGuid(),
+                    StartDate = DateTime.Now
+                }
+            );
+            game.Rounds.Add(roundId);
+
+            await _gameRepository.UpdateAsync(game);
+        }
+
         private Game MapFromDTO(GameDTO dto)
         {
             return new Game
@@ -106,7 +126,7 @@ namespace RukusRummy.BusinessLogic.Services
 
             var rounds = await Task.WhenAll(
                 game.Rounds.Select(async x => 
-                    await _playerRepository.GetAsync(x)
+                    await _roundRepository.GetAsync(x)
                 )
             );
             
@@ -120,7 +140,7 @@ namespace RukusRummy.BusinessLogic.Services
                 ManageIssuesPermission = game.ManageIssuesPermission,
                 Players = players.ToList(),
                 RevealCardsPermission = game.RevealCardsPermission,
-                // Rounds = game.Rounds
+                Rounds = rounds.ToList()
             };
         }
     }

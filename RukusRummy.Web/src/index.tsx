@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 
 import Layout from './Components/Layout';
 import { ApiProvider } from './Contexts/ApiContext';
-import { AppSateProvider } from './Contexts/AppContext';
+import { AppProvider } from './Contexts/AppContext';
 // import store from './Store/Store';
 
 import './index.scss';
@@ -22,13 +22,13 @@ root.render(
   <React.StrictMode>
     {/* <Provider store={store}> */}
       <ApiProvider>
-        <AppSateProvider>
+        <AppProvider>
           <GameHubProvider>
             <BrowserRouter>
               <Layout />
             </BrowserRouter>
           </GameHubProvider>
-        </AppSateProvider>
+        </AppProvider>
       </ApiProvider>
     {/* </Provider> */}
   </React.StrictMode>

@@ -88,6 +88,13 @@ public class GameController : ControllerBase
         await _hubContext.Clients.All.SendAsync("RevealCards");
     }
 
+    [HttpGet("startnewround/{gameId}")]
+    public async Task StartNewRound(Guid gameId)
+    {
+        await _gameService.StartNewRoundAsync(gameId);
+        await _hubContext.Clients.All.SendAsync("GameUpdated");
+    }
+
     [HttpGet("export/{id}")]  
     public async Task<IActionResult> DownloadExport(Guid id)  
     {  

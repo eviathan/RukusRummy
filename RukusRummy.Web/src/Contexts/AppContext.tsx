@@ -3,19 +3,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { Api } from "./ApiContext";
 import { IGame, IPlayer } from "../Models/Game";
 
-export interface IAppStateFactory {
+export interface IAppFactory {
 	loading: boolean;
 	game?: IGame;
 	currentPlayer?: IPlayer;
 }
 
-export interface IAppStateProviderProps { }
+export interface IAppProviderProps { }
 
-export const AppState = React.createContext<IAppStateFactory>({
+export const App = React.createContext<IAppFactory>({
 	loading: false,	
 });
 
-export const AppSateProvider: React.FC<React.PropsWithChildren<IAppStateProviderProps>> = ({ children }) => {
+export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> = ({ children }) => {
 	const api = useContext(Api);
 	
 	const [loading, setLoading] = useState<boolean>(false);
@@ -37,13 +37,13 @@ export const AppSateProvider: React.FC<React.PropsWithChildren<IAppStateProvider
     }, [api]);
 	
 	return (
-		<AppState.Provider
+		<App.Provider
 			value={{
 				loading,
 				game,
 				currentPlayer
 			}}>
 			{children}
-		</AppState.Provider>
+		</App.Provider>
 	);
 };

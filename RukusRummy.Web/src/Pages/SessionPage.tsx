@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import { IGame, IPlayer } from "../Models/Game";
+import { IGame } from "../Models/Game";
 import { Api } from "../Contexts/ApiContext";
 import ChooseYourNameModal from "../Components/Modal/ChooseYourNameModal";
 import Modal from "../Components/Modal/Modal";
@@ -11,12 +11,12 @@ import IDeck from "../Models/Deck";
 
 import "./SessionPage.scss"
 import Table from "../Components/Table/Table";
-import { AppState } from "../Contexts/AppContext";
+import { App } from "../Contexts/AppContext";
 
 // TODO: Move this guff into the App Context
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     const api = useContext(Api);
-    const app = useContext(AppState);
+    const app = useContext(App);
 
     const params = useParams();
 
@@ -79,21 +79,13 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
 
     console.log('CurrentPlayer: ', app.currentPlayer);
 
-    const players: Array<IPlayer> = [
-        {
-            name: 'Test',
-            isSpectator: false
-        },
-    ];
-
     return (
         <div className="session">
             {app?.currentPlayer !== undefined
                 ? 
                 <>
                     <div className="body">
-                        {/* <p>{JSON.stringify(game, null, 4)}</p> */}
-                        <Table players={game.players} /> 
+                        <Table players={game.players} flipped={false} /> 
                     </div>
                     <div className="footer">
                         <Hand deck={testDeck} onSelectCard={(card) => connection?.invoke("UpdateCard", "00000000-0000-0000-0000-000000000000", card)} />

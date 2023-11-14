@@ -4,9 +4,10 @@ interface IProps {
     flipped?: boolean;
     name?: string;
     value?: string;
+    spectator: boolean;
 }
 
-export const PlayedCard: React.FC<React.PropsWithChildren<IProps>> = ({ flipped, name, value }) => {
+export const PlayedCard: React.FC<React.PropsWithChildren<IProps>> = ({ flipped, name, value, spectator }) => {
 
     const getCSSClass = (): string => {
 
