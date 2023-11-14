@@ -20,9 +20,9 @@ namespace RukusRummy.Api.Hubs
             return base.OnDisconnectedAsync(exception);
         }
 
-        public async Task UpdateCard(Guid userId, string card) 
+        public async Task UpdateCard(Guid userId, int card) 
         {
-            await Clients.All.SendAsync($"{nameof(UpdateCard)}", card);
+            await Clients.All.SendAsync($"UserUpdatedCard", userId, card);
         }
 
         public async Task ThrowTextAtUser(Guid userId, string text)

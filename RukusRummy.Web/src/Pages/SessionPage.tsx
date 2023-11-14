@@ -84,7 +84,7 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                         <Table /> 
                     </div>
                     <div className="footer">
-                        <Hand deck={testDeck} onSelectCard={(card) => connection?.send("UpdateCard", card)} />
+                        <Hand deck={testDeck} onSelectCard={(card) => connection?.invoke("UpdateCard", "00000000-0000-0000-0000-000000000000", card)} />
                     </div>
                 </>
                 : 
