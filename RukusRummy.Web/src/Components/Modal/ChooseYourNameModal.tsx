@@ -19,13 +19,14 @@ export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({
     const [isSpectator, setIsSpectator] = useState<boolean | undefined>();
 
     async function handleContinue() {
-        if(!game || !name || !isSpectator)
+        debugger;
+        if(!game || !name)
             return;
 
         await api.player.add({
             gameId: game.id,
             name,
-            isSpectator
+            isSpectator: isSpectator ?? false
         });
 
         onContinue();

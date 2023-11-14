@@ -9,6 +9,8 @@ namespace RukusRummy.BusinessLogic.Models
     {
         public string Name { get; set; }
 
+        public GameStateType State { get; set; }
+
         public Guid Deck { get; set; }
 
         public List<Guid> Players { get; set; } = new List<Guid>();

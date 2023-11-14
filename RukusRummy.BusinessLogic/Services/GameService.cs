@@ -28,8 +28,7 @@ namespace RukusRummy.BusinessLogic.Services
                 },
                 Players = new List<Guid>
                 {  
-                    // TODO: Add the player who created the game
-                    Guid.Empty
+                    // TODO: Add logged in user if exists
                 },
                 AutoReveal = model.AutoReveal,
                 EnableFunFeatures = model.EnableFunFeatures,

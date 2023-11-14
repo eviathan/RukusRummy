@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using RukusRummy.Api.Hubs;
 using RukusRummy.BusinessLogic.Services;
 using RukusRummy.BusinessLogic.Models.DTOs;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace RukusRummy.Api.Controllers;
 
@@ -34,7 +36,25 @@ public class PlayerController : ControllerBase
         try
         {
             var id = await _playerService.AddPlayerToGame(dto);
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, dto.Name),
+                new Claim(ClaimTypes.NameIdentifier, id.ToString())
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = true,
+                AllowRefresh = true,
+
+            };
+
+            await HttpContext.SignInAsync("CookieAuth", new ClaimsPrincipal(claimsIdentity));
+
             await _hubContext.Clients.All.SendAsync("UserConnected", dto);
+            
             return Ok(id);
         }
         catch(ArgumentNullException)

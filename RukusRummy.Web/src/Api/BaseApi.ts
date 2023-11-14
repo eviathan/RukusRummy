@@ -34,7 +34,7 @@ export default class BaseApi  {
         const response = await fetch(this.constructApi(url), { 
             method: "POST",
             headers: this.defaultHeaders(),
-            credentials: "same-origin",
+            credentials: "include",
             body: JSON.stringify(payload)
         });
 

@@ -19,6 +19,22 @@ namespace RukusRummy.Api.Extensions
             serviceCollection.AddSingleton<IRepository<Game>, GameMemoryRepository>();
             serviceCollection.AddSingleton<IRepository<Deck>, DeckMemoryRepository>();
             serviceCollection.AddSingleton<IRepository<Player>, PlayerMemoryRepository>();
+
+            serviceCollection.ConfigureAuth();
+        }
+
+
+        private static void ConfigureAuth(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddAuthentication("CookieAuth")
+                .AddCookie("CookieAuth", options => 
+                {
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    options.Cookie.SameSite = SameSiteMode.None;
+                    options.Cookie.Domain = "localhost";
+                    options.Cookie.Path = "/";
+                });
         }
     }
 }

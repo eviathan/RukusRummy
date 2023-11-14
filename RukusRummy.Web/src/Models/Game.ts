@@ -13,9 +13,15 @@ export enum PlayerPermissionType {
     JustMe
 }
 
+export enum GameStateType {
+    RoundActive,
+    RoundFinished
+}
+
 export interface IGame {
     id: string;
     name: string;
+    state: GameStateType;
     deck: string;
     players: Array<string>;
     rounds: Array<string>;
