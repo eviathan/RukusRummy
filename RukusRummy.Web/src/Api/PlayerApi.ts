@@ -9,6 +9,6 @@ export default class PlayerApi extends BaseApi {
     }
 
     async getCurrentPlayer(): Promise<IPlayer> {
-      return await this.getAsync();
+      return await this.getAsync(undefined,"/current-player");
     }
 }

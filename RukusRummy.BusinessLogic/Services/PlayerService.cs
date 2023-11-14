@@ -16,7 +16,7 @@ namespace RukusRummy.BusinessLogic.Services
         }
 
 
-        public async Task<Guid> AddPlayerToGame(AddPlayerDTO dto)
+        public async Task<Guid> AddPlayerToGameAsync(AddPlayerDTO dto)
         {
             var playerId = await _playerRepository.CreateAsync(new Player
             {
@@ -31,7 +31,12 @@ namespace RukusRummy.BusinessLogic.Services
             return playerId;
         }
 
-        public async Task<Player> GetPlayer(Guid id)
+        public async Task<IEnumerable<Player>> GetAllPlayersAsync()
+        {
+            return await _playerRepository.GetAllAsync();
+        }
+
+        public async Task<Player> GetPlayerAsync(Guid id)
         {
             return await _playerRepository.GetAsync(id);
         }

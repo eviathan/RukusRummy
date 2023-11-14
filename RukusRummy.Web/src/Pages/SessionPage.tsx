@@ -11,10 +11,13 @@ import IDeck from "../Models/Deck";
 
 import "./SessionPage.scss"
 import Table from "../Components/Table/Table";
+import { AppState } from "../Contexts/AppContext";
 
 // TODO: Move this guff into the App Context
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     const api = useContext(Api);
+    const app = useContext(AppState);
+
     const params = useParams();
 
     const { connection } = useContext(GameHubContext);
@@ -74,9 +77,11 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
         "values": "XS, S, M, L, XL, ?, ☕️"
       }
 
+      console.log('CurrentPlayer: ', app.currentPlayer);
+
     return (
         <div className="session">
-            {game.players && game.players.length > 0 
+            {app?.currentPlayer !== undefined
                 ? 
                 <>
                     <div className="body">

@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { Api } from "./ApiContext";
-import { IGame } from "../Models/Game";
+import { IGame, IPlayer } from "../Models/Game";
 
 export interface IAppStateFactory {
 	loading: boolean;
 	game?: IGame;
+	currentPlayer?: IPlayer;
 }
 
 export interface IAppStateProviderProps { }
@@ -19,13 +20,13 @@ export const AppSateProvider: React.FC<React.PropsWithChildren<IAppStateProvider
 	
 	const [loading, setLoading] = useState<boolean>(false);
 	const [game, setGame] = useState<IGame | undefined>();
+	const [currentPlayer, setCurrentPlayer] = useState<IPlayer | undefined>();
 
 	useEffect(() => {
         const load = async () => {
             try {
-                var currentPlayer = await api.player.getCurrentPlayer()
-				console.log(currentPlayer);
-                // setDecks(decks);
+                var currentPlayer = await api.player.getCurrentPlayer();
+				setCurrentPlayer(currentPlayer);
                 setLoading(false);
             } catch (e) {
                 setLoading(false);
@@ -39,7 +40,8 @@ export const AppSateProvider: React.FC<React.PropsWithChildren<IAppStateProvider
 		<AppState.Provider
 			value={{
 				loading,
-				game
+				game,
+				currentPlayer
 			}}>
 			{children}
 		</AppState.Provider>

@@ -36,7 +36,7 @@ public class PlayerController : ControllerBase
     {
         try
         {
-            var id = await _playerService.AddPlayerToGame(dto);
+            var id = await _playerService.AddPlayerToGameAsync(dto);
 
             var claims = new List<Claim>
             {
@@ -65,22 +65,40 @@ public class PlayerController : ControllerBase
     }
 
     [HttpGet]
+    public async Task<ActionResult<IEnumerable<Player>>> GetAllPlayers()
+    {
+        var players = await _playerService.GetAllPlayersAsync();
+        return Ok(players);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Player>> GetPlayer(Guid id)
+    {
+        return await _playerService.GetPlayerAsync(id);
+    }
+
+
+    [HttpGet("current-player")]
     public async Task<ActionResult<Player>> GetCurrentPlayer()
     {
         if (User != null 
             && User.Identity != null 
             && User.Identity.IsAuthenticated)
         {
-            var claims = User.Claims.ToList();
-            var userId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            try
+            {
+                var claims = User.Claims.ToList();
+                var userId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                
+                var player = await _playerService.GetPlayerAsync(new Guid(userId));
 
-            if(userId == null)
+                // You can return more information based on your application's needs
+                return Ok(player);
+            }
+            catch(Exception)
+            {
                 return Unauthorized();
-
-            var player = await _playerService.GetPlayer(new Guid(userId));
-
-            // You can return more information based on your application's needs
-            return Ok(player);
+            }
         }
 
         return Unauthorized();
