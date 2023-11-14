@@ -8,11 +8,16 @@ namespace RukusRummy.BusinessLogic.Services
     {
         private readonly IRepository<Game> _gameRepository;
         private readonly IRepository<Deck> _deckRepository;
+        private readonly IRepository<Player> _playerRepository;
 
-        public GameService(IRepository<Game> gameRepository, IRepository<Deck> deckRepository)
+        public GameService(
+            IRepository<Game> gameRepository, 
+            IRepository<Deck> deckRepository,
+            IRepository<Player> playerRepository)
         {
             _gameRepository = gameRepository;
             _deckRepository = deckRepository;
+            _playerRepository = playerRepository;
         }
 
         // TODO: Finish game creation logic
@@ -24,7 +29,7 @@ namespace RukusRummy.BusinessLogic.Services
                 Deck = model.Deck,
                 Rounds = new List<Guid>
                 { 
-                    Guid.Empty
+                    // Guid.Empty
                 },
                 Players = new List<Guid>
                 {  
@@ -42,13 +47,14 @@ namespace RukusRummy.BusinessLogic.Services
         public async Task<GameDTO> GetAsync(Guid id)
         {
             var game = await _gameRepository.GetAsync(id);
-            return MapToDTO(game);
+            return await MapToDTO(game);
         }
 
         public async Task<IEnumerable<GameDTO>> GetAllAsync()
         {
             var games = await _gameRepository.GetAllAsync();
-            return await Task.FromResult(games.Select(MapToDTO));
+            var dto = await Task.WhenAll(games.Select(MapToDTO)); 
+            return await Task.FromResult(dto);
         }
 
         public async Task UpdateAsync(GameDTO dto)
@@ -84,14 +90,26 @@ namespace RukusRummy.BusinessLogic.Services
                 AutoReveal = dto.AutoReveal,
                 EnableFunFeatures = dto.EnableFunFeatures,
                 ManageIssuesPermission = dto.ManageIssuesPermission,
-                Players = dto.Players,
+                Players = dto.Players.Select(x => x.Id).ToList(),
                 RevealCardsPermission = dto.RevealCardsPermission,
-                Rounds = dto.Rounds
+                Rounds = dto.Rounds.Select(x => x.Id).ToList()
             };
         }
 
-        private GameDTO MapToDTO(Game game)
+        private async Task<GameDTO> MapToDTO(Game game)
         {
+            var players = await Task.WhenAll(
+                game.Players.Select(async x => 
+                    await _playerRepository.GetAsync(x)
+                )
+            );
+
+            var rounds = await Task.WhenAll(
+                game.Rounds.Select(async x => 
+                    await _playerRepository.GetAsync(x)
+                )
+            );
+            
             return new GameDTO
             {
                 Id = game.Id,
@@ -100,9 +118,9 @@ namespace RukusRummy.BusinessLogic.Services
                 AutoReveal = game.AutoReveal,
                 EnableFunFeatures = game.EnableFunFeatures,
                 ManageIssuesPermission = game.ManageIssuesPermission,
-                Players = game.Players,
+                Players = players.ToList(),
                 RevealCardsPermission = game.RevealCardsPermission,
-                Rounds = game.Rounds
+                // Rounds = game.Rounds
             };
         }
     }

@@ -23,7 +23,7 @@ export interface IGame {
     name: string;
     state: GameStateType;
     deck: string;
-    players: Array<string>;
+    players: Array<IPlayer>;
     rounds: Array<string>;
     autoReveal: boolean;
     enableFunFeatures: boolean;

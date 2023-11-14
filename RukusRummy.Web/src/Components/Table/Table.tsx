@@ -1,24 +1,18 @@
-import { useContext} from "react";
-import { GameHubContext } from "../../Contexts/GameHubContext";
 import PlayedCard from "../PlayedCard/PlayedCard";
 import { IPlayer } from "../../Models/Game";
 
 import "./Table.scss";
 
-interface IProps { }
+interface IProps {
+    players: Array<IPlayer>
+}
 
-export const Table: React.FC<React.PropsWithChildren<IProps>> = () => {
-    const players: Array<IPlayer> = [
-        {
-            name: 'Test',
-            isSpectator: false
-        },
-    ];
-
+export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players }) => {
     function getPlayerCard(index: number) {
         if(players.length > index)
         {
-            return <PlayedCard name="Brian" value="1" />
+            const player = players[index];
+            return <PlayedCard name={player.name} flipped value="XS" />
         }
         
         return null;

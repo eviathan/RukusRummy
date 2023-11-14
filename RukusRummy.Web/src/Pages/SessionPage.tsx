@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 
-import { IGame } from "../Models/Game";
+import { IGame, IPlayer } from "../Models/Game";
 import { Api } from "../Contexts/ApiContext";
 import ChooseYourNameModal from "../Components/Modal/ChooseYourNameModal";
 import Modal from "../Components/Modal/Modal";
@@ -77,7 +77,14 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
         "values": "XS, S, M, L, XL, ?, ☕️"
       }
 
-      console.log('CurrentPlayer: ', app.currentPlayer);
+    console.log('CurrentPlayer: ', app.currentPlayer);
+
+    const players: Array<IPlayer> = [
+        {
+            name: 'Test',
+            isSpectator: false
+        },
+    ];
 
     return (
         <div className="session">
@@ -86,7 +93,7 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 <>
                     <div className="body">
                         {/* <p>{JSON.stringify(game, null, 4)}</p> */}
-                        <Table /> 
+                        <Table players={game.players} /> 
                     </div>
                     <div className="footer">
                         <Hand deck={testDeck} onSelectCard={(card) => connection?.invoke("UpdateCard", "00000000-0000-0000-0000-000000000000", card)} />
