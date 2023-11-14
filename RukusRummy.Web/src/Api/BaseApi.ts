@@ -21,7 +21,7 @@ export default class BaseApi  {
         const response = await fetch(this.constructApi(url, payload), { 
             method: "GET",
             headers: this.defaultHeaders(),
-            credentials: "same-origin", 
+            credentials: "include",
         });
 
         if (!response.ok) {
@@ -49,7 +49,7 @@ export default class BaseApi  {
         const response = await fetch(this.constructApi(url), { 
             method: "PUT",
             headers: this.defaultHeaders(),
-            credentials: "same-origin",
+            credentials: "include",
             body: JSON.stringify(payload)
         });
 
@@ -64,7 +64,7 @@ export default class BaseApi  {
         const response = await fetch(this.constructApi(url, payload), { 
             method: "DELETE",
             headers: this.defaultHeaders(),
-            credentials: "same-origin", 
+            credentials: "include",
         });
 
         if (!response.ok) {

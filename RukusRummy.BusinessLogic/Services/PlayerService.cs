@@ -30,5 +30,10 @@ namespace RukusRummy.BusinessLogic.Services
 
             return playerId;
         }
+
+        public async Task<Player> GetPlayer(Guid id)
+        {
+            return await _playerRepository.GetAsync(id);
+        }
     }
 }

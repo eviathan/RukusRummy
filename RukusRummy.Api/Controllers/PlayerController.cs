@@ -6,6 +6,7 @@ using RukusRummy.BusinessLogic.Services;
 using RukusRummy.BusinessLogic.Models.DTOs;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using RukusRummy.BusinessLogic.Models;
 
 namespace RukusRummy.Api.Controllers;
 
@@ -61,5 +62,27 @@ public class PlayerController : ControllerBase
         {
             return BadRequest();
         }
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<Player>> GetCurrentPlayer()
+    {
+        if (User != null 
+            && User.Identity != null 
+            && User.Identity.IsAuthenticated)
+        {
+            var claims = User.Claims.ToList();
+            var userId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if(userId == null)
+                return Unauthorized();
+
+            var player = await _playerService.GetPlayer(new Guid(userId));
+
+            // You can return more information based on your application's needs
+            return Ok(player);
+        }
+
+        return Unauthorized();
     }
 }
