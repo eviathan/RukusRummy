@@ -29,44 +29,49 @@ $list-radius: 5px;
         border-radius: $list-radius;
         padding: 16px;
     }
+    .list-wrapper {
+        position: relative;
 
-    .list {
-        display: none;
-        margin: 10px 0 24px 0;
-        // position: absolute;
-        padding: 0;
-        list-style: none;
-        background-color: white;
-        border-radius: $list-radius;
-        border: rgba(128, 128, 128, 0.396) solid 1px;
-        box-shadow: 0 15px 10px -10px transparentize(#000, 0.9);
-
-        &.visible {
-            display: block;
-        }
-
-        li {
-            &:first-child label {
-                border-radius: $list-radius $list-radius 0 0;
+        .list {
+            position: absolute;
+            width: 100%;
+            display: none;
+            margin: 10px 0 24px 0;
+            padding: 0;
+            list-style: none;
+            background-color: white;
+            border-radius: $list-radius;
+            border: rgba(128, 128, 128, 0.396) solid 1px;
+            box-shadow: 0 15px 10px -10px transparentize(#000, 0.9);
+            z-index: 9999;
+    
+            &.visible {
+                display: block;
             }
-            &:last-child label {
-                border-radius: 0 0 $list-radius $list-radius;
-            }
-
-            label.option {
-                padding: 15px;
-
-                &.bold {
-                    color: #2196F3;
-                    font-weight: 600;
+    
+            li {
+                &:first-child label {
+                    border-radius: $list-radius $list-radius 0 0;
                 }
-        
-                &:hover,
-                &:focus {
-                    color: white;
-                    background-color: rgb(68, 153, 218)
+                &:last-child label {
+                    border-radius: 0 0 $list-radius $list-radius;
+                }
+    
+                label.option {
+                    padding: 15px;
+    
+                    &.bold {
+                        color: #2196F3;
+                        font-weight: 600;
+                    }
+            
+                    &:hover,
+                    &:focus {
+                        color: white;
+                        background-color: rgb(68, 153, 218)
+                    }
                 }
             }
-        }
-    }    
+        }    
+    }
 }

@@ -25,13 +25,11 @@ export const Dropdown: React.FC<React.PropsWithChildren<IProps>> = ({ options, l
     }
 
     const handleOnChange = (value: string) => {
-        if(value === 'button') {
-            console.log('Create a custom deck');
-        } else {
+        if(value !== 'button') {
             setSelectedOption(value);
-            onChange(value);
         }
-
+        
+        onChange(value);
         setMenuOpen(false);
     };
 
@@ -42,15 +40,17 @@ export const Dropdown: React.FC<React.PropsWithChildren<IProps>> = ({ options, l
                 <label>{options.find(x => x.value === selectedOption)?.label ?? "Please Select a Deck…"}</label>
                 <BiSolidChevronDown size={24} />
             </div>
-            <ul className={`list${menuOpen ? ' visible' : ''}`}>
-                {options.filter(x => x.value !== selectedOption).map((option, index) => {
-                    return (
-                        <li key={index} onClick={() => handleOnChange(option.value) }>
-                            <label className={`option${ selectedOption === option.value ? ' selected' : ''} ${option.cssClass}`} htmlFor={`${index}`}>{option.label}</label>
-                        </li>
-                    );
-                })}
-            </ul>
+            <div className='list-wrapper'>
+                <ul className={`list${menuOpen ? ' visible' : ''}`}>
+                    {options.filter(x => x.value !== selectedOption).map((option, index) => {
+                        return (
+                            <li key={index} onClick={() => handleOnChange(option.value) }>
+                                <label className={`option${ selectedOption === option.value ? ' selected' : ''} ${option.cssClass}`} htmlFor={`${index}`}>{option.label}</label>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
         </div>
     );
 }
