@@ -89,6 +89,10 @@ namespace RukusRummy.BusinessLogic.Services
         {
             var game = await _gameRepository.GetAsync(gameId);
 
+            var previousRound = await _roundRepository.GetAsync(game.Rounds.Last());
+            previousRound.EndDate = DateTime.Now;
+            await _roundRepository.UpdateAsync(previousRound);
+
             var roundId = await _roundRepository.CreateAsync(new Round
                 {
                     Id = Guid.NewGuid(),
