@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using RukusRummy.BusinessLogic.Models;
 
 namespace RukusRummy.BusinessLogic.Repositories
@@ -12,27 +8,7 @@ namespace RukusRummy.BusinessLogic.Repositories
 
         public DeckMemoryRepository()
         {
-            _decks = new List<Deck>
-            {
-                new Deck
-                {
-                    Id = Guid.Empty, // Guid.NewGuid(),
-                    Name = "Fibonacci",
-                    Values = "1, 2, 3, 5, 8, 13, 21, 34, 55, ?, \u2615\uFE0F"
-                },
-                new Deck
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "T-Shirt Sizes",
-                    Values = "XS, S, M, L, XL, ?, \u2615\uFE0F"
-                },
-                new Deck
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Days",
-                    Values = "0.5, 1, 1.5, 2, 2.5, 3, ?, \u2615\uFE0F"
-                },
-            };     
+            _decks = Defaults.DefaultDecks;    
         }
 
         public async Task<Guid> CreateAsync(Deck entity)

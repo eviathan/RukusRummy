@@ -110,7 +110,7 @@ namespace RukusRummy.BusinessLogic.Services
             {
                 Id = dto.Id,
                 Name = dto.Name,
-                Deck = dto.Deck,
+                Deck = dto.Deck.Id,
                 AutoReveal = dto.AutoReveal,
                 EnableFunFeatures = dto.EnableFunFeatures,
                 ManageIssuesPermission = dto.ManageIssuesPermission,
@@ -133,12 +133,14 @@ namespace RukusRummy.BusinessLogic.Services
                     await _roundRepository.GetAsync(x)
                 )
             );
+
+            var deck = await _deckRepository.GetAsync(game.Deck);
             
             return new GameDTO
             {
                 Id = game.Id,
                 Name = game.Name,
-                Deck = game.Deck,
+                Deck = deck,
                 AutoReveal = game.AutoReveal,
                 EnableFunFeatures = game.EnableFunFeatures,
                 ManageIssuesPermission = game.ManageIssuesPermission,

@@ -11,6 +11,8 @@ namespace RukusRummy.BusinessLogic.Models
 
         public bool IsSpectator { get; set; }
 
-        public dynamic Connection { get; set; }
+        // public dynamic Connection { get; set; }
+
+        public List<Guid> Decks { get; set;  }
     }
 }

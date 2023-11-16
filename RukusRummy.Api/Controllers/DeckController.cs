@@ -28,11 +28,11 @@ public class DeckController : ControllerBase
     }
 
     [HttpPost]  
-    public async Task<ActionResult<Guid>> Create(string name, string values)  
+    public async Task<ActionResult<Guid>> Create(DeckDTO deck)  
     {
         try
         {
-            var id = await _deckService.CreateAsync(name, values);
+            var id = await _deckService.CreateAsync(deck.Name, deck.Values);
             return Ok(id);
         }
         catch(ArgumentNullException)

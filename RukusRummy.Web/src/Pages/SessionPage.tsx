@@ -1,83 +1,42 @@
-import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
 
-import { IGame } from "../Models/Game";
-import { Api } from "../Contexts/ApiContext";
 import ChooseYourNameModal from "../Components/Modal/ChooseYourNameModal";
 import Modal from "../Components/Modal/Modal";
-import { GameHubContext } from "../Contexts/GameHubContext";
 import Hand from "../Components/Hand/Hand";
-import IDeck from "../Models/Deck";
-
-import "./SessionPage.scss"
 import Table from "../Components/Table/Table";
 import { App } from "../Contexts/AppContext";
+import { useParams } from "react-router-dom";
+import { Api } from "../Contexts/ApiContext";
+
+import "./SessionPage.scss"
 
 // TODO: Move this guff into the App Context
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     const api = useContext(Api);
     const app = useContext(App);
-
-    const params = useParams();
-
-    const { connection } = useContext(GameHubContext);
-
-    useEffect(() => {
-        // debugger;
-        if(connection) {
-            connection.on("UserConnected", (user: any) => {
-                // debugger;
-                // Handle messages
-                console.log(`User ${JSON.stringify(user)}`);
-            });
-        }
-
-        // Clean up
-        return () => {
-            if(connection) {
-                connection.off("ReceiveMessage");
-            }
-        };
-    }, [connection]);
-
-    const [game, setGame] = useState<IGame | undefined>();
+    const { id } = useParams();
 
     useEffect(() => {
         const load = async () => {
             try {
-                if(params?.id) {
-                    const game = await api.game.get(params.id);
-                    setGame(game);
+                if(id) {
+                    const game = await api.game.get(id);
+                    app.setGame(game);
                 }
             } catch (e) {
             }
         };
 
         load();
-    }, [api]);
-
-    async function getGame() {
-        if(params?.id) {
-            const game = await api.game.get(params.id);
-            setGame(game);
-        }
-    }
+    }, [id]);
 
     async function handleContinue() {
-        await getGame()
+        // await getGame()
     }
 
-    if(!game) {
+    if(!app.game) {
         return <h1>Loading</h1>// <Navigate to={"/"} />
     }
-
-    let testDeck: IDeck = {
-        "id": "59f03b02-8337-4e91-81c8-8cb1fea5a0a0",
-        "name": "T-Shirt Sizes",
-        "values": "XS, S, M, L, XL, ?, ☕️"
-      }
-
-    console.log('CurrentPlayer: ', app.currentPlayer);
 
     return (
         <div className="session">
@@ -85,15 +44,18 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 ? 
                 <>
                     <div className="body">
-                        <Table players={game.players} flipped={false} /> 
+                        <Table players={app.game.players} flipped={false} /> 
                     </div>
                     <div className="footer">
-                        <Hand deck={testDeck} onSelectCard={(card) => connection?.invoke("UpdateCard", "00000000-0000-0000-0000-000000000000", card)} />
+                        <Hand deck={app.game.deck} onSelectCard={(card) => {
+                            // TODO: Update card
+                            // connection?.invoke("UpdateCard", "00000000-0000-0000-0000-000000000000", card)
+                        }} />
                     </div>
                 </>
                 : 
                 <Modal>
-                    <ChooseYourNameModal game={game} onContinue={handleContinue} />
+                    <ChooseYourNameModal game={app.game} onContinue={handleContinue} />
                 </Modal>
             }
             

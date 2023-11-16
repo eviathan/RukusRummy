@@ -11,7 +11,7 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
 
         public string Name { get; set; }
 
-        public Guid Deck { get; set; }
+        public Deck Deck { get; set; }
 
         public List<Player> Players { get; set; }
 

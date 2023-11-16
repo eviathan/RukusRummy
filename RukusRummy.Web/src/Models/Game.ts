@@ -1,3 +1,6 @@
+import IDeck from "./Deck";
+import { IPlayer } from "./Player";
+
 export interface ICreateGameRequest {
     name?: string;
     deck?: string;
@@ -23,11 +26,12 @@ export enum GameStateType {
     RoundFinished
 }
 
+
 export interface IGame {
     id: string;
     name: string;
     state: GameStateType;
-    deck: string;
+    deck: IDeck;
     players: Array<IPlayer>;
     rounds: Array<string>;
     autoReveal: boolean;
@@ -38,7 +42,3 @@ export interface IGame {
     revealCardsPermission: PlayerPermissionType;
 }
 
-export interface IPlayer {
-    name: string;
-    isSpectator: boolean;
-}

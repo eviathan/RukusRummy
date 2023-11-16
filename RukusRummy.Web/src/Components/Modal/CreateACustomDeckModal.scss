@@ -8,4 +8,10 @@
         color: #1a2935;
         line-height: 1.2em;
     }
+
+    .footer {
+        display: flex;
+        padding-top: 24px;
+        justify-content: space-between;
+    }
 }

@@ -21,7 +21,8 @@ namespace RukusRummy.BusinessLogic.Services
             var playerId = await _playerRepository.CreateAsync(new Player
             {
                 Name = dto.Name,
-                IsSpectator = dto.IsSpectator
+                IsSpectator = dto.IsSpectator,
+                Decks = Defaults.DefaultDecks.Select(x => x.Id).ToList()
             });
 
             var game = await _gameRepository.GetAsync(dto.GameId);

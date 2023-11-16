@@ -83,13 +83,19 @@ export const CreateACustomDeckModal: React.FC<React.PropsWithChildren<IProps>> =
                 ?
                     <>
                         <h3>Preview</h3>
-                        <Hand deck={deck} onSelectCard={() => {}} />
+                        <Hand 
+                            type='simple'
+                            deck={deck}
+                            onSelectCard={() => {}}
+                        />
                     </>
                 :
                     <></>
             }
-            <button className='primary' onClick={handleCancel}>Cancel</button>
-            <button className='primary' onClick={handleContinue} disabled={!isFormDataValid()}>Continue</button>
+            <div className='footer'>
+                <button className='primary' onClick={handleCancel}>Cancel</button>
+                <button className='primary' onClick={handleContinue} disabled={!isFormDataValid()}>Continue</button>
+            </div>
         </div>
     );
 }

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using RukusRummy.BusinessLogic.Models;
 using RukusRummy.BusinessLogic.Models.DTOs;
 using RukusRummy.BusinessLogic.Repositories;
@@ -22,7 +18,8 @@ namespace RukusRummy.BusinessLogic.Services
             if(string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(values))
                 throw new ArgumentNullException();
 
-            var dto = new DeckDTO(name, values);
+            var sanitisedValues = SanitisedValues(values);
+            var dto = new DeckDTO(name, sanitisedValues);
             return await _deckRepository.CreateAsync(MapFromDTO(dto));
         }
 
@@ -47,6 +44,11 @@ namespace RukusRummy.BusinessLogic.Services
         public async Task DeleteAsync(Guid id)
         {
             await _deckRepository.DeleteAsync(id);
+        }
+
+        private string SanitisedValues(string values)
+        {
+            return string.Join(',', values.Split(',').Select(x => x.Replace(" ", string.Empty)));
         }
 
         private Deck MapFromDTO(DeckDTO dto)

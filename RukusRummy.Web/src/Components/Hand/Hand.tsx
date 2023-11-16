@@ -4,14 +4,15 @@ import './Hand.scss';
 import Deck from '../../Models/Deck';
 
 interface IProps {
+    type?: "simple"| "normal";
     deck: Deck;
     onSelectCard: (qvalue: number) => void;
 }
 
-export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ deck, onSelectCard }) => {
+export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ type, deck, onSelectCard }) => {
     const [selectedCard, setSelectedCard] = useState<number |undefined>(undefined);
 
-    const cards = deck.values.split(',');
+    const cards = deck?.values?.split(',') ?? [];
 
     const handleOnClick = (card: number) => {
         if(card === selectedCard) {
@@ -30,7 +31,13 @@ export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ deck, onSelect
                 <></>
             :
                 <div className="hand">
-                    <p>Choose your card 👇</p>
+                    {
+                        type === "simple"
+                        ?
+                        <></>
+                        :
+                        <p>Choose your card 👇</p>
+                    }
                     <div className='wrapper'>
                         <div className='cards'>
                             {cards.map((card, index) => 

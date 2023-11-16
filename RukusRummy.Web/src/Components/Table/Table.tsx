@@ -1,5 +1,5 @@
 import PlayedCard from "../PlayedCard/PlayedCard";
-import { IPlayer } from "../../Models/Game";
+import { IPlayer } from "../../Models/Player";
 
 import "./Table.scss";
 

@@ -55,7 +55,7 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
 
     function mapDeckToOption(deck: IDeck): IDropdownOption {
         return {
-            label: `${deck.name}: ${deck.values}`,
+            label: `${deck.name}: ${deck.values.split(',').join(', ')}`,
             value: deck.id
         }
     }
@@ -76,7 +76,10 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
                 <Modal>
                     <CreateACustomDeckModal 
                         onCancel={() => setIsCreatingDeck(false)} 
-                        onContinue={(deck) => { api.deck.create(deck.name, deck.values) }} 
+                        onContinue={async (deck) => { 
+                            await api.deck.create(deck.name, deck.values);                     
+                            setIsCreatingDeck(false);
+                        }} 
                     />
                 </Modal>
             :
@@ -146,12 +149,29 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
                         }}
                     />
 
-                    <Toggle label='Auto-reveal cards' onChange={(value) => handleChange({ autoReveal: value })} />
-                    <Toggle label='Enable fun features' onChange={(value) => handleChange({ enableFunFeatures: value})} />
-                    <Toggle label='Show average in the results' onChange={(value) => handleChange({ showAverage: value})} />
-                    <Toggle label='Autoclose session when empty' onChange={(value) => handleChange({ autoCloseSession: value})} />
+                    <Toggle 
+                        label='Auto-reveal cards' 
+                        onChange={(value) => handleChange({ autoReveal: value })} 
+                    />
+                    <Toggle 
+                        label='Enable fun features'
+                        onChange={(value) => handleChange({ enableFunFeatures: value})} 
+                    />
+                    <Toggle 
+                        label='Show average in the results'
+                        onChange={(value) => handleChange({ showAverage: value})}
+                    />
+                    <Toggle
+                        label='Autoclose session when empty'
+                        onChange={(value) => handleChange({ autoCloseSession: value})}
+                    />
 
-                    <button className="primary submit" disabled={!isFormDataValid()} onClick={handleSubmit}>Create Game</button>
+                    <button 
+                        className="primary submit"
+                        disabled={!isFormDataValid()}
+                        onClick={handleSubmit}>
+                        Create Game
+                    </button>
                 </div>
         }
         </>
