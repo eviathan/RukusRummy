@@ -76,7 +76,7 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
                 <Modal>
                     <CreateACustomDeckModal 
                         onCancel={() => setIsCreatingDeck(false)} 
-                        onContinue={() => { }} 
+                        onContinue={(deck) => { api.deck.create(deck.name, deck.values) }} 
                     />
                 </Modal>
             :

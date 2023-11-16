@@ -6,13 +6,16 @@ import IDeck from '../../Models/Deck';
 import TextInput from '../TextInput/TextInput';
 
 import './CreateACustomDeckModal.scss';
+import { Api } from '../../Contexts/ApiContext';
 
 interface IProps {
-    onContinue: () => void;
+    onContinue: (deck: IDeck) => void;
     onCancel: () => void;
 }
 
 export const CreateACustomDeckModal: React.FC<React.PropsWithChildren<IProps>> = ({ onCancel, onContinue }) => {
+
+    const api = useContext(Api);
 
     const [formData, setFormData] = useState<ICreateDeckRequest | undefined>();
     const [deck, setDeck] = useState<IDeck | undefined>();
@@ -39,7 +42,8 @@ export const CreateACustomDeckModal: React.FC<React.PropsWithChildren<IProps>> =
     }
 
     async function handleContinue() {
-        onContinue();
+        if(deck)
+            onContinue(deck);
     }
 
     function validateValues(values: string): boolean {
