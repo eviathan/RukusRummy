@@ -5,7 +5,7 @@ import Deck from '../../Models/Deck';
 
 interface IProps {
     deck: Deck;
-    onSelectCard: (value: number) => void;
+    onSelectCard: (qvalue: number) => void;
 }
 
 export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ deck, onSelectCard }) => {
@@ -23,21 +23,29 @@ export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ deck, onSelect
     };
 
     return (
-        <div className="hand">
-            <p>Choose your card 👇</p>
-            <div className='wrapper'>
-                <div className='cards'>
-                    {cards.map((card, index) => 
-                        <div 
-                            key={index}
-                            className={`card${ selectedCard === index ? ' selected' : '' }`} 
-                            onClick={() => handleOnClick(index)}>
-                            {card}                        
+        <>
+        {
+            deck.values === "" 
+            ?
+                <></>
+            :
+                <div className="hand">
+                    <p>Choose your card 👇</p>
+                    <div className='wrapper'>
+                        <div className='cards'>
+                            {cards.map((card, index) => 
+                                <div 
+                                    key={index}
+                                    className={`card${ selectedCard === index ? ' selected' : '' }`} 
+                                    onClick={() => handleOnClick(index)}>
+                                    {card}                        
+                                </div>
+                            )}
                         </div>
-                    )}
+                    </div>
                 </div>
-            </div>
-        </div>
+        }
+        </>
     );
 }
   

@@ -8,6 +8,11 @@ export interface ICreateGameRequest {
     showAverage: boolean;
 }
 
+export interface ICreateDeckRequest {
+    name?: string;
+    values?: string;
+}
+
 export enum PlayerPermissionType {
     AllPlayers,
     JustMe
