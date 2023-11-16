@@ -6,15 +6,16 @@ import Toggle from '../Toggle/Toggle';
 import { IGame } from '../../Models/Game';
 
 import './ChooseYourNameModal.scss';
+import { App } from '../../Contexts/AppContext';
 
 interface IProps {
     game: IGame;
-    onContinue: (playerId: string) => void;
 }
 
 // TODO: Rename this to ChooseUserModal
-export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({ game, onContinue }) => {
+export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({ game }) => {
     const api = useContext(Api);
+    const app = useContext(App);
 
     const [name, setName] = useState<string | undefined>();
     const [isSpectator, setIsSpectator] = useState<boolean | undefined>();
@@ -29,7 +30,7 @@ export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({
             isSpectator: isSpectator ?? false
         });
 
-        onContinue(playerId);
+        app.setPlayerId(playerId);
     }
 
     return (

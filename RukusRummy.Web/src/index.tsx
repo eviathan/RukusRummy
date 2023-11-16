@@ -21,15 +21,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     {/* <Provider store={store}> */}
-      <ApiProvider>
-        <AppProvider>
-          <GameHubProvider>
-            <BrowserRouter>
-              <Layout />
-            </BrowserRouter>
-          </GameHubProvider>
-        </AppProvider>
-      </ApiProvider>
+      <GameHubProvider>
+        <ApiProvider>
+          <AppProvider>
+              <BrowserRouter>
+                <Layout />
+              </BrowserRouter>
+          </AppProvider>
+        </ApiProvider>
+      </GameHubProvider>
     {/* </Provider> */}
   </React.StrictMode>
 );

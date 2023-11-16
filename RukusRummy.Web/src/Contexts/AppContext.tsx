@@ -11,7 +11,7 @@ export interface IAppFactory {
 	currentPlayer?: IPlayer;
 	updatePreferencesCache: (preferences: IPlayerPreferencesCache) => void;
 	setGame: (game: IGame) => void;
-	setPlayerId: (playerId: string) => void;
+    setPlayerId:(id: string) => void;
 }
 
 export interface IAppProviderProps { }
@@ -20,7 +20,7 @@ export const App = React.createContext<IAppFactory>({
 	loading: false,	
 	setGame: (game: IGame) => {},
 	updatePreferencesCache: (preferences: IPlayerPreferencesCache) => {},
-	setPlayerId: (playerId: string) => {}
+	setPlayerId: (id: string) => {}
 });
 
 export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> = ({ children }) => {
@@ -50,13 +50,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 	useEffect(() => {
         if(connection) {
             connection.on("UserConnected", (user: any) => {
-                // debugger;
-                // Handle messages
                 console.log(`User ${JSON.stringify(user)}`);
-            });
-
-            connection.on("PlayerUpdated", (player: IPlayer) => {
-				setPlayer(player);
             });
 
             connection.on("GameUpdated", (game: IGame) => {

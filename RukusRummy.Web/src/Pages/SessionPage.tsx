@@ -30,10 +30,6 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
         load();
     }, [id]);
 
-    async function handleContinue(userId: string) {
-        app.setPlayerId(userId);
-    }
-
     if(!app.game) {
         // TODO: Add a prettier loader here, maybe centralise the loading 
         return <h1>Loading</h1>
@@ -56,7 +52,7 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 </>
                 : 
                 <Modal>
-                    <ChooseYourNameModal game={app.game} onContinue={handleContinue} />
+                    <ChooseYourNameModal game={app.game} />
                 </Modal>
             }
             
