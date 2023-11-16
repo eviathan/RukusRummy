@@ -11,6 +11,7 @@ export interface IAppFactory {
 	currentPlayer?: IPlayer;
 	updatePreferencesCache: (preferences: IPlayerPreferencesCache) => void;
 	setGame: (game: IGame) => void;
+	setPlayerId: (playerId: string) => void;
 }
 
 export interface IAppProviderProps { }
@@ -19,6 +20,7 @@ export const App = React.createContext<IAppFactory>({
 	loading: false,	
 	setGame: (game: IGame) => {},
 	updatePreferencesCache: (preferences: IPlayerPreferencesCache) => {},
+	setPlayerId: (playerId: string) => {}
 });
 
 export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> = ({ children }) => {
@@ -27,7 +29,8 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 	
 	const [loading, setLoading] = useState<boolean>(false);
 	const [game, setGame] = useState<IGame | undefined>();
-	const [currentPlayer, setCurrentPlayer] = useState<IPlayer | undefined>();
+	const [playerId, setPlayerId] = useState<string | undefined>();
+	const [player, setPlayer] = useState<IPlayer | undefined>();
 	const [preferencesCache, setPreferencesCache] = useState<IPlayerPreferencesCache>({
 		decks: []
 	});
@@ -36,15 +39,14 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
         const load = async () => {
             try {
                 var currentPlayer = await api.player.getCurrentPlayer();
-				setCurrentPlayer(currentPlayer);
+				setPlayer(currentPlayer);
             } catch (e) { }
 			setLoading(false);
         };
 
         load();
-    }, [api]);
-
-
+    }, [api, playerId]);
+	
 	useEffect(() => {
         if(connection) {
             connection.on("UserConnected", (user: any) => {
@@ -54,7 +56,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
             });
 
             connection.on("PlayerUpdated", (player: IPlayer) => {
-				setCurrentPlayer(player);
+				setPlayer(player);
             });
 
             connection.on("GameUpdated", (game: IGame) => {
@@ -81,9 +83,10 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 			value={{
 				loading,
 				game,
-				currentPlayer,
+				currentPlayer: player,
 				updatePreferencesCache,
-				setGame
+				setGame,
+				setPlayerId
 			}}>
 			{children}
 		</App.Provider>

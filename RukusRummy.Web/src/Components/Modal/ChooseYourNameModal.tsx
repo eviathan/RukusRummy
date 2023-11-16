@@ -9,9 +9,10 @@ import './ChooseYourNameModal.scss';
 
 interface IProps {
     game: IGame;
-    onContinue: () => void;
+    onContinue: (playerId: string) => void;
 }
 
+// TODO: Rename this to ChooseUserModal
 export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({ game, onContinue }) => {
     const api = useContext(Api);
 
@@ -19,17 +20,16 @@ export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({
     const [isSpectator, setIsSpectator] = useState<boolean | undefined>();
 
     async function handleContinue() {
-        debugger;
         if(!game || !name)
             return;
 
-        await api.player.add({
+        const playerId = await api.player.add({
             gameId: game.id,
             name,
             isSpectator: isSpectator ?? false
         });
 
-        onContinue();
+        onContinue(playerId);
     }
 
     return (

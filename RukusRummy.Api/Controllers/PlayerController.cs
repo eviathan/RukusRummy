@@ -15,19 +15,20 @@ namespace RukusRummy.Api.Controllers;
 public class PlayerController : ControllerBase
 {
     private readonly ILogger<GameController> _logger;
-
     private readonly PlayerService _playerService;
-    
+    private readonly GameService _gameService; 
     private readonly IHubContext<GameHub> _hubContext;
 
 
     public PlayerController(
         ILogger<GameController> logger,
         PlayerService playerService,
+        GameService gameService,
         IHubContext<GameHub> hubContext)
     {
         _logger = logger;
         _playerService = playerService;
+        _gameService = gameService;
         _hubContext = hubContext;
     }
 
@@ -56,6 +57,9 @@ public class PlayerController : ControllerBase
 
             await _hubContext.Clients.All.SendAsync("UserConnected", dto);
             
+            var game = await _gameService.GetAsync(dto.GameId);
+            await _hubContext.Clients.All.SendAsync("GameUpdated", game);
+
             return Ok(id);
         }
         catch(ArgumentNullException)

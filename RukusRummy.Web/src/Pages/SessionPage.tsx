@@ -30,12 +30,13 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
         load();
     }, [id]);
 
-    async function handleContinue() {
-        // await getGame()
+    async function handleContinue(userId: string) {
+        app.setPlayerId(userId);
     }
 
     if(!app.game) {
-        return <h1>Loading</h1>// <Navigate to={"/"} />
+        // TODO: Add a prettier loader here, maybe centralise the loading 
+        return <h1>Loading</h1>
     }
 
     return (

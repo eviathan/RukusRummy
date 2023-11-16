@@ -22,5 +22,7 @@ namespace RukusRummy.BusinessLogic
         public int VoteCount => Votes
             ?.Where(vote => vote.Value != null)
             ?.Count() ?? 0;
+
+        public string Average => "TODO";
     }
 }

@@ -33,7 +33,7 @@ export interface IGame {
     state: GameStateType;
     deck: IDeck;
     players: Array<IPlayer>;
-    rounds: Array<string>;
+    rounds: Array<IRound>;
     autoReveal: boolean;
     enableFunFeatures: boolean;
     showAverage: boolean;
@@ -42,3 +42,17 @@ export interface IGame {
     revealCardsPermission: PlayerPermissionType;
 }
 
+export interface IVoteTally {
+    [key:string]: number | undefined
+}
+
+export interface IRound
+{
+    name: string;
+    result: string;
+    startDate: Date;
+    endDate: Date;
+    votes: IVoteTally;
+    voteCount: number;
+    average: string;
+}
