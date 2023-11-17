@@ -8,10 +8,11 @@ import { GameHubContext } from "./GameHubContext";
 export interface IAppFactory {
 	loading: boolean;
 	game?: IGame;
-	currentPlayer?: IPlayer;
+	player?: IPlayer;
 	updatePreferencesCache: (preferences: IPlayerPreferencesCache) => void;
 	setGame: (game: IGame) => void;
     setPlayerId:(id: string) => void;
+    playCard:(card?: number) => void;
 }
 
 export interface IAppProviderProps { }
@@ -20,7 +21,8 @@ export const App = React.createContext<IAppFactory>({
 	loading: false,	
 	setGame: (game: IGame) => {},
 	updatePreferencesCache: (preferences: IPlayerPreferencesCache) => {},
-	setPlayerId: (id: string) => {}
+	setPlayerId: (id: string) => {},
+	playCard:(card?: number) => {}
 });
 
 export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> = ({ children }) => {
@@ -38,6 +40,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 	useEffect(() => {
         const load = async () => {
             try {
+				// debugger
                 var currentPlayer = await api.player.getCurrentPlayer();
 				setPlayer(currentPlayer);
             } catch (e) { }
@@ -53,7 +56,8 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
                 console.log(`User ${JSON.stringify(user)}`);
             });
 
-            connection.on("GameUpdated", (game: IGame) => {
+            connection.on("GameUpdated", async (gameId: string) => {
+				var game = await api.game.get(gameId);
 				setGame(game);
             });
         }
@@ -66,10 +70,13 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
         };
     }, [connection]);
 
-	 // connection?.invoke("UpdateCard", "00000000-0000-0000-0000-000000000000", card)
-
 	function updatePreferencesCache(preferences: IPlayerPreferencesCache) {
 		setPreferencesCache(preferences);
+	}
+
+	function playCard(card?: number) {
+		// debugger;
+		connection?.invoke("UpdateCard", game?.id, player?.id, card);
 	}
 	
 	return (
@@ -77,10 +84,11 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 			value={{
 				loading,
 				game,
-				currentPlayer: player,
+				player,
 				updatePreferencesCache,
 				setGame,
-				setPlayerId
+				setPlayerId,
+				playCard
 			}}>
 			{children}
 		</App.Provider>

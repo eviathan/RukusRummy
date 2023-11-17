@@ -1,7 +1,7 @@
 import IDeck from "./Deck";
 
 export interface IPlayer {
-    id?: string;
+    id: string;
     name: string;
     isSpectator: boolean;
 }

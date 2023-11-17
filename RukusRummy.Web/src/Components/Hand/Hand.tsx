@@ -6,7 +6,7 @@ import Deck from '../../Models/Deck';
 interface IProps {
     type?: "simple"| "normal";
     deck: Deck;
-    onSelectCard: (qvalue: number) => void;
+    onSelectCard: (value?: number) => void;
 }
 
 export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ type, deck, onSelectCard }) => {
@@ -15,12 +15,15 @@ export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ type, deck, on
     const cards = deck?.values?.split(',') ?? [];
 
     const handleOnClick = (card: number) => {
+        debugger;
         if(card === selectedCard) {
             setSelectedCard(undefined);
+            onSelectCard(undefined);
         } else {
             setSelectedCard(card);
             onSelectCard(card);
         }
+        
     };
 
     return (

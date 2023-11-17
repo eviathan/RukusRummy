@@ -4,7 +4,7 @@ import { IPlayer } from "../../Models/Player";
 import "./Table.scss";
 
 export type TablePlayer = {
-    value?: string;
+    label?: string;
 
 } & IPlayer
 
@@ -21,7 +21,7 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
             const player = players[index];
             return <PlayedCard 
                         name={player.name}
-                        value={player.value} 
+                        value={player.label} 
                         flipped={flipped}
                         spectator={player.isSpectator} 
                     />

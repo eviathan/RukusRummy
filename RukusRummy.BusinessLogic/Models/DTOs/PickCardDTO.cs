@@ -13,6 +13,6 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
 
         public int Round { get; set; }
 
-        public int Value { get; set; }
+        public int? Value { get; set; }
     }
 }

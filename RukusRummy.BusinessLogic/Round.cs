@@ -17,7 +17,7 @@ namespace RukusRummy.BusinessLogic
 
         public DateTime EndDate { get; set; }
 
-        public Dictionary<Guid, int?> Votes { get; set; }
+        public Dictionary<Guid, int?> Votes { get; set; } = new Dictionary<Guid, int?>();
 
         public int VoteCount => Votes
             ?.Where(vote => vote.Value != null)

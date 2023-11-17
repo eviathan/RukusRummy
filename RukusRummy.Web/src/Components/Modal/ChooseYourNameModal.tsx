@@ -25,6 +25,7 @@ export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({
             return;
 
         const playerId = await api.player.add({
+            id: '',
             gameId: game.id,
             name,
             isSpectator: isSpectator ?? false

@@ -3,26 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using RukusRummy.BusinessLogic.Services;
 
 namespace RukusRummy.Api.Hubs
 {
     public class GameHub : Hub
     {
-        public override Task OnConnectedAsync()
+        private readonly GameService _gameService;
+
+        public GameHub(GameService gameService)
         {
-            Clients.Others.SendAsync("UserConnected", Context.ConnectionId);
-            return base.OnConnectedAsync();
+            _gameService = gameService;
         }
 
-        public override Task OnDisconnectedAsync(Exception exception)
-        {
-            Clients.Others.SendAsync("UserDisconnected", Context.ConnectionId);
-            return base.OnDisconnectedAsync(exception);
-        }
+        // public override Task OnConnectedAsync()
+        // {
+        //     Clients.Others.SendAsync("UserConnected", Context.ConnectionId);
+        //     return base.OnConnectedAsync();
+        // }
 
-        public async Task UpdateCard(Guid userId, int card) 
+        // public override Task OnDisconnectedAsync(Exception exception)
+        // {
+        //     Clients.Others.SendAsync("UserDisconnected", Context.ConnectionId);
+        //     return base.OnDisconnectedAsync(exception);
+        // }
+        
+
+        public async Task UpdateCard(string gameId, string playerId, int? card) 
         {
-            await Clients.All.SendAsync($"UserUpdatedCard", userId, card);
+            await _gameService.PickCardAsync(new BusinessLogic.Models.DTOs.PickCardDTO {
+                GameId = new Guid(gameId),
+                PlayerId = new Guid(playerId),
+                Value = card
+            });
+
+            await Clients.All.SendAsync($"GameUpdated", gameId);
         }
 
         public async Task ThrowTextAtUser(Guid userId, string text)

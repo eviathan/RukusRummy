@@ -76,12 +76,12 @@ namespace RukusRummy.BusinessLogic.Services
         public async Task PickCardAsync(PickCardDTO dto)
         {
             var game = await _gameRepository.GetAsync(dto.GameId);
-            // var votes = game?.Rounds[model.Round]?.Votes;
+            var latestRoundId = game.Rounds.LastOrDefault();
 
-            // if(game == null || votes == null)
-            //     throw new ArgumentOutOfRangeException("Coud not find game");
-            
-            // votes[model.PlayerId] = model.Value;
+            var latestRound = await _roundRepository.GetAsync(latestRoundId);
+            latestRound.Votes[dto.PlayerId] = dto.Value;
+            await _roundRepository.UpdateAsync(latestRound);
+
             await _gameRepository.UpdateAsync(game);
         }
 

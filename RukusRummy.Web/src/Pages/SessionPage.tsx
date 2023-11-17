@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import ChooseYourNameModal from "../Components/Modal/ChooseYourNameModal";
 import Modal from "../Components/Modal/Modal";
 import Hand from "../Components/Hand/Hand";
-import Table from "../Components/Table/Table";
+import Table, { TablePlayer } from "../Components/Table/Table";
 import { App } from "../Contexts/AppContext";
 import { useParams } from "react-router-dom";
 import { Api } from "../Contexts/ApiContext";
@@ -35,19 +35,35 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
         return <h1>Loading</h1>
     }
 
+    function getTablePlayers(): Array<TablePlayer> {
+        const game = app?.game;
+        const players = game?.players ?? [];
+        const rounds = game?.rounds ?? [];
+        const lastRound = rounds?.[rounds.length - 1];
+        const deckValues = game?.deck.values.split(',') ?? [];
+
+        return players.map(x => {
+            const vote = lastRound?.votes[x.id] ?? 0;
+            const value = vote ? deckValues[vote] : '';
+            return {
+                id: x.id,
+                name: x.name,
+                isSpectator: x.isSpectator,
+                label: value
+            } ;
+        });
+    }
+
     return (
         <div className="session">
-            {app?.currentPlayer !== undefined
+            {app?.player !== undefined
                 ? 
                 <>
                     <div className="body">
-                        <Table players={app.game.players} flipped={false} /> 
+                        <Table players={getTablePlayers()} flipped={false} /> 
                     </div>
                     <div className="footer">
-                        <Hand deck={app.game.deck} onSelectCard={(card) => {
-                            // TODO: Update card
-                            // connection?.invoke("UpdateCard", "00000000-0000-0000-0000-000000000000", card)
-                        }} />
+                        <Hand deck={app.game.deck} onSelectCard={ (card) => app.playCard(card) } />
                     </div>
                 </>
                 : 
