@@ -56,6 +56,14 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
         });
     }
 
+    function getSelectedCard(): number | undefined{
+        const game = app?.game;
+        const rounds = game?.rounds ?? [];
+        const lastRound = rounds?.[rounds.length - 1];
+
+        return app.player?.id ? lastRound.votes[app.player?.id] : undefined;
+    }
+
     return (
         <div className="session">
             {app?.player !== undefined
@@ -65,7 +73,11 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                         <Table players={getTablePlayers()} flipped={false} /> 
                     </div>
                     <div className="footer">
-                        <Hand deck={app.game.deck} onSelectCard={ (card) => app.playCard(card) } />
+                        <Hand 
+                            selectedCard={getSelectedCard()}
+                            deck={app.game.deck}
+                            onSelectCard={ (card) => app.playCard(card) }
+                        />
                     </div>
                 </>
                 : 

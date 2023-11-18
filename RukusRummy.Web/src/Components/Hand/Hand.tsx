@@ -1,29 +1,23 @@
-import { useState } from 'react';
+import Deck from '../../Models/Deck';
 
 import './Hand.scss';
-import Deck from '../../Models/Deck';
 
 interface IProps {
     type?: "simple"| "normal";
     deck: Deck;
+    selectedCard?: number;
     onSelectCard: (value?: number) => void;
 }
 
-export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ type, deck, onSelectCard }) => {
-    const [selectedCard, setSelectedCard] = useState<number |undefined>(undefined);
-
+export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ type, deck, selectedCard, onSelectCard }) => {
     const cards = deck?.values?.split(',') ?? [];
 
-    const handleOnClick = (card: number) => {
-        // debugger;
+    function handleOnClick(card: number) {
         if(card === selectedCard) {
-            setSelectedCard(undefined);
             onSelectCard(undefined);
         } else {
-            setSelectedCard(card);
             onSelectCard(card);
         }
-        
     };
 
     return (
@@ -36,10 +30,8 @@ export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ type, deck, on
                 <div className="hand">
                     {
                         type === "simple"
-                        ?
-                        <></>
-                        :
-                        <p>Choose your card 👇</p>
+                        ? <></>
+                        : <p>Choose your card 👇</p>
                     }
                     <div className='wrapper'>
                         <div className='cards'>
