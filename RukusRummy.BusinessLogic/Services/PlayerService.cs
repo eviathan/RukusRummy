@@ -32,6 +32,19 @@ namespace RukusRummy.BusinessLogic.Services
             return playerId;
         }
 
+        public async Task<Player> CreateAsync(string name, bool isSpectator)
+        {
+            var playerId =  await _playerRepository.CreateAsync(new Player
+            {
+                Id = Guid.NewGuid(),
+                Name = name,
+                IsSpectator = isSpectator,
+                Decks = Defaults.DefaultDecks.Select(x => x.Id).ToList()
+            });
+
+            return await _playerRepository.GetAsync(playerId);
+        }
+
         public async Task<IEnumerable<Player>> GetAllPlayersAsync()
         {
             return await _playerRepository.GetAllAsync();

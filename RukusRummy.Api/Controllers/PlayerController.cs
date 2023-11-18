@@ -7,6 +7,7 @@ using RukusRummy.BusinessLogic.Models.DTOs;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using RukusRummy.BusinessLogic.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace RukusRummy.Api.Controllers;
 
@@ -32,17 +33,70 @@ public class PlayerController : ControllerBase
         _hubContext = hubContext;
     }
 
+    // [HttpPost]  
+    // [Obsolete]
+    // public async Task<ActionResult<Guid>> Add(AddPlayerDTO dto)  
+    // {
+    //     try
+    //     {
+    //         var id = await _playerService.AddPlayerToGameAsync(dto);
+
+    //         var claims = new List<Claim>
+    //         {
+    //             new Claim(ClaimTypes.Name, dto.Name),
+    //             new Claim(ClaimTypes.NameIdentifier, id.ToString())
+    //         };
+
+    //         var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+    //         var authProperties = new AuthenticationProperties
+    //         {
+    //             IsPersistent = true,
+    //             AllowRefresh = true,
+
+    //         };
+
+    //         await HttpContext.SignInAsync("CookieAuth", new ClaimsPrincipal(claimsIdentity));
+
+    //         await _hubContext.Clients.All.SendAsync("UserConnected", dto);
+            
+    //         var game = await _gameService.GetAsync(dto.GameId);
+    //         await _hubContext.Clients.All.SendAsync("GameUpdated", game);
+
+    //         return Ok(id);
+    //     }
+    //     catch(ArgumentNullException)
+    //     {
+    //         return BadRequest();
+    //     }
+    // }
+
+//       async createNewPlayer(name: string, isSpectator: boolean): Promise<IPlayer> {
+//     return await this.getAsync({ name, isSpectator });
+//   }
+
+//   async addPlayerToGame(playerId: string, gameId: string): Promise<IPlayer> {
+//     return await this.getAsync(undefined, `${playerId}/game/${gameId}`);
+//   }
+
+    public class CreateNewPlayerRequest
+    {
+        [Required]
+        public string Name { get; set; } = string.Empty;
+
+        public bool IsSpectator { get; set; }
+    }
+
     [HttpPost]  
-    public async Task<ActionResult<Guid>> Add(AddPlayerDTO dto)  
+    public async Task<ActionResult<Guid>> CreateNewPlayer(CreateNewPlayerRequest request)  
     {
         try
         {
-            var id = await _playerService.AddPlayerToGameAsync(dto);
+            var player = await _playerService.CreateAsync(request.Name, request.IsSpectator);
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, dto.Name),
-                new Claim(ClaimTypes.NameIdentifier, id.ToString())
+                new Claim(ClaimTypes.Name, player.Name),
+                new Claim(ClaimTypes.NameIdentifier, player.Id.ToString())
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
@@ -54,19 +108,17 @@ public class PlayerController : ControllerBase
             };
 
             await HttpContext.SignInAsync("CookieAuth", new ClaimsPrincipal(claimsIdentity));
+            await _hubContext.Clients.All.SendAsync("UserConnected", player);
 
-            await _hubContext.Clients.All.SendAsync("UserConnected", dto);
-            
-            var game = await _gameService.GetAsync(dto.GameId);
-            await _hubContext.Clients.All.SendAsync("GameUpdated", game);
-
-            return Ok(id);
+            return Ok(player);
         }
         catch(ArgumentNullException)
         {
             return BadRequest();
         }
     }
+
+
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Player>>> GetAllPlayers()

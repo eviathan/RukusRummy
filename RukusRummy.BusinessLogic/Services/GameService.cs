@@ -39,7 +39,7 @@ namespace RukusRummy.BusinessLogic.Services
                 Name = model.Name,
                 Deck = model.Deck,
                 Rounds = new List<Guid>{ initalRound },
-                Players = new List<Guid>(),
+                Players = new List<Guid>{ model.PlayerId },
                 AutoReveal = model.AutoReveal,
                 EnableFunFeatures = model.EnableFunFeatures,
                 ManageIssuesPermission = model.ManageIssuesPermission,

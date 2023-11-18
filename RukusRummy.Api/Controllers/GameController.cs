@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RukusRummy.Api.Hubs;
 using RukusRummy.BusinessLogic.Services;
 using RukusRummy.BusinessLogic.Models.DTOs;
+using RukusRummy.BusinessLogic.Models;
 
 namespace RukusRummy.Api.Controllers;
 
@@ -28,12 +29,36 @@ public class GameController : ControllerBase
         _hubContext = hubContext;
     }
 
+    public class CreateGameRequest
+    {
+        public Guid PlayerId { get; set; }
+        public string? Name { get; set; }
+        public Guid Deck { get; set; }
+        public bool AutoReveal { get; set; }
+        public bool EnableFunFeatures { get; set; }
+        public bool ShowAverage { get; set; }
+        public bool AutoCloseSession { get; set; }
+        public PlayerPermissionType RevealCardsPermission { get; set; }
+        public PlayerPermissionType ManageIssuesPermission { get; set; }
+    }
+
     [HttpPost]  
-    public async Task<ActionResult<Guid>> Create(CreateGameDTO dto)  
+    public async Task<ActionResult<Guid>> Create(CreateGameRequest request)  
     {
         try
         {
-            var id = await _gameService.CreateAsync(dto);
+            var id = await _gameService.CreateAsync(new CreateGameDTO
+            {
+                Name = request.Name,
+                PlayerId = request.PlayerId,
+                Deck = request.Deck,
+                AutoCloseSession = request.AutoCloseSession,
+                AutoReveal = request.AutoReveal,
+                EnableFunFeatures = request.EnableFunFeatures,
+                ManageIssuesPermission = request.ManageIssuesPermission,
+                RevealCardsPermission = request.RevealCardsPermission,
+                ShowAverage = request.ShowAverage,
+            });
             return Ok(id);
         }
         catch(ArgumentNullException)

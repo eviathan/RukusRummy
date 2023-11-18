@@ -11,9 +11,12 @@ import { ICreateGameRequest } from '../Models/Game';
 import './CreateGame.scss';
 import Modal from '../Components/Modal/Modal';
 import CreateACustomDeckModal from '../Components/Modal/CreateACustomDeckModal';
+import { App } from '../Contexts/AppContext';
+import ChooseYourNameModal from '../Components/Modal/ChooseYourNameModal';
 
 export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
   const api = useContext(Api);
+  const app = useContext(App);
   const navigate = useNavigate();
 
   const [decks, setDecks] = useState<Array<IDeck>>([]);
@@ -47,8 +50,13 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
     }
 
     async function handleSubmit(event: any) {
-        if(formData) {
-            var gameId = await api.game.create(formData);
+        var playerId = app.player?.id
+
+        if(playerId && formData) {
+            var gameId = await api.game.create({
+                ...formData,
+                playerId
+            });
             navigate(`/session/${gameId}`)
         }
     }
@@ -71,109 +79,119 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
 
     return (
         <>
-        { isCreatingDeck 
-            ? 
+        {app?.player !== undefined
+                ? 
+                <>
+                    { isCreatingDeck 
+                        ? 
+                            <Modal>
+                                <CreateACustomDeckModal 
+                                    onCancel={() => setIsCreatingDeck(false)} 
+                                    onContinue={async (deck) => { 
+                                        await api.deck.create(deck.name, deck.values);                     
+                                        setIsCreatingDeck(false);
+                                    }} 
+                                />
+                            </Modal>
+                        :
+                            <div className="create-game">
+                                <TextInput 
+                                    label="Game's name" 
+                                    onChange={(event) => {
+                                        handleChange({                
+                                            name: event.target.value
+                                        });
+                                    }} 
+                                />
+
+                                <Dropdown 
+                                    label='Deck' 
+                                    options={[...decks?.map(mapDeckToOption), {
+                                        label: "Create a custom Deck",
+                                        value: "button",
+                                        cssClass: "bold"
+                                    }]}
+                                    onChange={(value) => {
+                                        if(value === 'button'){
+                                            setIsCreatingDeck(true);
+                                        } else {
+                                            handleChange({                
+                                                deck: value
+                                            });
+                                        }
+                                    }} 
+                                />
+
+                                <Dropdown 
+                                    label='Who can reveal cards'
+                                    options={[
+                                        {
+                                            label: "All Players",
+                                            value: "AllPlayers"
+                                        },
+                                        {
+                                            label: "Just me",
+                                            value: "JustMe"
+                                        },
+                                    ]}
+                                    onChange={(value) => {
+                                        handleChange({                
+                                            revealCardsPermission: value
+                                        });
+                                    }}
+                                />
+
+                                <Dropdown 
+                                    label='Who can manage issues' 
+                                    options={[
+                                        {
+                                            label: "All Players",
+                                            value: "AllPlayers"
+                                        },
+                                        {
+                                            label: "Just me",
+                                            value: "JustMe"
+                                        },
+                                    ]}
+                                    onChange={(value) => {
+                                        handleChange({                
+                                            manageIssuesPermission: value
+                                        });
+                                    }}
+                                />
+
+                                <Toggle 
+                                    label='Auto-reveal cards' 
+                                    onChange={(value) => handleChange({ autoReveal: value })} 
+                                />
+                                <Toggle 
+                                    label='Enable fun features'
+                                    onChange={(value) => handleChange({ enableFunFeatures: value})} 
+                                />
+                                <Toggle 
+                                    label='Show average in the results'
+                                    onChange={(value) => handleChange({ showAverage: value})}
+                                />
+                                <Toggle
+                                    label='Autoclose session when empty'
+                                    onChange={(value) => handleChange({ autoCloseSession: value})}
+                                />
+
+                                <button 
+                                    className="primary submit"
+                                    disabled={!isFormDataValid()}
+                                    onClick={handleSubmit}>
+                                    Create Game
+                                </button>
+                            </div>
+                    }
+                </>
+                : 
                 <Modal>
-                    <CreateACustomDeckModal 
-                        onCancel={() => setIsCreatingDeck(false)} 
-                        onContinue={async (deck) => { 
-                            await api.deck.create(deck.name, deck.values);                     
-                            setIsCreatingDeck(false);
-                        }} 
-                    />
+                    <ChooseYourNameModal />
                 </Modal>
-            :
-                <div className="create-game">
-                    <TextInput 
-                        label="Game's name" 
-                        onChange={(event) => {
-                            handleChange({                
-                                name: event.target.value
-                            });
-                        }} 
-                    />
-
-                    <Dropdown 
-                        label='Deck' 
-                        options={[...decks?.map(mapDeckToOption), {
-                            label: "Create a custom Deck",
-                            value: "button",
-                            cssClass: "bold"
-                        }]}
-                        onChange={(value) => {
-                            if(value === 'button'){
-                                setIsCreatingDeck(true);
-                            } else {
-                                handleChange({                
-                                    deck: value
-                                });
-                            }
-                        }} 
-                    />
-
-                    <Dropdown 
-                        label='Who can reveal cards'
-                        options={[
-                            {
-                                label: "All Players",
-                                value: "AllPlayers"
-                            },
-                            {
-                                label: "Just me",
-                                value: "JustMe"
-                            },
-                        ]}
-                        onChange={(value) => {
-                            handleChange({                
-                                revealCardsPermission: value
-                            });
-                        }}
-                    />
-
-                    <Dropdown 
-                        label='Who can manage issues' 
-                        options={[
-                            {
-                                label: "All Players",
-                                value: "AllPlayers"
-                            },
-                            {
-                                label: "Just me",
-                                value: "JustMe"
-                            },
-                        ]}
-                        onChange={(value) => {
-                            handleChange({                
-                                manageIssuesPermission: value
-                            });
-                        }}
-                    />
-
-                    <Toggle 
-                        label='Auto-reveal cards' 
-                        onChange={(value) => handleChange({ autoReveal: value })} 
-                    />
-                    <Toggle 
-                        label='Enable fun features'
-                        onChange={(value) => handleChange({ enableFunFeatures: value})} 
-                    />
-                    <Toggle 
-                        label='Show average in the results'
-                        onChange={(value) => handleChange({ showAverage: value})}
-                    />
-                    <Toggle
-                        label='Autoclose session when empty'
-                        onChange={(value) => handleChange({ autoCloseSession: value})}
-                    />
-
-                    <button 
-                        className="primary submit"
-                        disabled={!isFormDataValid()}
-                        onClick={handleSubmit}>
-                        Create Game
-                    </button>
-                </div>
-        }
+            }
+        
         </>
     );
 }

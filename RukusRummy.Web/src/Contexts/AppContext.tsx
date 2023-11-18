@@ -11,7 +11,7 @@ export interface IAppFactory {
 	player?: IPlayer;
 	updatePreferencesCache: (preferences: IPlayerPreferencesCache) => void;
 	setGame: (game: IGame) => void;
-    setPlayerId:(id: string) => void;
+    setPlayer:(player: IPlayer) => void;
     playCard:(card?: number) => void;
 }
 
@@ -21,7 +21,7 @@ export const App = React.createContext<IAppFactory>({
 	loading: false,	
 	setGame: (game: IGame) => {},
 	updatePreferencesCache: (preferences: IPlayerPreferencesCache) => {},
-	setPlayerId: (id: string) => {},
+	setPlayer: (player: IPlayer) => {},
 	playCard:(card?: number) => {}
 });
 
@@ -87,7 +87,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 				player,
 				updatePreferencesCache,
 				setGame,
-				setPlayerId,
+				setPlayer,
 				playCard
 			}}>
 			{children}

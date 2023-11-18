@@ -7,7 +7,8 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
 {
     public class CreateGameDTO
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
+        public Guid PlayerId { get; set; }
         public Guid Deck { get; set; }
         public bool AutoReveal { get; set; }
         public bool EnableFunFeatures { get; set; }

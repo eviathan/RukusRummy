@@ -7,7 +7,7 @@ namespace RukusRummy.BusinessLogic.Models
 {
     public class Game : Entity
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public GameStateType State { get; set; }
 

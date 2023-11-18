@@ -68,7 +68,7 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 </>
                 : 
                 <Modal>
-                    <ChooseYourNameModal game={app.game} />
+                    <ChooseYourNameModal />
                 </Modal>
             }
             

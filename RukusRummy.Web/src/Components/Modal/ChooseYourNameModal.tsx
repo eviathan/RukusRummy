@@ -3,17 +3,14 @@ import { useContext, useState } from 'react';
 import { Api } from '../../Contexts/ApiContext';
 import TextInput from '../TextInput/TextInput';
 import Toggle from '../Toggle/Toggle';
-import { IGame } from '../../Models/Game';
 
 import './ChooseYourNameModal.scss';
 import { App } from '../../Contexts/AppContext';
 
-interface IProps {
-    game: IGame;
-}
+interface IProps { }
 
 // TODO: Rename this to ChooseUserModal
-export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({ game }) => {
+export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = () => {
     const api = useContext(Api);
     const app = useContext(App);
 
@@ -21,17 +18,15 @@ export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({
     const [isSpectator, setIsSpectator] = useState<boolean | undefined>();
 
     async function handleContinue() {
-        if(!game || !name)
-            return;
+        if(!name)
+            return; // TODO: Add proper validation here
 
-        const playerId = await api.player.add({
-            id: '',
-            gameId: game.id,
+        const player = await api.player.createNewPlayer(
             name,
-            isSpectator: isSpectator ?? false
-        });
+            isSpectator ?? false
+        );
 
-        app.setPlayerId(playerId);
+        app.setPlayer(player);
     }
 
     return (
