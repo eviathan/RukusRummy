@@ -45,7 +45,7 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
             ...data
         }
 
-        console.log(JSON.stringify(newData, null, 4))
+        // console.log(JSON.stringify(newData, null, 4))
         setFormData(newData)
     }
 
@@ -57,7 +57,7 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
                 ...formData,
                 playerId
             });
-            
+
             await api.player.addPlayerToGame(playerId, gameId);
             navigate(`/session/${gameId}`)
         }

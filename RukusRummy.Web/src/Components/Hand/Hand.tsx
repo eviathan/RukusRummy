@@ -15,7 +15,7 @@ export const Hand: React.FC<React.PropsWithChildren<IProps>> = ({ type, deck, on
     const cards = deck?.values?.split(',') ?? [];
 
     const handleOnClick = (card: number) => {
-        debugger;
+        // debugger;
         if(card === selectedCard) {
             setSelectedCard(undefined);
             onSelectCard(undefined);

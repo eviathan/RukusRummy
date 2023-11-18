@@ -132,7 +132,7 @@ public class PlayerController : ControllerBase
             
             await _hubContext.Clients.All.SendAsync("GameUpdated", gameId);
 
-            return Ok();
+            return Ok(gameId);
         }
         catch(ArgumentNullException)
         {

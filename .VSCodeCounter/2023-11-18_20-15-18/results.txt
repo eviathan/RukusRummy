@@ -1,0 +1,319 @@
+Date : 2023-11-18 20:15:18
+Directory : /Users/brian/Dev/Web/RukusRummy
+Total : 199 files,  34028 codes, 368 comments, 1702 blanks, all 36098 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |         10 |     19,469 |          0 |          8 |     19,477 |
+| CSS                |          7 |      3,786 |         13 |          8 |      3,807 |
+| Less               |          1 |      3,620 |          2 |        269 |      3,891 |
+| C#                 |         76 |      3,450 |        233 |        760 |      4,443 |
+| ASP.NET Razor      |         25 |        965 |          2 |         99 |      1,066 |
+| TypeScript JSX     |         24 |        943 |         28 |        196 |      1,167 |
+| SCSS               |         19 |        727 |         10 |        113 |        850 |
+| XML                |          8 |        463 |          1 |         20 |        484 |
+| Markdown           |          4 |        233 |          0 |        128 |        361 |
+| TypeScript         |         12 |        225 |         13 |         57 |        295 |
+| Properties         |          2 |         58 |         18 |         14 |         90 |
+| JSON with Comments |          1 |         26 |          0 |          1 |         27 |
+| Docker             |          1 |         22 |         15 |         15 |         52 |
+| HTML               |          2 |         21 |         23 |          1 |         45 |
+| JavaScript         |          4 |          9 |          3 |          2 |         14 |
+| Ignore             |          1 |          7 |          6 |          6 |         19 |
+| Shell Script       |          1 |          2 |          1 |          3 |          6 |
+| Batch              |          1 |          2 |          0 |          2 |          4 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                    | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                       |        199 |     34,028 |        368 |      1,702 |     36,098 |
+| . (Files)                                                                                                                               |          5 |        111 |         39 |         52 |        202 |
+| RukusRummy.Api                                                                                                                          |         11 |        518 |         45 |        107 |        670 |
+| RukusRummy.Api (Files)                                                                                                                  |          5 |         82 |          1 |         26 |        109 |
+| RukusRummy.Api/Controllers                                                                                                              |          3 |        317 |         34 |         66 |        417 |
+| RukusRummy.Api/Extensions                                                                                                               |          1 |         37 |          0 |          5 |         42 |
+| RukusRummy.Api/Hubs                                                                                                                     |          1 |         41 |         10 |          9 |         60 |
+| RukusRummy.Api/Properties                                                                                                               |          1 |         41 |          0 |          1 |         42 |
+| RukusRummy.BusinessLogic                                                                                                                |         23 |        673 |          6 |        152 |        831 |
+| RukusRummy.BusinessLogic (Files)                                                                                                        |          3 |         58 |          1 |         12 |         71 |
+| RukusRummy.BusinessLogic/Models                                                                                                         |         12 |        168 |          1 |         43 |        212 |
+| RukusRummy.BusinessLogic/Models (Files)                                                                                                 |          7 |         81 |          1 |         19 |        101 |
+| RukusRummy.BusinessLogic/Models/DTOs                                                                                                    |          5 |         87 |          0 |         24 |        111 |
+| RukusRummy.BusinessLogic/Repositories                                                                                                   |          5 |        205 |          3 |         55 |        263 |
+| RukusRummy.BusinessLogic/Services                                                                                                       |          3 |        242 |          1 |         42 |        285 |
+| RukusRummy.Identity                                                                                                                     |         89 |     11,230 |        194 |        992 |     12,416 |
+| RukusRummy.Identity (Files)                                                                                                             |          8 |        236 |         25 |         49 |        310 |
+| RukusRummy.Identity/Data                                                                                                                |          4 |        610 |          5 |        161 |        776 |
+| RukusRummy.Identity/Data (Files)                                                                                                        |          1 |         15 |          3 |          4 |         22 |
+| RukusRummy.Identity/Data/Migrations                                                                                                     |          3 |        595 |          2 |        157 |        754 |
+| RukusRummy.Identity/Models                                                                                                              |          1 |          5 |          3 |          5 |         13 |
+| RukusRummy.Identity/Pages                                                                                                               |         61 |      2,441 |        147 |        399 |      2,987 |
+| RukusRummy.Identity/Pages (Files)                                                                                                       |          6 |        108 |         23 |         23 |        154 |
+| RukusRummy.Identity/Pages/Account                                                                                                       |         13 |        436 |         40 |         91 |        567 |
+| RukusRummy.Identity/Pages/Account (Files)                                                                                               |          2 |         18 |          0 |          2 |         20 |
+| RukusRummy.Identity/Pages/Account/Login                                                                                                 |          5 |        270 |         21 |         54 |        345 |
+| RukusRummy.Identity/Pages/Account/Logout                                                                                                |          6 |        148 |         19 |         35 |        202 |
+| RukusRummy.Identity/Pages/Ciba                                                                                                          |         10 |        490 |         18 |         69 |        577 |
+| RukusRummy.Identity/Pages/Consent                                                                                                       |          6 |        375 |         17 |         48 |        440 |
+| RukusRummy.Identity/Pages/Device                                                                                                        |          8 |        397 |         13 |         53 |        463 |
+| RukusRummy.Identity/Pages/Diagnostics                                                                                                   |          3 |        100 |          2 |         15 |        117 |
+| RukusRummy.Identity/Pages/ExternalLogin                                                                                                 |          4 |        204 |         30 |         44 |        278 |
+| RukusRummy.Identity/Pages/Grants                                                                                                        |          3 |        171 |          0 |         18 |        189 |
+| RukusRummy.Identity/Pages/Home                                                                                                          |          3 |         73 |          4 |         18 |         95 |
+| RukusRummy.Identity/Pages/Home/Error                                                                                                    |          3 |         73 |          4 |         18 |         95 |
+| RukusRummy.Identity/Pages/Redirect                                                                                                      |          2 |         30 |          0 |          7 |         37 |
+| RukusRummy.Identity/Pages/Shared                                                                                                        |          3 |         57 |          0 |         13 |         70 |
+| RukusRummy.Identity/Properties                                                                                                          |          1 |         12 |          0 |          0 |         12 |
+| RukusRummy.Identity/wwwroot                                                                                                             |         14 |      7,926 |         14 |        378 |      8,318 |
+| RukusRummy.Identity/wwwroot (Files)                                                                                                     |          1 |          1 |          0 |          0 |          1 |
+| RukusRummy.Identity/wwwroot/css                                                                                                         |          3 |         77 |          0 |         15 |         92 |
+| RukusRummy.Identity/wwwroot/js                                                                                                          |          2 |          7 |          0 |          2 |          9 |
+| RukusRummy.Identity/wwwroot/lib                                                                                                         |          8 |      7,841 |         14 |        361 |      8,216 |
+| RukusRummy.Identity/wwwroot/lib/bootstrap                                                                                               |          1 |        144 |          0 |         66 |        210 |
+| RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons                                                                                   |          6 |      7,658 |         14 |        271 |      7,943 |
+| RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons/css                                                                               |          2 |        804 |         10 |          2 |        816 |
+| RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons/fonts                                                                             |          1 |        288 |          0 |          0 |        288 |
+| RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons/fonts/glyphicons                                                                  |          1 |        288 |          0 |          0 |        288 |
+| RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons/maps                                                                              |          3 |      6,566 |          4 |        269 |      6,839 |
+| RukusRummy.Identity/wwwroot/lib/jquery                                                                                                  |          1 |         39 |          0 |         24 |         63 |
+| RukusRummy.Test.Unit                                                                                                                    |          3 |         74 |          5 |         14 |         93 |
+| RukusRummy.Web                                                                                                                          |         68 |     21,422 |         79 |        385 |     21,886 |
+| RukusRummy.Web (Files)                                                                                                                  |          4 |     19,370 |          0 |         24 |     19,394 |
+| RukusRummy.Web/build                                                                                                                    |          6 |         44 |          4 |          1 |         49 |
+| RukusRummy.Web/build (Files)                                                                                                            |          3 |         41 |          0 |          1 |         42 |
+| RukusRummy.Web/build/static                                                                                                             |          3 |          3 |          4 |          0 |          7 |
+| RukusRummy.Web/build/static/css                                                                                                         |          1 |          1 |          1 |          0 |          2 |
+| RukusRummy.Web/build/static/js                                                                                                          |          2 |          2 |          3 |          0 |          5 |
+| RukusRummy.Web/public                                                                                                                   |          2 |         45 |         23 |          2 |         70 |
+| RukusRummy.Web/src                                                                                                                      |         56 |      1,963 |         52 |        358 |      2,373 |
+| RukusRummy.Web/src (Files)                                                                                                              |          7 |        113 |         11 |         22 |        146 |
+| RukusRummy.Web/src/Api                                                                                                                  |          5 |        134 |          8 |         39 |        181 |
+| RukusRummy.Web/src/Components                                                                                                           |         31 |      1,091 |         26 |        208 |      1,325 |
+| RukusRummy.Web/src/Components (Files)                                                                                                   |          2 |         33 |          0 |          7 |         40 |
+| RukusRummy.Web/src/Components/Buttons                                                                                                   |          2 |         12 |          0 |          8 |         20 |
+| RukusRummy.Web/src/Components/Dropdown                                                                                                  |          2 |        114 |          0 |         24 |        138 |
+| RukusRummy.Web/src/Components/Hand                                                                                                      |          2 |        111 |          0 |         21 |        132 |
+| RukusRummy.Web/src/Components/Header                                                                                                    |          5 |        109 |         12 |         23 |        144 |
+| RukusRummy.Web/src/Components/Modal                                                                                                     |          6 |        176 |          6 |         32 |        214 |
+| RukusRummy.Web/src/Components/PlayedCard                                                                                                |          2 |         80 |          0 |         14 |         94 |
+| RukusRummy.Web/src/Components/Sections                                                                                                  |          2 |         69 |          2 |         10 |         81 |
+| RukusRummy.Web/src/Components/Table                                                                                                     |          2 |        120 |          2 |         21 |        143 |
+| RukusRummy.Web/src/Components/TextInput                                                                                                 |          2 |        143 |          2 |         27 |        172 |
+| RukusRummy.Web/src/Components/Timer                                                                                                     |          2 |         46 |          0 |          6 |         52 |
+| RukusRummy.Web/src/Components/Toggle                                                                                                    |          2 |         78 |          2 |         15 |         95 |
+| RukusRummy.Web/src/Contexts                                                                                                             |          3 |        141 |          3 |         28 |        172 |
+| RukusRummy.Web/src/Models                                                                                                               |          3 |         65 |          0 |         10 |         75 |
+| RukusRummy.Web/src/Pages                                                                                                                |          5 |        298 |          3 |         47 |        348 |
+| RukusRummy.Web/src/Utilities                                                                                                            |          1 |         12 |          0 |          3 |         15 |
+| RukusRummy.Web/src/assets                                                                                                               |          1 |        109 |          1 |          1 |        111 |
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                                                | language           | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| /Users/brian/Dev/Web/RukusRummy/.dockerignore                                                                                           | Ignore             |          7 |          6 |          6 |         19 |
+| /Users/brian/Dev/Web/RukusRummy/Dockerfile                                                                                              | Docker             |         22 |         15 |         15 |         52 |
+| /Users/brian/Dev/Web/RukusRummy/README.md                                                                                               | Markdown           |         24 |          0 |         17 |         41 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/Controllers/DeckController.cs                                                            | C#                 |         80 |          0 |         12 |         92 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/Controllers/GameController.cs                                                            | C#                 |        122 |          0 |         18 |        140 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/Controllers/PlayerController.cs                                                          | C#                 |        115 |         34 |         36 |        185 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/Extensions/IServiceCollectionExtensions.cs                                               | C#                 |         37 |          0 |          5 |         42 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/Hubs/GameHub.cs                                                                          | C#                 |         41 |         10 |          9 |         60 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/Program.cs                                                                               | C#                 |         43 |          1 |         14 |         58 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/Properties/launchSettings.json                                                           | JSON               |         41 |          0 |          1 |         42 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/RukusRummy.Api.csproj                                                                    | XML                |         14 |          0 |          5 |         19 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/WeatherForecast.cs                                                                       | C#                 |          8 |          0 |          5 |         13 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/appsettings.Development.json                                                             | JSON               |          8 |          0 |          1 |          9 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Api/appsettings.json                                                                         | JSON               |          9 |          0 |          1 |         10 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Defaults.cs                                                                    | C#                 |         28 |          0 |          1 |         29 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/DTOs/AddPlayerDTO.cs                                                    | C#                 |         13 |          0 |          3 |         16 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/DTOs/CreateGameDTO.cs                                                   | C#                 |         19 |          0 |          1 |         20 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/DTOs/DeckDTO.cs                                                         | C#                 |         20 |          0 |          5 |         25 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/DTOs/GameDTO.cs                                                         | C#                 |         21 |          0 |         11 |         32 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/DTOs/PickCardDTO.cs                                                     | C#                 |         14 |          0 |          4 |         18 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/Deck.cs                                                                 | C#                 |         13 |          0 |          3 |         16 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/Entity.cs                                                               | C#                 |         11 |          0 |          1 |         12 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/Game.cs                                                                 | C#                 |         21 |          0 |         11 |         32 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/GameNotificationType.cs                                                 | C#                 |          7 |          0 |          0 |          7 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/GameStateType.cs                                                        | C#                 |          8 |          0 |          0 |          8 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/Player.cs                                                               | C#                 |         13 |          1 |          4 |         18 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Models/PlayerPermissionType.cs                                                 | C#                 |          8 |          0 |          0 |          8 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Repositories/DeckMemoryRepository.cs                                           | C#                 |         44 |          0 |         13 |         57 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Repositories/GameMemoryRepository.cs                                           | C#                 |         54 |          3 |         12 |         69 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Repositories/IRepository.cs                                                    | C#                 |         15 |          0 |          5 |         20 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Repositories/PlayerMemoryRepository.cs                                         | C#                 |         44 |          0 |         12 |         56 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Repositories/RoundMemoryRepository.cs                                          | C#                 |         48 |          0 |         13 |         61 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Round.cs                                                                       | C#                 |         20 |          1 |          7 |         28 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/RukusRummy.BusinessLogic.csproj                                                | XML                |         10 |          0 |          4 |         14 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Services/DeckService.cs                                                        | C#                 |         63 |          0 |         11 |         74 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Services/GameService.cs                                                        | C#                 |        131 |          1 |         21 |        153 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.BusinessLogic/Services/PlayerService.cs                                                      | C#                 |         48 |          0 |         10 |         58 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Config.cs                                                                           | C#                 |         40 |          2 |         11 |         53 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Data/ApplicationDbContext.cs                                                        | C#                 |         15 |          3 |          4 |         22 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Data/Migrations/20211227182747_Users.Designer.cs                                    | C#                 |        200 |          1 |         67 |        268 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Data/Migrations/20211227182747_Users.cs                                             | C#                 |        197 |          0 |         23 |        220 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Data/Migrations/ApplicationDbContextModelSnapshot.cs                                | C#                 |        198 |          1 |         67 |        266 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/HostingExtensions.cs                                                                | C#                 |         55 |          4 |         14 |         73 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Models/ApplicationUser.cs                                                           | C#                 |          5 |          3 |          5 |         13 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/AccessDenied.cshtml                                                   | ASP.NET Razor      |         10 |          0 |          0 |         10 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/AccessDenied.cshtml.cs                                                | C#                 |          8 |          0 |          2 |         10 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Login/Index.cshtml                                                    | ASP.NET Razor      |         79 |          0 |         10 |         89 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Login/Index.cshtml.cs                                                 | C#                 |        156 |         17 |         30 |        203 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Login/InputModel.cs                                                   | C#                 |         12 |          2 |          8 |         22 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Login/LoginOptions.cs                                                 | C#                 |          8 |          0 |          1 |          9 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Login/ViewModel.cs                                                    | C#                 |         15 |          2 |          5 |         22 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Logout/Index.cshtml                                                   | ASP.NET Razor      |         14 |          0 |          3 |         17 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Logout/Index.cshtml.cs                                                | C#                 |         68 |         16 |         16 |        100 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Logout/LoggedOut.cshtml                                               | ASP.NET Razor      |         26 |          0 |          4 |         30 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Logout/LoggedOut.cshtml.cs                                            | C#                 |         26 |          1 |          6 |         33 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Logout/LoggedOutViewModel.cs                                          | C#                 |          8 |          2 |          4 |         14 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Account/Logout/LogoutOptions.cs                                               | C#                 |          6 |          0 |          2 |          8 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Ciba/All.cshtml                                                               | ASP.NET Razor      |         47 |          0 |          1 |         48 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Ciba/All.cshtml.cs                                                            | C#                 |         26 |          2 |          7 |         35 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Ciba/Consent.cshtml                                                           | ASP.NET Razor      |         90 |          0 |          9 |         99 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Ciba/Consent.cshtml.cs                                                        | C#                 |        183 |          8 |         27 |        218 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Ciba/ConsentOptions.cs                                                        | C#                 |          9 |          2 |          4 |         15 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Ciba/Index.cshtml                                                             | ASP.NET Razor      |         26 |          0 |          5 |         31 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Ciba/Index.cshtml.cs                                                          | C#                 |         29 |          2 |          7 |         38 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Ciba/InputModel.cs                                                            | C#                 |          8 |          2 |          2 |         12 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Ciba/ViewModel.cs                                                             | C#                 |         26 |          2 |          6 |         34 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Ciba/_ScopeListItem.cshtml                                                    | ASP.NET Razor      |         46 |          0 |          1 |         47 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Consent/ConsentOptions.cs                                                     | C#                 |          9 |          2 |          4 |         15 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Consent/Index.cshtml                                                          | ASP.NET Razor      |        100 |          0 |          8 |        108 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Consent/Index.cshtml.cs                                                       | C#                 |        185 |         11 |         28 |        224 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Consent/InputModel.cs                                                         | C#                 |          9 |          2 |          2 |         13 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Consent/ViewModel.cs                                                          | C#                 |         26 |          2 |          5 |         33 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Consent/_ScopeListItem.cshtml                                                 | ASP.NET Razor      |         46 |          0 |          1 |         47 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Device/DeviceOptions.cs                                                       | C#                 |         10 |          2 |          4 |         16 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Device/Index.cshtml                                                           | ASP.NET Razor      |        129 |          2 |         11 |        142 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Device/Index.cshtml.cs                                                        | C#                 |        174 |          9 |         28 |        211 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Device/InputModel.cs                                                          | C#                 |         10 |          0 |          1 |         11 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Device/Success.cshtml                                                         | ASP.NET Razor      |         10 |          0 |          3 |         13 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Device/Success.cshtml.cs                                                      | C#                 |         11 |          0 |          2 |         13 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Device/ViewModel.cs                                                           | C#                 |         19 |          0 |          3 |         22 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Device/_ScopeListItem.cshtml                                                  | ASP.NET Razor      |         34 |          0 |          1 |         35 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Diagnostics/Index.cshtml                                                      | ASP.NET Razor      |         58 |          0 |          3 |         61 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Diagnostics/Index.cshtml.cs                                                   | C#                 |         21 |          0 |          5 |         26 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Diagnostics/ViewModel.cs                                                      | C#                 |         21 |          2 |          7 |         30 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Extensions.cs                                                                 | C#                 |         25 |         11 |          7 |         43 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/ExternalLogin/Callback.cshtml                                                 | ASP.NET Razor      |         15 |          0 |          4 |         19 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/ExternalLogin/Callback.cshtml.cs                                              | C#                 |        140 |         27 |         28 |        195 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/ExternalLogin/Challenge.cshtml                                                | ASP.NET Razor      |         15 |          0 |          4 |         19 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/ExternalLogin/Challenge.cshtml.cs                                             | C#                 |         34 |          3 |          8 |         45 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Grants/Index.cshtml                                                           | ASP.NET Razor      |         86 |          0 |          4 |         90 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Grants/Index.cshtml.cs                                                        | C#                 |         68 |          0 |         12 |         80 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Grants/ViewModel.cs                                                           | C#                 |         17 |          0 |          2 |         19 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Home/Error/Index.cshtml                                                       | ASP.NET Razor      |         30 |          0 |          6 |         36 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Home/Error/Index.cshtml.cs                                                    | C#                 |         30 |          2 |          7 |         39 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Home/Error/ViewModel.cs                                                       | C#                 |         13 |          2 |          5 |         20 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Index.cshtml                                                                  | ASP.NET Razor      |         30 |          0 |          3 |         33 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Index.cshtml.cs                                                               | C#                 |         13 |          0 |          3 |         16 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Redirect/Index.cshtml                                                         | ASP.NET Razor      |         12 |          0 |          3 |         15 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Redirect/Index.cshtml.cs                                                      | C#                 |         18 |          0 |          4 |         22 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/SecurityHeadersAttribute.cs                                                   | C#                 |         35 |         12 |          8 |         55 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Shared/_Layout.cshtml                                                         | ASP.NET Razor      |         23 |          0 |          7 |         30 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Shared/_Nav.cshtml                                                            | ASP.NET Razor      |         27 |          0 |          6 |         33 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/Shared/_ValidationSummary.cshtml                                              | ASP.NET Razor      |          7 |          0 |          0 |          7 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/_ViewImports.cshtml                                                           | ASP.NET Razor      |          2 |          0 |          1 |          3 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Pages/_ViewStart.cshtml                                                             | ASP.NET Razor      |          3 |          0 |          1 |          4 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Program.cs                                                                          | C#                 |         24 |         18 |          7 |         49 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/Properties/launchSettings.json                                                      | JSON               |         12 |          0 |          0 |         12 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/RukusRummy.Identity.csproj                                                          | XML                |         16 |          0 |          4 |         20 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/SeedData.cs                                                                         | C#                 |         81 |          0 |          7 |         88 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/appsettings.json                                                                    | JSON               |         16 |          0 |          1 |         17 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/buildschema.bat                                                                     | Batch              |          2 |          0 |          2 |          4 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/buildschema.sh                                                                      | Shell Script       |          2 |          1 |          3 |          6 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/css/site.css                                                                | CSS                |         34 |          0 |          6 |         40 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/css/site.min.css                                                            | CSS                |          1 |          0 |          0 |          1 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/css/site.scss                                                               | SCSS               |         42 |          0 |          9 |         51 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/duende-logo.svg                                                             | XML                |          1 |          0 |          0 |          1 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/js/signin-redirect.js                                                       | JavaScript         |          1 |          0 |          1 |          2 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/js/signout-redirect.js                                                      | JavaScript         |          6 |          0 |          1 |          7 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/lib/bootstrap/README.md                                                     | Markdown           |        144 |          0 |         66 |        210 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons/css/bootstrap-glyphicons.css                      | CSS                |        803 |          5 |          2 |        810 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons/css/bootstrap-glyphicons.min.css                  | CSS                |          1 |          5 |          0 |          6 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons/fonts/glyphicons/glyphicons-halflings-regular.svg | XML                |        288 |          0 |          0 |        288 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons/maps/glyphicons-fontawesome.css                   | CSS                |      2,945 |          2 |          0 |      2,947 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons/maps/glyphicons-fontawesome.less                  | Less               |      3,620 |          2 |        269 |      3,891 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/lib/bootstrap4-glyphicons/maps/glyphicons-fontawesome.min.css               | CSS                |          1 |          0 |          0 |          1 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Identity/wwwroot/lib/jquery/README.md                                                        | Markdown           |         39 |          0 |         24 |         63 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Test.Unit/GameService_GetGameAsync.cs                                                        | C#                 |         49 |          5 |          8 |         62 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Test.Unit/RukusRummy.Test.Unit.csproj                                                        | XML                |         24 |          0 |          6 |         30 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Test.Unit/Usings.cs                                                                          | C#                 |          1 |          0 |          0 |          1 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/README.md                                                                                | Markdown           |         26 |          0 |         21 |         47 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/build/asset-manifest.json                                                                | JSON               |         15 |          0 |          0 |         15 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/build/index.html                                                                         | HTML               |          1 |          0 |          0 |          1 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/build/manifest.json                                                                      | JSON               |         25 |          0 |          1 |         26 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/build/static/css/main.e6c13ad2.css                                                       | CSS                |          1 |          1 |          0 |          2 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/build/static/js/787.ee9b3a7e.chunk.js                                                    | JavaScript         |          1 |          1 |          0 |          2 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/build/static/js/main.e8027a63.js                                                         | JavaScript         |          1 |          2 |          0 |          3 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/package-lock.json                                                                        | JSON               |     19,264 |          0 |          1 |     19,265 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/package.json                                                                             | JSON               |         54 |          0 |          1 |         55 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/public/index.html                                                                        | HTML               |         20 |         23 |          1 |         44 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/public/manifest.json                                                                     | JSON               |         25 |          0 |          1 |         26 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Api/BaseApi.ts                                                                       | TypeScript         |         60 |          0 |         16 |         76 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Api/DeckApi.ts                                                                       | TypeScript         |         27 |          0 |          7 |         34 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Api/GameApi.ts                                                                       | TypeScript         |         20 |          0 |          7 |         27 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Api/PlayerApi.ts                                                                     | TypeScript         |         20 |          8 |          6 |         34 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Api/TestApi.ts                                                                       | TypeScript         |          7 |          0 |          3 |         10 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Buttons/StartNewGameButton.scss                                           | SCSS               |          0 |          0 |          1 |          1 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Buttons/StartNewGameButton.tsx                                            | TypeScript JSX     |         12 |          0 |          7 |         19 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Dropdown/Dropdown.scss                                                    | SCSS               |         66 |          0 |         12 |         78 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Dropdown/Dropdown.tsx                                                     | TypeScript JSX     |         48 |          0 |         12 |         60 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Hand/Hand.scss                                                            | SCSS               |         57 |          0 |         11 |         68 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Hand/Hand.tsx                                                             | TypeScript JSX     |         54 |          0 |         10 |         64 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Header/CreateGamePageHeader.tsx                                           | TypeScript JSX     |          8 |          0 |          2 |         10 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Header/Header.scss                                                        | SCSS               |         33 |          2 |          7 |         42 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Header/Header.tsx                                                         | TypeScript JSX     |         45 |          1 |          8 |         54 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Header/LandingPageHeader.tsx                                              | TypeScript JSX     |          7 |          4 |          3 |         14 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Header/SessionPageHeader.tsx                                              | TypeScript JSX     |         16 |          5 |          3 |         24 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Layout.scss                                                               | SCSS               |         11 |          0 |          1 |         12 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Layout.tsx                                                                | TypeScript JSX     |         22 |          0 |          6 |         28 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Modal/ChooseYourNameModal.scss                                            | SCSS               |         10 |          0 |          1 |         11 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Modal/ChooseYourNameModal.tsx                                             | TypeScript JSX     |         31 |          6 |         11 |         48 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Modal/CreateACustomDeckModal.scss                                         | SCSS               |         15 |          0 |          2 |         17 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Modal/CreateACustomDeckModal.tsx                                          | TypeScript JSX     |         88 |          0 |         15 |        103 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Modal/Modal.scss                                                          | SCSS               |         21 |          0 |          1 |         22 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Modal/Modal.tsx                                                           | TypeScript JSX     |         11 |          0 |          2 |         13 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/PlayedCard/PlayedCard.scss                                                | SCSS               |         48 |          0 |          4 |         52 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/PlayedCard/PlayedCard.tsx                                                 | TypeScript JSX     |         32 |          0 |         10 |         42 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Sections/HeroSection.scss                                                 | SCSS               |         45 |          2 |          5 |         52 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Sections/HeroSection.tsx                                                  | TypeScript JSX     |         24 |          0 |          5 |         29 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Table/Table.scss                                                          | SCSS               |         61 |          1 |          9 |         71 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Table/Table.tsx                                                           | TypeScript JSX     |         59 |          1 |         12 |         72 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/TextInput/TextInput.scss                                                  | SCSS               |        109 |          2 |         19 |        130 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/TextInput/TextInput.tsx                                                   | TypeScript JSX     |         34 |          0 |          8 |         42 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Timer/Timer.scss                                                          | SCSS               |         36 |          0 |          3 |         39 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Timer/Timer.tsx                                                           | TypeScript JSX     |         10 |          0 |          3 |         13 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Toggle/Toggle.scss                                                        | SCSS               |         61 |          2 |         10 |         73 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Components/Toggle/Toggle.tsx                                                         | TypeScript JSX     |         17 |          0 |          5 |         22 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Contexts/ApiContext.tsx                                                              | TypeScript JSX     |         32 |          0 |          5 |         37 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Contexts/AppContext.tsx                                                              | TypeScript JSX     |         79 |          3 |         14 |         96 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Contexts/GameHubContext.tsx                                                          | TypeScript JSX     |         30 |          0 |          9 |         39 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Models/Deck.ts                                                                       | TypeScript         |          5 |          0 |          0 |          5 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Models/Game.ts                                                                       | TypeScript         |         51 |          0 |          8 |         59 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Models/Player.ts                                                                     | TypeScript         |          9 |          0 |          2 |         11 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Pages/CreateGame.scss                                                                | SCSS               |         17 |          0 |          3 |         20 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Pages/CreateGamePage.tsx                                                             | TypeScript JSX     |        179 |          0 |         22 |        201 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Pages/LandingPage.tsx                                                                | TypeScript JSX     |          9 |          0 |          4 |         13 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Pages/SessionPage.scss                                                               | SCSS               |         26 |          1 |          4 |         31 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Pages/SessionPage.tsx                                                                | TypeScript JSX     |         67 |          2 |         14 |         83 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/Utilities/StringUtilities.ts                                                         | TypeScript         |         12 |          0 |          3 |         15 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/assets/logo-black.svg                                                                | XML                |        109 |          1 |          1 |        111 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/index.scss                                                                           | SCSS               |         68 |          0 |         11 |         79 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/index.tsx                                                                            | TypeScript JSX     |         29 |          6 |          6 |         41 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/logo.svg                                                                             | XML                |          1 |          0 |          0 |          1 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/react-app-env.d.ts                                                                   | TypeScript         |          0 |          1 |          1 |          2 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/reportWebVitals.ts                                                                   | TypeScript         |         13 |          0 |          3 |         16 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/setupTests.ts                                                                        | TypeScript         |          1 |          4 |          1 |          6 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/src/variables.scss                                                                       | SCSS               |          1 |          0 |          0 |          1 |
+| /Users/brian/Dev/Web/RukusRummy/RukusRummy.Web/tsconfig.json                                                                            | JSON with Comments |         26 |          0 |          1 |         27 |
+| /Users/brian/Dev/Web/RukusRummy/nginx.conf                                                                                              | Properties         |         41 |         10 |         10 |         61 |
+| /Users/brian/Dev/Web/RukusRummy/supervisord.conf                                                                                        | Properties         |         17 |          8 |          4 |         29 |
+| Total                                                                                                                                   |                    |     34,028 |        368 |      1,702 |     36,098 |
++-----------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
