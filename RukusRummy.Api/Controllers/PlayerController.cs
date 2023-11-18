@@ -70,14 +70,6 @@ public class PlayerController : ControllerBase
     //     }
     // }
 
-//       async createNewPlayer(name: string, isSpectator: boolean): Promise<IPlayer> {
-//     return await this.getAsync({ name, isSpectator });
-//   }
-
-//   async addPlayerToGame(playerId: string, gameId: string): Promise<IPlayer> {
-//     return await this.getAsync(undefined, `${playerId}/game/${gameId}`);
-//   }
-
     public class CreateNewPlayerRequest
     {
         [Required]
@@ -111,6 +103,36 @@ public class PlayerController : ControllerBase
             await _hubContext.Clients.All.SendAsync("UserConnected", player);
 
             return Ok(player);
+        }
+        catch(ArgumentNullException)
+        {
+            return BadRequest();
+        }
+    }
+
+
+    
+//   async addPlayerToGame(playerId: string, gameId: string): Promise<IPlayer> {
+//     return await this.getAsync(undefined, `${playerId}/game/${gameId}`);
+//   }
+    // TODO: Maybe move this to the game controller
+    [HttpPost("{playerId}/game/{gameId}")]  
+    public async Task<ActionResult<Guid>> AddPlayerToGame(Guid playerId, Guid gameId)  
+    {
+        try
+        {
+            var game = await _gameService.GetAsync(gameId);
+
+            if(!game.Players.Any(x => x.Id == playerId))
+            {
+                var player = await _playerService.GetPlayerAsync(playerId);
+                game.Players.Add(player);
+                await _gameService.UpdateAsync(game);
+            }
+            
+            await _hubContext.Clients.All.SendAsync("GameUpdated", gameId);
+
+            return Ok();
         }
         catch(ArgumentNullException)
         {

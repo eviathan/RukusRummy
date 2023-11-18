@@ -57,6 +57,8 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
                 ...formData,
                 playerId
             });
+            
+            await api.player.addPlayerToGame(playerId, gameId);
             navigate(`/session/${gameId}`)
         }
     }

@@ -19,16 +19,18 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     useEffect(() => {
         const load = async () => {
             try {
-                if(id) {
+                if(id && app.player?.id) {
                     const game = await api.game.get(id);
                     app.setGame(game);
+
+                    await api.player.addPlayerToGame(game.id, app.player?.id)
                 }
             } catch (e) {
             }
         };
 
         load();
-    }, [id]);
+    }, [id, app.player?.id]);
 
     if(!app.game) {
         // TODO: Add a prettier loader here, maybe centralise the loading 
