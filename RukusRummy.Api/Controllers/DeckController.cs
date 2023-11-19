@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using RukusRummy.Api.Hubs;
 using RukusRummy.BusinessLogic.Models.DTOs;
 using RukusRummy.BusinessLogic.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RukusRummy.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class DeckController : ControllerBase

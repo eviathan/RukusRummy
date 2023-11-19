@@ -2,19 +2,21 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Api } from '../Contexts/ApiContext';
+import { App } from '../Contexts/AppContext';
+
 import IDeck from '../Models/Deck';
-import TextInput from '../Components/TextInput/TextInput';
-import Dropdown, { IDropdownOption } from '../Components/Dropdown/Dropdown';
-import Toggle from '../Components/Toggle/Toggle';
 import { ICreateGameRequest } from '../Models/Game';
 
-import './CreateGame.scss';
+import Dropdown, { IDropdownOption } from '../Components/Dropdown/Dropdown';
+import TextInput from '../Components/TextInput/TextInput';
+import Toggle from '../Components/Toggle/Toggle';
 import Modal from '../Components/Modal/Modal';
 import CreateACustomDeckModal from '../Components/Modal/CreateACustomDeckModal';
-import { App } from '../Contexts/AppContext';
 import ChooseYourNameModal from '../Components/Modal/ChooseYourNameModal';
 
-export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
+import './CreateGame.scss';
+
+export const CreateGamePage: React.FC = () => {
   const api = useContext(Api);
   const app = useContext(App);
   const navigate = useNavigate();
@@ -45,7 +47,6 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
             ...data
         }
 
-        // console.log(JSON.stringify(newData, null, 4))
         setFormData(newData)
     }
 
@@ -58,7 +59,6 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
                 playerId
             });
 
-            // await api.player.addPlayerToGame(playerId, gameId);
             await app.joinGame(playerId, gameId);
             navigate(`/session/${gameId}`)
         }
@@ -80,6 +80,9 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
             && formData.deck !== "button";
     }
 
+    if(loading)
+        return <h1>Loading!</h1>
+
     return (
         <>
         {app?.player !== undefined
@@ -91,7 +94,7 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
                                 <CreateACustomDeckModal 
                                     onCancel={() => setIsCreatingDeck(false)} 
                                     onContinue={async (deck) => { 
-                                        await api.deck.create(deck.name, deck.values);                     
+                                        await api.deck.create(deck.name, deck.values);
                                         setIsCreatingDeck(false);
                                     }} 
                                 />

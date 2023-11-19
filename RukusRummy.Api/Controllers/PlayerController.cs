@@ -143,6 +143,36 @@ public class PlayerController : ControllerBase
         }
     }
 
+    [HttpPost("{playerId}/deck/{deckId}")]  
+    public async Task<ActionResult<Guid>> AddDeckToPlayer(Guid playerId, Guid deckId)  
+    {
+
+        await Task.Delay(1);
+        return Guid.Empty;
+        
+        // try
+        // {
+        //     var game = await _gameService.GetAsync(gameId);
+
+        //     if(!game.Players.Any(x => x.Id == playerId))
+        //     {
+        //         var player = await _playerService.GetPlayerAsync(playerId);
+        //         game.Players.Add(player);
+        //         await _gameService.UpdateAsync(game);
+        //     }
+
+        //     var group = _hubContext.Clients.Group(gameId.ToString());
+            
+            
+        //     await _hubContext.Clients.User .Clients.Group().All.SendAsync("PlayerUpdated", gameId);
+
+        //     return Ok(gameId);
+        // }
+        // catch(ArgumentNullException)
+        // {
+        //     return BadRequest();
+        // }
+    }
 
 
     [HttpGet]
