@@ -58,7 +58,8 @@ export const CreateGamePage: React.FC<React.PropsWithChildren<{}>> = () => {
                 playerId
             });
 
-            await api.player.addPlayerToGame(playerId, gameId);
+            // await api.player.addPlayerToGame(playerId, gameId);
+            await app.joinGame(playerId, gameId);
             navigate(`/session/${gameId}`)
         }
     }

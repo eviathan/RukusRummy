@@ -15,19 +15,19 @@ export const GameHubProvider: React.FC<GameHubProviderProps> = ({ children }) =>
     const [connection, setConnection] = useState<HubConnection | null>(null);
 
     useEffect(() => {
-        const createConnection = new HubConnectionBuilder()
+        const hubConnection = new HubConnectionBuilder()
             .withUrl("http://localhost:5001/hubs/gamehub")
             .configureLogging(LogLevel.Information)
             .build();
 
-        setConnection(createConnection);
+        setConnection(hubConnection);
 
-        createConnection.start()
+        hubConnection.start()
             .then(() => console.log('SignalR Connected'))
             .catch(err => console.error('SignalR Connection Error: ', err));
 
         return () => {
-            createConnection.stop();
+            hubConnection.stop();
         };
     }, []);
 

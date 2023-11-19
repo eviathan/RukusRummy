@@ -23,8 +23,6 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 if(id) {
                     const game = await api.game.get(id);
                     app.setGame(game);
-
-
                 }
             } catch (e) {
             }
@@ -70,7 +68,8 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     async function handleDidCreatePlayer(player: IPlayer): Promise<void> {
         const game = app?.game;
         if(game) {
-            await api.player.addPlayerToGame(player.id, game?.id,)
+            await app.joinGame(player.id, game.id);
+            // await api.player.addPlayerToGame(player.id, game?.id,)
         }
     }
 

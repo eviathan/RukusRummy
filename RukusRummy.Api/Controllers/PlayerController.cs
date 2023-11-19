@@ -129,6 +129,9 @@ public class PlayerController : ControllerBase
                 game.Players.Add(player);
                 await _gameService.UpdateAsync(game);
             }
+
+            var group = _hubContext.Clients.Group(gameId.ToString());
+            
             
             await _hubContext.Clients.All.SendAsync("GameUpdated", gameId);
 

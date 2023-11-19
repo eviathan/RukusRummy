@@ -6,6 +6,7 @@ import { IPlayer, IPlayerPreferencesCache } from "../Models/Player";
 import { GameHubContext } from "./GameHubContext";
 
 export interface IAppFactory {
+    joinGame(playerId: string, gameId: string): unknown;
 	loading: boolean;
 	game?: IGame;
 	player?: IPlayer;
@@ -13,6 +14,7 @@ export interface IAppFactory {
 	setGame: (game: IGame) => void;
     setPlayer:(player: IPlayer) => void;
     playCard:(card?: number) => void;
+	joinGame: (playerId: string, gameId: string) => unknown;
 }
 
 export interface IAppProviderProps { }
@@ -22,7 +24,8 @@ export const App = React.createContext<IAppFactory>({
 	setGame: (game: IGame) => {},
 	updatePreferencesCache: (preferences: IPlayerPreferencesCache) => {},
 	setPlayer: (player: IPlayer) => {},
-	playCard:(card?: number) => {}
+	playCard:(card?: number) => {},
+	joinGame: (playerId: string, gameId: string) => {}
 });
 
 export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> = ({ children }) => {
@@ -79,6 +82,11 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 		// debugger;
 		connection?.invoke("UpdateCard", game?.id, player?.id, card);
 	}
+
+	async function joinGame(playerId: string, gameId: string): Promise<void> {
+		await api.player.addPlayerToGame(playerId, gameId);
+		connection?.invoke("JoinGame", gameId);
+	}
 	
 	return (
 		<App.Provider
@@ -89,7 +97,8 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 				updatePreferencesCache,
 				setGame,
 				setPlayer,
-				playCard
+				playCard,
+				joinGame
 			}}>
 			{children}
 		</App.Provider>
