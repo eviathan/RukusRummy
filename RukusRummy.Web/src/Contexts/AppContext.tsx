@@ -27,6 +27,7 @@ export const App = React.createContext<IAppFactory>({
 
 export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> = ({ children }) => {
 	const api = useContext(Api);
+	
 	const { connection } = useContext(GameHubContext);
 	
 	const [loading, setLoading] = useState<boolean>(false);

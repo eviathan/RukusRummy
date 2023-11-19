@@ -9,19 +9,7 @@ namespace RukusRummy.BusinessLogic.Repositories
     // NOTE: This will ultimately be replaced with a repo that stores the games in a database
     public class GameMemoryRepository : IRepository<Game>
     {
-        private List<Game> _games { get; set; } = new List<Game>
-        {
-            // TODO: REMOVE THIS ITS JUST FOR TESTING
-            // NOTE: MOVE TO SEEDING AND ONLY IN DEV IF WE WANT TO KEEP IT
-            new Game {
-                Id = Guid.Empty,
-                Name = "Test Room",
-                Deck = Guid.Empty,
-                AutoReveal = true,
-                Players = new List<Guid>(),
-                Rounds = new List<Guid>()
-            }
-        };
+        private List<Game> _games { get; set; } = new List<Game>();
 
         public async Task<Guid> CreateAsync(Game entity)
         {
@@ -46,13 +34,16 @@ namespace RukusRummy.BusinessLogic.Repositories
 
         public async Task UpdateAsync(Game entity)
         {
-            var index = _games.IndexOf(entity);
+            var game = _games.FirstOrDefault(game => game.Id == entity.Id);
 
-            if(index == -1)
-                throw new ArgumentOutOfRangeException($"Could not find game");
+            
+            if(game != null)
+            {
+                var index = _games.IndexOf(game);
 
-            _games[index] = entity;
-            await Task.Delay(10);
+                _games[index] = entity;
+                await Task.Delay(10);
+            }
         }
 
         public async Task DeleteAsync(Guid id)

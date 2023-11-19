@@ -6,11 +6,14 @@ import Toggle from '../Toggle/Toggle';
 
 import './ChooseYourNameModal.scss';
 import { App } from '../../Contexts/AppContext';
+import { IPlayer } from '../../Models/Player';
 
-interface IProps { }
+interface IProps { 
+    didCreatePlayer?: (player: IPlayer) => void;
+}
 
 // TODO: Rename this to ChooseUserModal
-export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = () => {
+export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({ didCreatePlayer }) => {
     const api = useContext(Api);
     const app = useContext(App);
 
@@ -27,6 +30,9 @@ export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ()
         );
 
         app.setPlayer(player);
+
+        if(didCreatePlayer)
+            didCreatePlayer(player);
     }
 
     return (

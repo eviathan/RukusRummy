@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { Api } from "../Contexts/ApiContext";
 
 import "./SessionPage.scss"
+import { IPlayer } from "../Models/Player";
 
 // TODO: Move this guff into the App Context
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
@@ -19,18 +20,18 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     useEffect(() => {
         const load = async () => {
             try {
-                if(id && app.player?.id) {
+                if(id) {
                     const game = await api.game.get(id);
                     app.setGame(game);
 
-                    await api.player.addPlayerToGame(app.player?.id, game.id)
+
                 }
             } catch (e) {
             }
         };
 
         load();
-    }, [id, app.player?.id]);
+    }, [id]);
 
     if(!app.game) {
         // TODO: Add a prettier loader here, maybe centralise the loading 
@@ -61,7 +62,17 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
         const rounds = game?.rounds ?? [];
         const lastRound = rounds?.[rounds.length - 1];
 
-        return app.player?.id ? lastRound.votes[app.player?.id] : undefined;
+        return app.player?.id 
+            ? lastRound.votes[app.player?.id]
+            : undefined;
+    }
+
+    async function handleDidCreatePlayer(player: IPlayer): Promise<void> {
+        const game = app?.game;
+        if(game) {
+            debugger;
+            await api.player.addPlayerToGame(player.id, game?.id,)
+        }
     }
 
     return (
@@ -82,7 +93,7 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 </>
                 : 
                 <Modal>
-                    <ChooseYourNameModal />
+                    <ChooseYourNameModal didCreatePlayer={handleDidCreatePlayer} />
                 </Modal>
             }
             
