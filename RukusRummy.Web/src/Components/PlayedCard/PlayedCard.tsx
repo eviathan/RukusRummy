@@ -13,7 +13,7 @@ export const PlayedCard: React.FC<React.PropsWithChildren<IProps>> = ({ flipped,
 
         let style = ''
         
-        if(value) {
+        if(value !== undefined && value !== "") {
             style = flipped ? 'front' : 'backside';
         }
 

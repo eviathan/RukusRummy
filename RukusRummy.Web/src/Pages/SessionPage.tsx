@@ -70,7 +70,6 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     async function handleDidCreatePlayer(player: IPlayer): Promise<void> {
         const game = app?.game;
         if(game) {
-            debugger;
             await api.player.addPlayerToGame(player.id, game?.id,)
         }
     }

@@ -2,9 +2,10 @@ import PlayedCard from "../PlayedCard/PlayedCard";
 import { IPlayer } from "../../Models/Player";
 
 import "./Table.scss";
+import { App } from "../../Contexts/AppContext";
+import { useContext } from "react";
 
 export type TablePlayer = {
-    label?: string;
 
 } & IPlayer
 
@@ -14,14 +15,26 @@ interface IProps {
 }
 
 export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flipped }) => {
+    const app = useContext(App);
     
     function getPlayedCard(index: number) {
         if(players.length > index)
         {
             const player = players[index];
+            const game = app?.game;
+            const rounds = game?.rounds ?? [];
+            const lastRound = rounds?.[rounds.length - 1];
+            const deckValues = game?.deck.values.split(',') ?? [];
+            const vote = lastRound.votes[player.id];
+            
+            const value = vote !== undefined ? deckValues[vote] : "";
+
+            // debugger;
+
+            // debugger;
             return <PlayedCard 
                         name={player.name}
-                        value={player.label} 
+                        value={value} 
                         flipped={flipped}
                         spectator={player.isSpectator} 
                     />
