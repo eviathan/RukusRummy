@@ -22,7 +22,10 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
             try {
                 if(id) {
                     const game = await api.game.get(id);
-                    app.setGame(game);
+
+                    if(game) {
+                        app.setGame(game);                    
+                    }
                 }
             } catch (e) {
             }

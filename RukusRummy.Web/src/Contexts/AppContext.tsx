@@ -6,6 +6,7 @@ import { IPlayer, IPlayerPreferencesCache } from "../Models/Player";
 import { GameHubContext } from "./GameHubContext";
 
 export interface IAppFactory {
+    revealCards(): unknown;
     joinGame(playerId: string, gameId: string): unknown;
 	loading: boolean;
 	game?: IGame;
@@ -15,6 +16,7 @@ export interface IAppFactory {
     setPlayer:(player: IPlayer) => void;
     playCard:(card?: number) => void;
 	joinGame: (playerId: string, gameId: string) => unknown;
+	revealCards: () => unknown;
 }
 
 export interface IAppProviderProps { }
@@ -25,7 +27,8 @@ export const App = React.createContext<IAppFactory>({
 	updatePreferencesCache: (preferences: IPlayerPreferencesCache) => {},
 	setPlayer: (player: IPlayer) => {},
 	playCard:(card?: number) => {},
-	joinGame: (playerId: string, gameId: string) => {}
+	joinGame: (playerId: string, gameId: string) => {},
+	revealCards: () => { }
 });
 
 export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> = ({ children }) => {
@@ -64,6 +67,12 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 				var game = await api.game.get(gameId);
 				setGame(game);
             });
+
+            connection.on("RevealCards", async (gameId: string) => {
+				console.log("Working reveal event?", gameId);
+				var game = await api.game.get(gameId);
+				setGame(game);
+            });
         }
 
         // Clean up
@@ -79,8 +88,13 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 	}
 
 	function playCard(card?: number) {
-		// debugger;
 		connection?.invoke("UpdateCard", game?.id, player?.id, card);
+	}
+	
+	async function revealCards() {
+		debugger;
+		if(game)
+			await api.game.revealCards(game?.id);
 	}
 
 	async function joinGame(playerId: string, gameId: string): Promise<void> {
@@ -98,7 +112,8 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 				setGame,
 				setPlayer,
 				playCard,
-				joinGame
+				joinGame,
+				revealCards
 			}}>
 			{children}
 		</App.Provider>

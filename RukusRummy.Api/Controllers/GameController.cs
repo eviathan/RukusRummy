@@ -107,10 +107,10 @@ public class GameController : ControllerBase
         }
     }
 
-    [HttpPost("revealhand/{id}")]
-    public async Task RevealHand(Guid id)
+    [HttpPost("revealcards/{id}")]
+    public async Task RevealCards(Guid id)
     {
-        await _hubContext.Clients.All.SendAsync("RevealCards");
+        await _hubContext.Clients.Group(id.ToString()).SendAsync("RevealCards");
     }
 
     [HttpGet("startnewround/{gameId}")]

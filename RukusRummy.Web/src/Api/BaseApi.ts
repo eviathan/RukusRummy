@@ -17,6 +17,14 @@ export default class BaseApi  {
         "Content-Type": "application/json"
     });
 
+    private async parseResponse<TResponse>(response: Response): Promise<TResponse> {
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.url} - ${response.status}`);
+        }
+
+        return (await response.json()) as TResponse;
+    }
+
     protected async getAsync<TPayload, TResponse>(payload: TPayload | undefined = undefined, url: string = ""): Promise<TResponse> {
         const response = await fetch(this.constructApi(url, payload), { 
             method: "GET",
@@ -24,13 +32,21 @@ export default class BaseApi  {
             credentials: "include",
         });
 
-        if (!response.ok) {
-            throw new Error(`Api Error: ${url}:\n${JSON.stringify(payload, null, 4)}`);
-        }
-        return (await response.json()) as TResponse;    
+        return this.parseResponse<TResponse>(response);
     }
 
-    protected async postAsync<TPayload, TResponse>(payload: TPayload | undefined = undefined, url: string = ""): Promise<TResponse> {
+    protected async postAsync<TPayload>(payload: TPayload | undefined = undefined, url: string = ""): Promise<void> {
+        const response = await fetch(this.constructApi(url), { 
+            method: "POST",
+            headers: this.defaultHeaders(),
+            credentials: "include",
+            body: JSON.stringify(payload)
+        });
+        
+        return this.parseResponse<void>(response);
+    }
+
+    protected async postWithResponseAsync<TPayload, TResponse>(payload: TPayload | undefined = undefined, url: string = ""): Promise<TResponse> {
         const response = await fetch(this.constructApi(url), { 
             method: "POST",
             headers: this.defaultHeaders(),
@@ -38,38 +54,38 @@ export default class BaseApi  {
             body: JSON.stringify(payload)
         });
 
-        if (!response.ok) {
-            throw new Error(`Api Error: ${url}:\n${JSON.stringify(payload, null, 4)}`);
-        }
-
-        return (await response.json()) as TResponse;    
+        return this.parseResponse<TResponse>(response);
     }
 
-    protected async putAsync<TPayload, TResponse>(payload: TPayload | undefined = undefined, url: string = ""): Promise<TResponse> {
+    protected async putAsync<TPayload>(payload: TPayload | undefined = undefined, url: string = ""): Promise<void> {
         const response = await fetch(this.constructApi(url), { 
             method: "PUT",
             headers: this.defaultHeaders(),
             credentials: "include",
             body: JSON.stringify(payload)
         });
-
-        if (!response.ok) {
-            throw new Error(`Api Error: ${url}:\n${JSON.stringify(payload, null, 4)}`);
-        }
-
-        return (await response.json()) as TResponse;    
+        
+        return this.parseResponse<void>(response);
     }
 
-    protected async deleteAsync<TPayload, TResponse>(payload: TPayload | undefined = undefined, url: string = ""): Promise<TResponse> {
+    protected async putWithResponseAsync<TPayload, TResponse>(payload: TPayload | undefined = undefined, url: string = ""): Promise<TResponse> {
+        const response = await fetch(this.constructApi(url), { 
+            method: "PUT",
+            headers: this.defaultHeaders(),
+            credentials: "include",
+            body: JSON.stringify(payload)
+        });
+        
+        return this.parseResponse<TResponse>(response);
+    }
+
+    protected async deleteAsync<TPayload>(payload: TPayload | undefined = undefined, url: string = ""): Promise<void> {
         const response = await fetch(this.constructApi(url, payload), { 
             method: "DELETE",
             headers: this.defaultHeaders(),
             credentials: "include",
         });
 
-        if (!response.ok) {
-            throw new Error(`Api Error: ${url}:\n${JSON.stringify(payload, null, 4)}`);
-        }
-        return (await response.json()) as TResponse;    
+        return this.parseResponse<void>(response);  
     }
 }

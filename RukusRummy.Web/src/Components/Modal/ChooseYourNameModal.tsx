@@ -28,11 +28,13 @@ export const ChooseYourNameModal: React.FC<React.PropsWithChildren<IProps>> = ({
             name,
             isSpectator ?? false
         );
-
-        app.setPlayer(player);
-
-        if(didCreatePlayer)
-            didCreatePlayer(player);
+        
+        if(player) {
+            app.setPlayer(player);
+    
+            if(didCreatePlayer)
+                didCreatePlayer(player);
+        }
     }
 
     return (

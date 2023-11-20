@@ -30,7 +30,11 @@ export const CreateGamePage: React.FC = () => {
         const load = async () => {
             try {
                 const decks = await api.deck.getAll();
-                setDecks(decks);
+
+                if(decks) {
+                    setDecks(decks);
+                }
+
                 setLoading(false);
             } catch (e) {
                 setLoading(false);
@@ -59,8 +63,12 @@ export const CreateGamePage: React.FC = () => {
                 playerId
             });
 
-            await app.joinGame(playerId, gameId);
-            navigate(`/session/${gameId}`)
+            if(gameId) {
+                await app.joinGame(playerId, gameId);
+                navigate(`/session/${gameId}`)
+            } else {
+                throw Error("Could not create game!");
+            }
         }
     }
 

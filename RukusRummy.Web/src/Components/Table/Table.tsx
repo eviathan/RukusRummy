@@ -43,6 +43,10 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
         return null;
     }
 
+    function revealCards() {
+        app.revealCards();
+    }
+
     return (
         <div className="table">
             <div className="left-side">
@@ -60,8 +64,7 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
                 </div>
                 {/* TODO: Add this to center "cards-on-table" when you have placed your card  */}
                 <div className="center cards-on-table">
-
-                    <button className="primary">Reveal cards</button>
+                    <button className="primary" onClick={revealCards}>Reveal cards</button>
                 </div>
                 <div className="bottom-side">
                     {getPlayedCard(13)}

@@ -5,14 +5,14 @@ export default class DeckApi extends BaseApi {
 	protected apiUrl: string = "/deck";
 
 	async create(name: string, values: string): Promise<string> {
-		return await this.postAsync({
+		return await this.postWithResponseAsync({
 			name,
 			values
 		});
 	}
 
 	async get(id: string): Promise<string> {
-		return await this.getAsync(null, `/${id}`);
+		return await this.getAsync(undefined, `/${id}`);
 	}
 
 	async getAll(): Promise<Array<IDeck>> {

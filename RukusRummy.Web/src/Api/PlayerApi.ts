@@ -5,15 +5,15 @@ export default class PlayerApi extends BaseApi {
   protected apiUrl: string = "/player";
   
   async add(request: { gameId: string } & IPlayer): Promise<string> {
-    return await this.postAsync(request);
+    return await this.postWithResponseAsync(request);
   }
 
   async createNewPlayer(name: string, isSpectator: boolean): Promise<IPlayer> {
-    return await this.postAsync({ name, isSpectator });
+    return await this.postWithResponseAsync({ name, isSpectator });
   }
   
   async addPlayerToGame(playerId: string, gameId: string): Promise<string> {
-    return await this.postAsync(undefined, `/${playerId}/game/${gameId}`);
+    return await this.postWithResponseAsync(undefined, `/${playerId}/game/${gameId}`);
   }
   
   async getCurrentPlayer(): Promise<IPlayer> {
@@ -21,6 +21,6 @@ export default class PlayerApi extends BaseApi {
   }
 
   async addDeck(request: { playerId: string, deckId: string }): Promise<void> {
-    return await this.postAsync(request, "/deck");
+    return await this.postWithResponseAsync(request, "/deck");
   }
 }
