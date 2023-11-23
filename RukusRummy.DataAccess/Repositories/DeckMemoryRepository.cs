@@ -1,4 +1,4 @@
-using RukusRummy.DataAccess.Models;
+using RukusRummy.DataAccess.Entities;
 
 namespace RukusRummy.DataAccess.Repositories
 {
@@ -13,6 +13,8 @@ namespace RukusRummy.DataAccess.Repositories
 
         public async Task<Guid> CreateAsync(Deck entity)
         {
+            // using var context = new RukusRummyDbContext();
+
             _decks.Add(entity);
             return await Task.FromResult<Guid>(entity.Id);
         }

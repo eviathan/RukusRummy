@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RukusRummy.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace RukusRummy.DataAccess
 {
     public class RukusRummyDbContext : DbContext
     {
-        public EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) 
+        public RukusRummyDbContext(DbContextOptions<RukusRummyDbContext> options) 
             : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RukusRummy.DataAccess.Models;
+using RukusRummy.DataAccess.Entities;
 
 namespace RukusRummy.DataAccess.Repositories
 {
