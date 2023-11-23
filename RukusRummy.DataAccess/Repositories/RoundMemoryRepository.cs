@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RukusRummy.BusinessLogic.Models;
+using RukusRummy.DataAccess.Models;
 
-namespace RukusRummy.BusinessLogic.Repositories
+namespace RukusRummy.DataAccess.Repositories
 {
     public class RoundMemoryRepository : IRepository<Round>
     {

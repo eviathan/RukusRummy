@@ -13,18 +13,18 @@ namespace RukusRummy.Api.Hubs
             _gameService = gameService;
         }
 
-        public override Task OnConnectedAsync()
-        {
-            Clients.Others.SendAsync("UserConnected", Context.ConnectionId);
-            return base.OnConnectedAsync();
-        }
+        // public override Task OnConnectedAsync()
+        // {
+        //     // Clients.Others.SendAsync("UserConnected", Context.ConnectionId);
+        //     return base.OnConnectedAsync();
+        // }
 
-        public override Task OnDisconnectedAsync(Exception exception)
-        {
-            var playerId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            Clients.Others.SendAsync("UserDisconnected", Context.ConnectionId);
-            return base.OnDisconnectedAsync(exception);
-        }
+        // public override Task OnDisconnectedAsync(Exception exception)
+        // {
+        //     // var playerId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //     // Clients.Others.SendAsync("UserDisconnected", Context.ConnectionId);
+        //     return base.OnDisconnectedAsync(exception);
+        // }
 
         public async Task JoinGame(Guid gameId)
         {

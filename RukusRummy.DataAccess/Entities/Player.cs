@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RukusRummy.BusinessLogic.Models
+namespace RukusRummy.DataAccess.Entities
 {
     public class Player : Entity
     {
@@ -13,6 +13,8 @@ namespace RukusRummy.BusinessLogic.Models
 
         // public dynamic Connection { get; set; }
 
+        public List<Guid> Games { get; set; }
+        
         public List<Guid> Decks { get; set;  }
     }
 }

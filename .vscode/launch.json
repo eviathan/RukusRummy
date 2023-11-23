@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/RukusRummy.Api/bin/Debug/net7.0/RukusRummy.Api.dll",
+            "program": "${workspaceFolder}/RukusRummy.Api/bin/Debug/net8.0/RukusRummy.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/RukusRummy.Api",
             "stopAtEntry": false,

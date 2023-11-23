@@ -82,7 +82,6 @@ export const CreateGamePage: React.FC = () => {
     function isFormDataValid(): boolean{
         return formData !== null    
             && formData !== undefined
-            && formData.name !== ''
             && formData.deck !== undefined
             && formData.deck !== ""
             && formData.deck !== "button";
@@ -125,6 +124,7 @@ export const CreateGamePage: React.FC = () => {
                                         value: "button",
                                         cssClass: "bold"
                                     }]}
+                                    placeholder="Please Select a Deck…"
                                     onChange={(value) => {
                                         if(value === 'button'){
                                             setIsCreatingDeck(true);
@@ -134,7 +134,7 @@ export const CreateGamePage: React.FC = () => {
                                             });
                                         }
                                     }} 
-                                />
+                                    />
 
                                 <Dropdown 
                                     label='Who can reveal cards'
@@ -148,12 +148,13 @@ export const CreateGamePage: React.FC = () => {
                                             value: "JustMe"
                                         },
                                     ]}
+                                    useDefault
                                     onChange={(value) => {
                                         handleChange({                
                                             revealCardsPermission: value
                                         });
                                     }}
-                                />
+                                    />
 
                                 <Dropdown 
                                     label='Who can manage issues' 
@@ -167,6 +168,7 @@ export const CreateGamePage: React.FC = () => {
                                             value: "JustMe"
                                         },
                                     ]}
+                                    useDefault
                                     onChange={(value) => {
                                         handleChange({                
                                             manageIssuesPermission: value

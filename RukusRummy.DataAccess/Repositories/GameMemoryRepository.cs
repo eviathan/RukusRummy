@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RukusRummy.BusinessLogic.Models;
+using RukusRummy.DataAccess.Models;
 
-namespace RukusRummy.BusinessLogic.Repositories
+namespace RukusRummy.DataAccess.Repositories
 {
     // NOTE: This will ultimately be replaced with a repo that stores the games in a database
     public class GameMemoryRepository : IRepository<Game>

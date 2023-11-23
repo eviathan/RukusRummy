@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { BiSolidChevronDown } from 'react-icons/bi';
 
@@ -13,12 +13,21 @@ export interface IDropdownOption {
 interface IProps {
     options: Array<IDropdownOption>;
     label?: string;
+    placeholder?: string;
+    useDefault?: boolean;
     onChange: (value: string) => void;
 }
 
-export const Dropdown: React.FC<React.PropsWithChildren<IProps>> = ({ options, label, onChange }) => {
-    const [selectedOption, setSelectedOption] = useState(options.filter(x => x.value !== 'button')[0]?.value);
+export const Dropdown: React.FC<React.PropsWithChildren<IProps>> = ({ options, label, placeholder, useDefault, onChange }) => {
+    const [selectedOption, setSelectedOption] = useState<string | undefined>();
     const [menuOpen, setMenuOpen] = useState(false);
+
+    useEffect(() => {
+        setSelectedOption(useDefault 
+            ? options.filter(x => x.value !== 'button')[0]?.value 
+            : undefined
+        );
+    }, []);
 
     var optionCssClass = (option: IDropdownOption) => {
         return `option${option.cssClass ? ` ${option.cssClass}` : ''}`;
@@ -37,7 +46,7 @@ export const Dropdown: React.FC<React.PropsWithChildren<IProps>> = ({ options, l
         <div className="dropdown" onMouseLeave={() => setMenuOpen(false)}>
             <p className='label'>{label}</p>
             <div className="selection" onClick={() => setMenuOpen(!menuOpen)}>
-                <label>{options.find(x => x.value === selectedOption)?.label ?? "Please Select a Deck…"}</label>
+                <label>{options.find(x => x.value === selectedOption)?.label ?? placeholder}</label>
                 <BiSolidChevronDown size={24} />
             </div>
             <div className='list-wrapper'>

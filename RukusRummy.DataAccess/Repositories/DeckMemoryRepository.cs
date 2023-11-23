@@ -1,6 +1,6 @@
-using RukusRummy.BusinessLogic.Models;
+using RukusRummy.DataAccess.Models;
 
-namespace RukusRummy.BusinessLogic.Repositories
+namespace RukusRummy.DataAccess.Repositories
 {
     public class DeckMemoryRepository : IRepository<Deck>
     {

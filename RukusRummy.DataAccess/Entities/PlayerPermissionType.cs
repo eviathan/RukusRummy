@@ -1,4 +1,4 @@
-namespace RukusRummy.BusinessLogic.Models
+namespace RukusRummy.DataAccess.Entities
 {
     public enum PlayerPermissionType
     {
