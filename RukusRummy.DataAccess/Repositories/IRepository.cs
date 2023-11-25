@@ -7,7 +7,7 @@ namespace RukusRummy.DataAccess.Repositories
 {
     public interface IRepository<TEntity>
     {
-        Task<Guid> CreateAsync(TEntity entity);
+        Task<TEntity> CreateAsync(TEntity entity);
 
         Task<TEntity> GetAsync(Guid id);
 

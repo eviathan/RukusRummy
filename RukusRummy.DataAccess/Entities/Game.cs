@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace RukusRummy.DataAccess.Entities
 {
@@ -13,9 +10,9 @@ namespace RukusRummy.DataAccess.Entities
 
         public Guid Deck { get; set; }
 
-        public List<Guid> Players { get; set; } = new List<Guid>();
+        public ICollection<Player> Players { get; set; } = new List<Player>();
 
-        public List<Guid> Rounds { get; set; } = new List<Guid>();
+        public ICollection<Round> Rounds { get; set; } = new List<Round>();
 
         public bool AutoReveal { get; set; }
         
@@ -28,5 +25,17 @@ namespace RukusRummy.DataAccess.Entities
         public PlayerPermissionType ManageIssuesPermission { get; set; }
 
         public PlayerPermissionType RevealCardsPermission { get; set; }
+
+        internal static void BuildModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Game>()
+                .HasKey(game => game.Id);
+
+            modelBuilder.Entity<Game>()
+                .HasMany(game => game.Rounds)
+                .WithOne(round => round.Game)
+                .HasForeignKey(round => round.GameId);
+                
+        }
     }
 }

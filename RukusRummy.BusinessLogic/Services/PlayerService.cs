@@ -1,6 +1,7 @@
-using RukusRummy.BusinessLogic.Models;
 using RukusRummy.BusinessLogic.Models.DTOs;
-using RukusRummy.BusinessLogic.Repositories;
+using RukusRummy.DataAccess;
+using RukusRummy.DataAccess.Entities;
+using RukusRummy.DataAccess.Repositories;
 
 namespace RukusRummy.BusinessLogic.Services
 {
@@ -16,33 +17,34 @@ namespace RukusRummy.BusinessLogic.Services
         }
 
 
-        public async Task<Guid> AddPlayerToGameAsync(AddPlayerDTO dto)
+        public async Task<Player> AddPlayerToGameAsync(AddPlayerDTO dto)
         {
-            var playerId = await _playerRepository.CreateAsync(new Player
-            {
-                Name = dto.Name,
-                IsSpectator = dto.IsSpectator,
-                Decks = Defaults.DefaultDecks.Select(x => x.Id).ToList()
-            });
+            throw new NotImplementedException();
+            // var player = await _playerRepository.CreateAsync(new Player
+            // {
+            //     Name = dto.Name,
+            //     IsSpectator = dto.IsSpectator,
+            //     Decks = Defaults.DefaultDecks
+            // });
 
-            var game = await _gameRepository.GetAsync(dto.GameId);
-            game.Players.Add(playerId);
-            await _gameRepository.UpdateAsync(game);
+            // var game = await _gameRepository.GetAsync(dto.GameId);
+            // game.Players.Add(player);
 
-            return playerId;
+            // await _gameRepository.UpdateAsync(game);
+
+            // return player;
         }
 
-        public async Task<Player> CreateAsync(string name, bool isSpectator)
+        public async Task<PlayerDTO> CreateAsync(string name, bool isSpectator)
         {
-            var playerId =  await _playerRepository.CreateAsync(new Player
+            var player = await _playerRepository.CreateAsync(new Player
             {
-                Id = Guid.NewGuid(),
                 Name = name,
                 IsSpectator = isSpectator,
-                Decks = Defaults.DefaultDecks.Select(x => x.Id).ToList()
+                // Decks = Defaults.DefaultDecks // TODO: Fix this by seeding and reattaching default deck 
             });
 
-            return await _playerRepository.GetAsync(playerId);
+            return new(player);
         }
 
         public async Task<IEnumerable<Player>> GetAllPlayersAsync()

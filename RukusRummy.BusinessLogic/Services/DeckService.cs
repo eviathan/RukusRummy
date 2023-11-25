@@ -1,6 +1,6 @@
-using RukusRummy.BusinessLogic.Models;
 using RukusRummy.BusinessLogic.Models.DTOs;
-using RukusRummy.BusinessLogic.Repositories;
+using RukusRummy.DataAccess.Entities;
+using RukusRummy.DataAccess.Repositories;
 
 namespace RukusRummy.BusinessLogic.Services
 {
@@ -13,14 +13,15 @@ namespace RukusRummy.BusinessLogic.Services
             _deckRepository = deckRepository;
         }
 
-        public async Task<Guid> CreateAsync(string name, string values)
+        public async Task<Deck> CreateAsync(string name, string values)
         {
-            if(string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(values))
-                throw new ArgumentNullException();
+            throw new NotImplementedException();
+            // if(string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(values))
+            //     throw new ArgumentNullException();
 
-            var sanitisedValues = SanitisedValues(values);
-            var dto = new DeckDTO(name, sanitisedValues);
-            return await _deckRepository.CreateAsync(MapFromDTO(dto));
+            // var sanitisedValues = SanitisedValues(values);
+            // var dto = new DeckDTO(name, sanitisedValues);
+            // return await _deckRepository.CreateAsync(MapFromDTO(dto));
         }
 
         public async Task<DeckDTO> GetAsync(Guid id)
@@ -63,12 +64,7 @@ namespace RukusRummy.BusinessLogic.Services
 
         private DeckDTO MapToDTO(Deck deck)
         {
-            return new DeckDTO
-            {
-                Id = deck.Id,
-                Name = deck.Name,
-                Values = deck.Values
-            };
+            return new DeckDTO(deck);
         }
     }
 }

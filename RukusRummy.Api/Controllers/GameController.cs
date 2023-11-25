@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RukusRummy.Api.Hubs;
 using RukusRummy.BusinessLogic.Services;
 using RukusRummy.BusinessLogic.Models.DTOs;
-using RukusRummy.BusinessLogic.Models;
+using RukusRummy.DataAccess.Entities;
 
 namespace RukusRummy.Api.Controllers;
 

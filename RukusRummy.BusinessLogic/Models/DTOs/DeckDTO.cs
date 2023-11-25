@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RukusRummy.DataAccess.Entities;
 
 namespace RukusRummy.BusinessLogic.Models.DTOs
 {
@@ -13,13 +14,11 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
 
         public string Values { get; set; }
 
-        public DeckDTO() { }
-
-        public DeckDTO(string name, string values)
+        public DeckDTO(Deck deck)
         {
-            Id = Guid.NewGuid();
-            Name = name;
-            Values = values;
+            Id = deck.Id;
+            Name = deck.Name;
+            Values = deck.Values;
         }
     }
 }

@@ -1,6 +1,7 @@
 using RukusRummy.BusinessLogic.Models;
 using RukusRummy.BusinessLogic.Models.DTOs;
-using RukusRummy.BusinessLogic.Repositories;
+using RukusRummy.DataAccess.Entities;
+using RukusRummy.DataAccess.Repositories;
 
 namespace RukusRummy.BusinessLogic.Services
 {
@@ -24,22 +25,24 @@ namespace RukusRummy.BusinessLogic.Services
         }
 
         // TODO: Finish game creation logic
-        public async Task<Guid> CreateAsync(CreateGameDTO model)
+        public async Task<Game> CreateAsync(CreateGameDTO model)
         {
-            var initalRound = await _roundRepository.CreateAsync(
-                new Round
-                {
-                    Id = Guid.NewGuid(),
-                    StartDate = DateTime.Now
-                }
-            );
+            var initalRound = new Round
+            {
+                Id = Guid.NewGuid(),
+                StartDate = DateTime.Now
+            };
+
+            await _roundRepository.CreateAsync(initalRound);
+
+            var player = await _playerRepository.GetAsync(model.PlayerId);
 
             var game = new Game 
             {
                 Name = model.Name,
                 Deck = model.Deck,
-                Rounds = new List<Guid>{ initalRound },
-                Players = new List<Guid>{ model.PlayerId },
+                Rounds = [ initalRound ],
+                Players = [ player ],
                 AutoReveal = model.AutoReveal,
                 EnableFunFeatures = model.EnableFunFeatures,
                 ManageIssuesPermission = model.ManageIssuesPermission,
@@ -75,33 +78,38 @@ namespace RukusRummy.BusinessLogic.Services
 
         public async Task PickCardAsync(PickCardDTO dto)
         {
-            var game = await _gameRepository.GetAsync(dto.GameId);
-            var latestRoundId = game.Rounds.LastOrDefault();
+            throw new NotImplementedException("This needs reimplementing");
 
-            var latestRound = await _roundRepository.GetAsync(latestRoundId);
-            latestRound.Votes[dto.PlayerId] = dto.Value;
-            await _roundRepository.UpdateAsync(latestRound);
+            // var game = await _gameRepository.GetAsync(dto.GameId);
+            // var latestRound = game.Rounds.LastOrDefault();
 
-            await _gameRepository.UpdateAsync(game);
+            // if(latestRound != null)
+            // {
+            //     latestRound.Votes.FirstOrDefault(x => x.Player.Id == dto.PlayerId).Value;
+            //     await _roundRepository.UpdateAsync(latestRound);
+
+            //     await _gameRepository.UpdateAsync(game);
+            // }
         }
 
         public async Task StartNewRoundAsync(Guid gameId)
         {
-            var game = await _gameRepository.GetAsync(gameId);
+            throw new NotImplementedException("This needs reimplementing");
+            // var game = await _gameRepository.GetAsync(gameId);
 
-            var previousRound = await _roundRepository.GetAsync(game.Rounds.Last());
-            previousRound.EndDate = DateTime.Now;
-            await _roundRepository.UpdateAsync(previousRound);
+            // var previousRound = await _roundRepository.GetAsync(game.Rounds.Last());
+            // previousRound.EndDate = DateTime.Now;
+            // await _roundRepository.UpdateAsync(previousRound);
 
-            var roundId = await _roundRepository.CreateAsync(new Round
-                {
-                    Id = Guid.NewGuid(),
-                    StartDate = DateTime.Now
-                }
-            );
-            game.Rounds.Add(roundId);
+            // var roundId = await _roundRepository.CreateAsync(new Round
+            //     {
+            //         Id = Guid.NewGuid(),
+            //         StartDate = DateTime.Now
+            //     }
+            // );
+            // game.Rounds.Add(roundId);
 
-            await _gameRepository.UpdateAsync(game);
+            // await _gameRepository.UpdateAsync(game);
         }
 
         private Game MapFromDTO(GameDTO dto)
@@ -114,26 +122,14 @@ namespace RukusRummy.BusinessLogic.Services
                 AutoReveal = dto.AutoReveal,
                 EnableFunFeatures = dto.EnableFunFeatures,
                 ManageIssuesPermission = dto.ManageIssuesPermission,
-                Players = dto.Players.Select(x => x.Id).ToList(),
+                Players = dto.Players.ToList(),
                 RevealCardsPermission = dto.RevealCardsPermission,
-                Rounds = dto.Rounds.Select(x => x.Id).ToList()
+                Rounds = dto.Rounds.ToList()
             };
         }
 
         private async Task<GameDTO> MapToDTO(Game game)
         {
-            var players = await Task.WhenAll(
-                game.Players.Select(async x => 
-                    await _playerRepository.GetAsync(x)
-                )
-            );
-
-            var rounds = await Task.WhenAll(
-                game.Rounds.Select(async x => 
-                    await _roundRepository.GetAsync(x)
-                )
-            );
-
             var deck = await _deckRepository.GetAsync(game.Deck);
             
             return new GameDTO
@@ -144,9 +140,9 @@ namespace RukusRummy.BusinessLogic.Services
                 AutoReveal = game.AutoReveal,
                 EnableFunFeatures = game.EnableFunFeatures,
                 ManageIssuesPermission = game.ManageIssuesPermission,
-                Players = players.ToList(),
+                Players = game.Players.ToList(),
                 RevealCardsPermission = game.RevealCardsPermission,
-                Rounds = rounds.ToList()
+                Rounds = game.Rounds.ToList()
             };
         }
     }

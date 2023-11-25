@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RukusRummy.BusinessLogic", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RukusRummy.Test.Unit", "RukusRummy.Test.Unit\RukusRummy.Test.Unit.csproj", "{218362CA-3AF6-4750-B442-F179C2CB3D81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RukusRummy.DataAccess", "RukusRummy.DataAccess\RukusRummy.DataAccess.csproj", "{9E7A0DB1-F3E5-4E0F-8768-B5957B6F1118}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{218362CA-3AF6-4750-B442-F179C2CB3D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{218362CA-3AF6-4750-B442-F179C2CB3D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{218362CA-3AF6-4750-B442-F179C2CB3D81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E7A0DB1-F3E5-4E0F-8768-B5957B6F1118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E7A0DB1-F3E5-4E0F-8768-B5957B6F1118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E7A0DB1-F3E5-4E0F-8768-B5957B6F1118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E7A0DB1-F3E5-4E0F-8768-B5957B6F1118}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

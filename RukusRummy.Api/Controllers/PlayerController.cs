@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Mvc;
 using RukusRummy.Api.Hubs;
 using RukusRummy.BusinessLogic.Services;
-using RukusRummy.BusinessLogic.Models.DTOs;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using RukusRummy.BusinessLogic.Models;
 using System.ComponentModel.DataAnnotations;
+using RukusRummy.DataAccess.Entities;
 
 namespace RukusRummy.Api.Controllers;
 

@@ -1,27 +1,33 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace RukusRummy.DataAccess.Entities
+namespace RukusRummy.DataAccess.Entities;
+
+public class Round : Entity
 {
-    public class Round : Entity
+    public string Name { get; set; }
+    public string Result { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+
+    public ICollection<Vote> Votes{ get; set; }
+
+    public Guid GameId { get; set; }
+    public Game Game { get; set; }
+
+    public int VoteCount => Votes
+        ?.Where(vote => vote.Value != null)
+        ?.Count() ?? 0;
+
+    public string Average => "TODO";
+
+    internal static void BuildModel(ModelBuilder modelBuilder)
     {
-        // NOTE: Named Rounds is a feature on planningpokeronline.com and could be useful
-        public string Name { get; set; }
+        modelBuilder.Entity<Round>()
+            .HasKey(round => round.Id);
 
-        public string Result { get; set; }
-
-        public DateTime StartDate { get; set; }
-
-        public DateTime EndDate { get; set; }
-
-        public Dictionary<Guid, int?> Votes { get; set; } = new Dictionary<Guid, int?>();
-
-        public int VoteCount => Votes
-            ?.Where(vote => vote.Value != null)
-            ?.Count() ?? 0;
-
-        public string Average => "TODO";
+        modelBuilder.Entity<Round>()
+            .HasMany(x => x.Votes)
+            .WithOne(x => x.Round)
+            .HasForeignKey(x => x.RoundId);
     }
 }
