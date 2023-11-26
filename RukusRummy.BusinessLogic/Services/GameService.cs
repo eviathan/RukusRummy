@@ -123,5 +123,19 @@ namespace RukusRummy.BusinessLogic.Services
 
             // await _gameRepository.UpdateAsync(game);
         }
+
+        public async Task AddPlayerAsync(Guid gameId, Guid playerId)
+        {
+            var game = await _gameRepository.GetAsync(gameId);
+
+            if(!game.Players.Any(x => x.Id == playerId))
+            {
+                var player = await _playerRepository.GetAsync(playerId);
+
+                game.Players.Add(player);
+
+                await _gameRepository.UpdateAsync(game);
+            }
+        }
     }
 }

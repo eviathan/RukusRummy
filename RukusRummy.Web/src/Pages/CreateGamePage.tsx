@@ -38,15 +38,13 @@ export const CreateGamePage: React.FC = () => {
         var playerId = app.player?.id
 
         if(playerId && formData) {
-            debugger;
-            var gameId = await api.game.create({
+            var game = await api.game.create({
                 ...formData,
                 playerId
             });
 
-            if(gameId) {
-                await app.joinGame(playerId, gameId);
-                navigate(`/session/${gameId}`)
+            if(game.id) {
+                navigate(`/session/${game.id}`)
             } else {
                 throw Error("Could not create game!");
             }

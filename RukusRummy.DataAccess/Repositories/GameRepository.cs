@@ -22,7 +22,11 @@ namespace RukusRummy.DataAccess.Repositories
 
         public async Task<Game> GetAsync(Guid id)
         {
-            return await _context.Games.SingleAsync(game => game.Id == id);
+            return await _context.Games
+                .Include(x => x.Deck)
+                .Include(x => x.Players)
+                .Include(x => x.Rounds)
+                .SingleAsync(game => game.Id == id);
         }
 
         public async Task<List<Game>> GetRangeAsync(params Guid[] ids)

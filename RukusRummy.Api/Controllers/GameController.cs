@@ -111,4 +111,22 @@ public class GameController : ControllerBase
 
         return NotFound();  
     }
+
+    [HttpPost("{gameId}/player/{playerId}")]  
+    public async Task<ActionResult> AddPlayer(Guid gameId, Guid playerId)  
+    {
+        try
+        {
+            await _gameService.AddPlayerAsync(gameId, playerId);
+
+            var group = _hubContext.Clients.Group(gameId.ToString());            
+            await _hubContext.Clients.All.SendAsync("GameUpdated", gameId);
+
+            return Ok();
+        }
+        catch(ArgumentNullException)
+        {
+            return BadRequest();
+        }
+    }
 }

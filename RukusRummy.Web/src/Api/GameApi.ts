@@ -4,7 +4,7 @@ import { ICreateGameRequest, IGame } from "../Models/Game";
 export default class GameApi extends BaseApi {
     protected apiUrl: string = "/game";
 
-    async create(request: ICreateGameRequest): Promise<string> {
+    async create(request: ICreateGameRequest): Promise<IGame> {
 		return await this.postWithResponseAsync(request);
 	}
 
@@ -27,4 +27,8 @@ export default class GameApi extends BaseApi {
 	async delete(name: string, values: string): Promise<string> {
 		return "";
 	}
+
+	async addPlayer(gameId: string, playerId: string): Promise<void> {
+		return await this.postAsync(undefined, `/${gameId}/player/${playerId}`);
+	  }
 }

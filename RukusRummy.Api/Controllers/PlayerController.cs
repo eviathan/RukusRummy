@@ -102,40 +102,6 @@ public class PlayerController : ControllerBase
         }
     }
 
-
-    
-//   async addPlayerToGame(playerId: string, gameId: string): Promise<IPlayer> {
-//     return await this.getAsync(undefined, `${playerId}/game/${gameId}`);
-//   }
-    // TODO: Maybe move this to the game controller
-    [HttpPost("{playerId}/game/{gameId}")]  
-    public async Task<ActionResult<Guid>> AddPlayerToGame(Guid playerId, Guid gameId)  
-    {
-        throw new NotImplementedException();
-
-        // try
-        // {
-        //     var game = await _gameService.GetAsync(gameId);
-
-        //     if(!game.Players.Any(x => x.Id == playerId))
-        //     {
-        //         var player = await _playerService.GetPlayerAsync(playerId);
-        //         game.Players.Add(player);
-        //         await _gameService.UpdateAsync(game);
-        //     }
-
-        //     var group = _hubContext.Clients.Group(gameId.ToString());
-            
-        //     await _hubContext.Clients.All.SendAsync("GameUpdated", gameId);
-
-        //     return Ok(gameId);
-        // }
-        // catch(ArgumentNullException)
-        // {
-        //     return BadRequest();
-        // }
-    }
-
     [HttpPost("{playerId}/deck/{deckId}")]  
     public async Task<ActionResult<Guid>> AddDeckToPlayer(Guid playerId, Guid deckId)  
     {

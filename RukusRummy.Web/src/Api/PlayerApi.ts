@@ -12,10 +12,6 @@ export default class PlayerApi extends BaseApi {
     return await this.postWithResponseAsync({ name, isSpectator });
   }
   
-  async addPlayerToGame(playerId: string, gameId: string): Promise<string> {
-    return await this.postWithResponseAsync(undefined, `/${playerId}/game/${gameId}`);
-  }
-  
   async getCurrentPlayer(): Promise<IPlayer> {
     return await this.getAsync(undefined, "/current-player");
   }

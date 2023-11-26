@@ -10,6 +10,7 @@ import { Api } from "../Contexts/ApiContext";
 
 import "./SessionPage.scss"
 import { IPlayer } from "../Models/Player";
+import Loading from "../Components/Loading/Loading";
 
 // TODO: Move this guff into the App Context
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
@@ -35,8 +36,7 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     }, [id]);
 
     if(!app.game) {
-        // TODO: Add a prettier loader here, maybe centralise the loading 
-        return <h1>Loading</h1>
+        return <Loading />
     }
 
     function getTablePlayers(): Array<TablePlayer> {
@@ -69,14 +69,6 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
             : undefined;
     }
 
-    async function handleDidCreatePlayer(player: IPlayer): Promise<void> {
-        const game = app?.game;
-        if(game) {
-            await app.joinGame(player.id, game.id);
-            // await api.player.addPlayerToGame(player.id, game?.id,)
-        }
-    }
-
     return (
         <div className="session">
             {app?.player !== undefined
@@ -95,7 +87,7 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 </>
                 : 
                 <Modal>
-                    <ChooseYourNameModal didCreatePlayer={handleDidCreatePlayer} />
+                    <ChooseYourNameModal />
                 </Modal>
             }
             

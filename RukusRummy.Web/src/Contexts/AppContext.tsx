@@ -99,7 +99,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 	}
 
 	async function joinGame(playerId: string, gameId: string): Promise<void> {
-		await api.player.addPlayerToGame(playerId, gameId);
+		await api.game.addPlayer(gameId, playerId);
 		connection?.invoke("JoinGame", gameId);
 	}
 	
