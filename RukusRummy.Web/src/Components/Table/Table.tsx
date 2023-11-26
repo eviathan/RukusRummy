@@ -3,7 +3,7 @@ import { IPlayer } from "../../Models/Player";
 
 import "./Table.scss";
 import { App } from "../../Contexts/AppContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GameStateType } from "../../Models/Game";
 
 export type TablePlayer = {
@@ -17,6 +17,51 @@ interface IProps {
 
 export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flipped }) => {
     const app = useContext(App);
+
+    // ------------------------------------------------------------------------------
+    // TODO: This (and related guff) should probably be moved up onto the SessionPage
+    // ------------------------------------------------------------------------------
+    const [isCountingDown, setIsCountingDown] = useState<boolean>(false);
+    const [countdownText, setCountdownText] = useState<string>("Ready?");
+    
+    useEffect(() => {
+        const roundFinished = app.game?.state === GameStateType.RoundFinished;
+
+        if(!roundFinished) {
+            setIsCountingDown(false);
+            setCountdownText("Ready?");
+            app.setCountdownFinished(false);
+        }
+        
+        setIsCountingDown(roundFinished);
+    }, [app.game?.state])
+    
+    useEffect(() => {
+        let countdown = 3;
+        
+        if (isCountingDown) {
+            const intervalId = setInterval(() => {
+                setCountdownText(`${countdown}`);
+                countdown -= 1;
+                
+                if (countdown < 0) {
+                    clearInterval(intervalId);
+                    setCountdownText('Go!');
+                    app?.setCountdownFinished(true);
+                }
+            }, 1000);
+            
+            // Cleanup interval on component unmount
+            return () => {
+                clearInterval(intervalId);
+            }
+        }
+    }, [isCountingDown]);
+
+    function getCtaText() {
+        return isCountingDown ? countdownText : "Pick your cards!";
+    }
+    // ------------------------------------------------------------------------------
     
     function getPlayedCard(index: number) {
         if(players.length > index)
@@ -30,13 +75,10 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
             
             const value = vote !== undefined ? deckValues[vote] : "";
 
-            // debugger;
-
-            // debugger;
             return <PlayedCard 
                         name={player.name}
                         value={value} 
-                        flipped={flipped}
+                        flipped={app?.countdownFinished && app.game?.state === GameStateType.RoundFinished}
                         spectator={player.isSpectator} 
                     />
         }
@@ -48,7 +90,19 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
         app.revealCards();
     }
 
+    function hasVotes(): boolean {
+        const rounds = app.game?.rounds ?? [];
+        var lastRound = rounds.at(-1);
+        const votes = Object.entries(lastRound?.votes ?? {});
+
+        const hasVotes = votes.filter(([playerId, value]) => value !== undefined).length > 0;
+        return hasVotes;
+    }
+
     function renderCTO() {
+        if(!app?.countdownFinished && (!hasVotes() || isCountingDown))
+            return <p className="cta">{getCtaText()}</p>
+
         const gameState: GameStateType = app.game?.state ?? GameStateType.RoundActive;
 
         switch(gameState) {
@@ -57,7 +111,7 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
                 return <button className="primary" onClick={revealCards}>Reveal cards</button>;
             }
             case GameStateType.RoundFinished: {
-                return <button className="tertiary" onClick={revealCards}>New voting</button>
+                return <button className="tertiary" onClick={() => app.startNewRound()}>New voting</button>
             }
         }
     }
@@ -82,7 +136,7 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
                     {getPlayedCard(7)}
                 </div>
                 {/* TODO: Add this to center "cards-on-table" when you have placed your card  */}
-                <div className={`center ${isActive() ? "cards-on-table" : ""}`}>
+                <div className={`center ${isActive() && hasVotes() ? "cards-on-table" : ""}`}>
                     { renderCTO() }
                 </div>
                 <div className="bottom-side">

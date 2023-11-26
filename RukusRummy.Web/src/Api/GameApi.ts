@@ -1,5 +1,5 @@
 import BaseApi from "./BaseApi";
-import { ICreateGameRequest, IGame } from "../Models/Game";
+import { ICreateGameRequest, IGame, IStartNewRoundRequest } from "../Models/Game";
 
 export default class GameApi extends BaseApi {
     protected apiUrl: string = "/game";
@@ -30,5 +30,9 @@ export default class GameApi extends BaseApi {
 
 	async addPlayer(gameId: string, playerId: string): Promise<void> {
 		return await this.postAsync(undefined, `/${gameId}/player/${playerId}`);
-	  }
+	}
+
+	async startNewRound(request: IStartNewRoundRequest): Promise<void> {
+		return await this.postAsync(request, `/startnewround`);
+	}
 }

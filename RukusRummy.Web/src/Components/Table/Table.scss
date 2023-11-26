@@ -16,6 +16,17 @@
         position: relative;
         margin: 24px 48px;
 
+        p.cta {
+            color: #7b7b7b;
+            padding: 100px;
+            align-items: center;
+            display: flex;
+            font-size: 1.8rem;
+            font-weight: 700;
+            height: 5.6rem;
+            border-radius: 0.8rem;
+        }
+
         &.cards-on-table::before {
             animation: glow 20s linear infinite;
             background: linear-gradient(45deg,#ebf4ff,#d7e9ff,#74b3ff,#3993ff,#0061d6,#3993ff,#74b3ff,#d7e9ff,#ebf4ff);

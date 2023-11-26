@@ -18,6 +18,9 @@ export interface IAppFactory {
     playCard:(card?: number) => void;
 	joinGame: (playerId: string, gameId: string) => unknown;
 	revealCards: () => unknown;
+	countdownFinished: boolean;
+	setCountdownFinished: (value: boolean) => void;
+	startNewRound: () => void;
 }
 
 export interface IAppProviderProps { }
@@ -29,7 +32,10 @@ export const App = React.createContext<IAppFactory>({
 	setPlayer: (player: IPlayer) => {},
 	playCard:(card?: number) => {},
 	joinGame: (playerId: string, gameId: string) => {},
-	revealCards: () => { }
+	revealCards: () => { },
+	countdownFinished: false,
+	setCountdownFinished: (value: boolean) => { },
+	startNewRound: () => { }
 });
 
 export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> = ({ children }) => {
@@ -44,6 +50,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 	const [preferencesCache, setPreferencesCache] = useState<IPlayerPreferencesCache>({
 		decks: []
 	});
+	const [countdownFinished, setCountdownFinished] = useState<boolean>(false);
 
 	useEffect(() => {
         const load = async () => {
@@ -56,6 +63,8 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 
         load();
     }, [api, playerId]);
+
+	
 	
 	useEffect(() => {
         if(connection) {
@@ -69,7 +78,13 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
             });
 
             connection.on("RevealCards", async (gameId: string) => {
-				console.log("Working reveal event?");
+				var game = await api.game.get(gameId);
+				setGame(game);
+            });
+
+            connection.on("StartedNewRound", async (gameId: string) => {
+				console.log("Working started new round event?");
+				
 				var game = await api.game.get(gameId);
 				setGame(game);
             });
@@ -121,6 +136,15 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 		await api.game.addPlayer(gameId, playerId);
 		connection?.invoke("JoinGame", gameId);
 	}
+
+	function startNewRound() {
+		if(!game || game.state === GameStateType.RoundActive)
+			return;
+
+		api.game.startNewRound({
+			gameId: game.id
+		})
+	}
 	
 	return (
 		<App.Provider
@@ -133,7 +157,10 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 				setPlayer,
 				playCard,
 				joinGame,
-				revealCards
+				revealCards,
+				countdownFinished,
+				setCountdownFinished,
+				startNewRound
 			}}>
 				<>
 					{ loading 

@@ -75,9 +75,14 @@ button.secondary:hover {
 }
 
 button.tertiary {
-  background-color: gray;
+  background-color: #48545d;
   border: none;
   padding: 0 2rem;
+  transition: all .09s linear;
+
+  &:hover {
+    background-color: #1a2935;
+  }
 }
 
 #root {

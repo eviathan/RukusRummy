@@ -90,5 +90,25 @@ namespace RukusRummy.Api.Hubs
                 await Clients.Caller.SendAsync("Error", ex.Message);
             }
         }
+
+        // public async Task StartNewRound(string gameId)
+        // {
+        //     try 
+        //     {
+        //         await _gameService.StartNewRoundAsync(gameId);
+                                
+        //         await Clients.Others.SendAsync($"StartedNewRound", gameId);
+
+        //         // TODO: Implement these: 
+        //         // - RoundUpdate to optimise the update
+        //         // - Fix the group connection so that it only sends updates to people in your group
+        //         // await Clients.Others.SendAsync($"RoundUpdated", gameId);
+        //         // await Clients.Group(gameId).SendAsync($"GameUpdated", gameId);
+        //     }
+        //     catch(Exception ex)
+        //     {
+        //         await Clients.Caller.SendAsync("Error", ex.Message);
+        //     }
+        // }
     }
 }

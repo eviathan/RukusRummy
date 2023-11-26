@@ -119,10 +119,20 @@ namespace RukusRummy.BusinessLogic.Services
             }
         }
 
-        public async Task StartNewRoundAsync(Guid gameId)
+        public async Task StartNewRoundAsync(StartNewRoundRequestDTO model)
         {
-            throw new NotImplementedException("This needs reimplementing");
-            // var game = await _gameRepository.GetAsync(gameId);
+            // var lastRound = await _roundRepository.GetAsync(roundId)
+            var game = await _gameRepository.GetAsync(model.GameId);
+
+            await _roundRepository.CreateAsync(new Round
+                {
+                    Game = game,
+                }
+            );
+
+            game.State = GameStateType.RoundActive;
+
+            await _gameRepository.UpdateAsync(game);
 
             // var previousRound = await _roundRepository.GetAsync(game.Rounds.Last());
             // previousRound.EndDate = DateTime.Now;

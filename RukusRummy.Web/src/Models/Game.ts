@@ -12,6 +12,10 @@ export interface ICreateGameRequest {
     showAverage: boolean;
 }
 
+export interface IStartNewRoundRequest {
+    gameId: string;
+}
+
 export interface ICreateDeckRequest {
     name?: string;
     values?: string;

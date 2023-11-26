@@ -97,11 +97,11 @@ public class GameController : ControllerBase
         // await _hubContext.Clients.Group(id.ToString()).SendAsync("RevealCards");
     }
 
-    [HttpGet("startnewround/{gameId}")]
-    public async Task StartNewRound(Guid gameId)
+    [HttpPost("startnewround")]
+    public async Task StartNewRound(StartNewRoundRequestDTO request)
     {
-        await _gameService.StartNewRoundAsync(gameId);
-        await _hubContext.Clients.All.SendAsync("GameUpdated");
+        await _gameService.StartNewRoundAsync(request);
+        await _hubContext.Clients.All.SendAsync("StartedNewRound", request.GameId);
     }
 
     [HttpGet("export/{id}")]  
