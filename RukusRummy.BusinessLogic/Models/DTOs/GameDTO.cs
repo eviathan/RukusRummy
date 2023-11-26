@@ -39,7 +39,10 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
             State = game.State;
             Deck = new DeckDTO(game.Deck);
             Players = game.Players.Select(x => new PlayerDTO(x)).ToList();
-            Rounds = game.Rounds.Select(x => new RoundDTO(x)).ToList();
+            Rounds = game.Rounds
+                .Select(x => new RoundDTO(x))
+                .OrderBy(x => x.StartDate)
+                .ToList();
             AutoReveal = game.AutoReveal;
             EnableFunFeatures = game.EnableFunFeatures;
             ShowAverage = game.ShowAverage;

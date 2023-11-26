@@ -94,7 +94,7 @@ namespace RukusRummy.BusinessLogic.Services
         {
             var game = await _gameRepository.GetAsync(dto.GameId);
             var player = await _playerRepository.GetAsync(dto.PlayerId);
-            var latestRound = game.Rounds.LastOrDefault();
+            var latestRound = game.Rounds.OrderBy(x => x.StartDate).LastOrDefault();
 
             if(latestRound != null && latestRound.Votes != null)
             {
@@ -121,32 +121,15 @@ namespace RukusRummy.BusinessLogic.Services
 
         public async Task StartNewRoundAsync(StartNewRoundRequestDTO model)
         {
-            // var lastRound = await _roundRepository.GetAsync(roundId)
             var game = await _gameRepository.GetAsync(model.GameId);
+            game.State = GameStateType.RoundActive;
+            await _gameRepository.UpdateAsync(game);
 
             await _roundRepository.CreateAsync(new Round
                 {
                     Game = game,
                 }
             );
-
-            game.State = GameStateType.RoundActive;
-
-            await _gameRepository.UpdateAsync(game);
-
-            // var previousRound = await _roundRepository.GetAsync(game.Rounds.Last());
-            // previousRound.EndDate = DateTime.Now;
-            // await _roundRepository.UpdateAsync(previousRound);
-
-            // var roundId = await _roundRepository.CreateAsync(new Round
-            //     {
-            //         Id = Guid.NewGuid(),
-            //         StartDate = DateTime.Now
-            //     }
-            // );
-            // game.Rounds.Add(roundId);
-
-            // await _gameRepository.UpdateAsync(game);
         }
 
         public async Task AddPlayerAsync(Guid gameId, Guid playerId)
