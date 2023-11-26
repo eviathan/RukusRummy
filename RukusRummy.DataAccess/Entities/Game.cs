@@ -5,26 +5,17 @@ namespace RukusRummy.DataAccess.Entities
     public class Game : Entity
     {
         public string? Name { get; set; }
-
         public GameStateType State { get; set; }
-
         public Deck Deck { get; set; }
-
-        public ICollection<Player> Players { get; set; } = new List<Player>();
-
-        public ICollection<Round> Rounds { get; set; } = new List<Round>();
-
         public bool AutoReveal { get; set; }
-        
         public bool EnableFunFeatures { get; set; }
-
         public bool ShowAverage { get; set; }
-        
         public bool AutoCloseSession { get; set; }
-        
         public PlayerPermissionType ManageIssuesPermission { get; set; }
-
         public PlayerPermissionType RevealCardsPermission { get; set; }
+
+        public List<Player> Players { get; set; } = new ();
+        public List<Round> Rounds { get; set; } = new ();
 
         internal static void BuildModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +27,10 @@ namespace RukusRummy.DataAccess.Entities
                 .WithOne(round => round.Game)
                 .HasForeignKey(round => round.GameId);
                 
+            modelBuilder.Entity<Game>()
+                .HasMany(x => x.Players)
+                .WithMany(x => x.Games)
+                .UsingEntity(x => x.ToTable("GamePlayers"));
         }
     }
 }

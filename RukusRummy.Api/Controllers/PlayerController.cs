@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using System.ComponentModel.DataAnnotations;
 using RukusRummy.DataAccess.Entities;
+using RukusRummy.BusinessLogic.Models.DTOs;
 
 namespace RukusRummy.Api.Controllers;
 
@@ -69,16 +70,8 @@ public class PlayerController : ControllerBase
     //     }
     // }
 
-    public class CreateNewPlayerRequest
-    {
-        [Required]
-        public string Name { get; set; } = string.Empty;
-
-        public bool IsSpectator { get; set; }
-    }
-
     [HttpPost]  
-    public async Task<ActionResult<Guid>> CreateNewPlayer(CreateNewPlayerRequest request)  
+    public async Task<ActionResult<PlayerDTO>> CreateNewPlayer(CreatePlayerRequestDTO request)  
     {
         try
         {
@@ -118,28 +111,29 @@ public class PlayerController : ControllerBase
     [HttpPost("{playerId}/game/{gameId}")]  
     public async Task<ActionResult<Guid>> AddPlayerToGame(Guid playerId, Guid gameId)  
     {
-        try
-        {
-            var game = await _gameService.GetAsync(gameId);
+        throw new NotImplementedException();
 
-            if(!game.Players.Any(x => x.Id == playerId))
-            {
-                var player = await _playerService.GetPlayerAsync(playerId);
-                game.Players.Add(player);
-                await _gameService.UpdateAsync(game);
-            }
+        // try
+        // {
+        //     var game = await _gameService.GetAsync(gameId);
 
-            var group = _hubContext.Clients.Group(gameId.ToString());
+        //     if(!game.Players.Any(x => x.Id == playerId))
+        //     {
+        //         var player = await _playerService.GetPlayerAsync(playerId);
+        //         game.Players.Add(player);
+        //         await _gameService.UpdateAsync(game);
+        //     }
+
+        //     var group = _hubContext.Clients.Group(gameId.ToString());
             
-            
-            await _hubContext.Clients.All.SendAsync("GameUpdated", gameId);
+        //     await _hubContext.Clients.All.SendAsync("GameUpdated", gameId);
 
-            return Ok(gameId);
-        }
-        catch(ArgumentNullException)
-        {
-            return BadRequest();
-        }
+        //     return Ok(gameId);
+        // }
+        // catch(ArgumentNullException)
+        // {
+        //     return BadRequest();
+        // }
     }
 
     [HttpPost("{playerId}/deck/{deckId}")]  
@@ -182,14 +176,14 @@ public class PlayerController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Player>> GetPlayer(Guid id)
+    public async Task<ActionResult<PlayerDTO>> GetPlayer(Guid id)
     {
         return await _playerService.GetPlayerAsync(id);
     }
 
 
     [HttpGet("current-player")]
-    public async Task<ActionResult<Player>> GetCurrentPlayer()
+    public async Task<ActionResult<PlayerDTO>> GetCurrentPlayer()
     {
         if (User != null 
             && User.Identity != null 

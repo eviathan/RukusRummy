@@ -26,6 +26,13 @@ namespace RukusRummy.DataAccess.Repositories
             return await _context.Decks.SingleAsync(deck => deck.Id == id);
         }
 
+        public async Task<List<Deck>> GetRangeAsync(params Guid[] ids)
+        {
+            return await _context.Decks
+                .Where(decks => ids.Contains(decks.Id))
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Deck>> GetAllAsync()
         {
             return await _context.Decks.ToListAsync();

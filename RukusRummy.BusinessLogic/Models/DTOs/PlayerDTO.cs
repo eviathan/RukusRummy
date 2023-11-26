@@ -7,7 +7,7 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
         public Guid Id { get; set; }
         public string Name { get; set; }
         public bool IsSpectator { get; set; }
-        public ICollection<DeckDTO> Decks { get; set;  }
+        public List<DeckDTO> Decks { get; set;  } = new ();
 
         public PlayerDTO(Player player)
         {

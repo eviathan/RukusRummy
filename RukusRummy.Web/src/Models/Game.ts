@@ -2,9 +2,9 @@ import IDeck from "./Deck";
 import { IPlayer } from "./Player";
 
 export interface ICreateGameRequest {
-    playerId: string;
     name?: string;
-    deck: string;
+    playerId: string;
+    deckId: string;
     revealCardsPermission?: string;
     manageIssuesPermission?: string;
     autoReveal: boolean;

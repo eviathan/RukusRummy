@@ -12,11 +12,11 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
 
         public string Name { get; set; }
 
-        public Deck Deck { get; set; }
+        public DeckDTO Deck { get; set; }
 
-        public List<Player> Players { get; set; }
+        public List<PlayerDTO> Players { get; set; }
 
-        public List<Round> Rounds { get; set; }
+        public List<RoundDTO> Rounds { get; set; }
 
         public bool AutoReveal { get; set; }
         
@@ -29,5 +29,20 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
         public PlayerPermissionType ManageIssuesPermission { get; set; }
 
         public PlayerPermissionType RevealCardsPermission { get; set; }
+
+        public GameDTO(Game game)
+        {
+            Id = game.Id;
+            Name = game.Name;
+            Deck = new DeckDTO(game.Deck);
+            Players = game.Players.Select(x => new PlayerDTO(x)).ToList();
+            Rounds = game.Rounds.Select(x => new RoundDTO(x)).ToList();
+            AutoReveal = game.AutoReveal;
+            EnableFunFeatures = game.EnableFunFeatures;
+            ShowAverage = game.ShowAverage;
+            AutoCloseSession = game.AutoCloseSession;
+            ManageIssuesPermission = game.ManageIssuesPermission;
+            RevealCardsPermission = game.RevealCardsPermission;
+        }
     }
 }

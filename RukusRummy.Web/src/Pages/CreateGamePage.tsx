@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Api } from '../Contexts/ApiContext';
@@ -17,33 +17,13 @@ import ChooseYourNameModal from '../Components/Modal/ChooseYourNameModal';
 import './CreateGame.scss';
 
 export const CreateGamePage: React.FC = () => {
-  const api = useContext(Api);
-  const app = useContext(App);
-  const navigate = useNavigate();
+    const api = useContext(Api);
+    const app = useContext(App);
+    const navigate = useNavigate(); 
+    const [formData, setFormData] = useState<ICreateGameRequest | undefined>();
+    const [isCreatingDeck, setIsCreatingDeck] = useState(false);
 
-  const [decks, setDecks] = useState<Array<IDeck>>([]);
-  const [formData, setFormData] = useState<ICreateGameRequest | undefined>();
-  const [loading, setLoading] = useState(true);
-  const [isCreatingDeck, setIsCreatingDeck] = useState(false);
-
-    useEffect(() => {
-        const load = async () => {
-            try {
-                const decks = await api.deck.getAll();
-
-                if(decks) {
-                    setDecks(decks);
-                }
-
-                setLoading(false);
-            } catch (e) {
-                setLoading(false);
-            }
-        };
-
-        load();
-    }, [api]);
-
+    const decks = app.player?.decks ?? [];
 
     function handleChange(data: any) {
         var newData = {
@@ -58,6 +38,7 @@ export const CreateGamePage: React.FC = () => {
         var playerId = app.player?.id
 
         if(playerId && formData) {
+            debugger;
             var gameId = await api.game.create({
                 ...formData,
                 playerId
@@ -79,16 +60,13 @@ export const CreateGamePage: React.FC = () => {
         }
     }
 
-    function isFormDataValid(): boolean{
+    function isFormDataValid(): boolean {
         return formData !== null    
             && formData !== undefined
-            && formData.deck !== undefined
-            && formData.deck !== ""
-            && formData.deck !== "button";
+            && formData.deckId !== undefined
+            && formData.deckId !== ""
+            && formData.deckId !== "button";
     }
-
-    if(loading)
-        return <h1>Loading!</h1>
 
     return (
         <>
@@ -130,7 +108,7 @@ export const CreateGamePage: React.FC = () => {
                                             setIsCreatingDeck(true);
                                         } else {
                                             handleChange({                
-                                                deck: value
+                                                deckId: value
                                             });
                                         }
                                     }} 

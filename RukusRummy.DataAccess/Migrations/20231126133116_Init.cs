@@ -69,22 +69,21 @@ namespace RukusRummy.DataAccess.Migrations
                 name: "PlayerDecks",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PlayerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeckId = table.Column<Guid>(type: "uuid", nullable: false)
+                    DecksId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PlayersId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlayerDecks", x => new { x.Id, x.PlayerId, x.DeckId });
+                    table.PrimaryKey("PK_PlayerDecks", x => new { x.DecksId, x.PlayersId });
                     table.ForeignKey(
-                        name: "FK_PlayerDecks_Decks_DeckId",
-                        column: x => x.DeckId,
+                        name: "FK_PlayerDecks_Decks_DecksId",
+                        column: x => x.DecksId,
                         principalTable: "Decks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlayerDecks_Players_PlayerId",
-                        column: x => x.PlayerId,
+                        name: "FK_PlayerDecks_Players_PlayersId",
+                        column: x => x.PlayersId,
                         principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -94,22 +93,21 @@ namespace RukusRummy.DataAccess.Migrations
                 name: "GamePlayers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    GameId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PlayerId = table.Column<Guid>(type: "uuid", nullable: false)
+                    GamesId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PlayersId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GamePlayers", x => new { x.Id, x.GameId, x.PlayerId });
+                    table.PrimaryKey("PK_GamePlayers", x => new { x.GamesId, x.PlayersId });
                     table.ForeignKey(
-                        name: "FK_GamePlayers_Games_GameId",
-                        column: x => x.GameId,
+                        name: "FK_GamePlayers_Games_GamesId",
+                        column: x => x.GamesId,
                         principalTable: "Games",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GamePlayers_Players_PlayerId",
-                        column: x => x.PlayerId,
+                        name: "FK_GamePlayers_Players_PlayersId",
+                        column: x => x.PlayersId,
                         principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -181,14 +179,9 @@ namespace RukusRummy.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_GamePlayers_GameId",
+                name: "IX_GamePlayers_PlayersId",
                 table: "GamePlayers",
-                column: "GameId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GamePlayers_PlayerId",
-                table: "GamePlayers",
-                column: "PlayerId");
+                column: "PlayersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_DeckId",
@@ -196,14 +189,9 @@ namespace RukusRummy.DataAccess.Migrations
                 column: "DeckId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerDecks_DeckId",
+                name: "IX_PlayerDecks_PlayersId",
                 table: "PlayerDecks",
-                column: "DeckId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerDecks_PlayerId",
-                table: "PlayerDecks",
-                column: "PlayerId");
+                column: "PlayersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rounds_GameId",

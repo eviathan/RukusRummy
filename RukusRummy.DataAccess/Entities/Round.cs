@@ -9,7 +9,7 @@ public class Round : Entity
     public DateTime StartDate { get; set; } = DateTime.UtcNow;
     public DateTime? EndDate { get; set; }
 
-    public ICollection<Vote> Votes { get; set; } = new List<Vote>();
+    public List<Vote> Votes { get; set; } = new ();
 
     public Guid GameId { get; set; }
     public Game Game { get; set; }

@@ -6,7 +6,7 @@ using RukusRummy.DataAccess.Entities;
 
 namespace RukusRummy.BusinessLogic.Models.DTOs
 {
-    public class CreateGameDTO
+    public class CreateGameRequestDTO
     {
         public string? Name { get; set; }
         public Guid PlayerId { get; set; }

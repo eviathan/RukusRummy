@@ -53,7 +53,8 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 id: x.id,
                 name: x.name,
                 isSpectator: x.isSpectator,
-                label: value
+                label: value,
+                decks: []
             } ;
         });
     }

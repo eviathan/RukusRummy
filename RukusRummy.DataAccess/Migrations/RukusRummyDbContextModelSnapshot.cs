@@ -22,6 +22,36 @@ namespace RukusRummy.DataAccess.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("DeckPlayer", b =>
+                {
+                    b.Property<Guid>("DecksId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PlayersId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("DecksId", "PlayersId");
+
+                    b.HasIndex("PlayersId");
+
+                    b.ToTable("PlayerDecks", (string)null);
+                });
+
+            modelBuilder.Entity("GamePlayer", b =>
+                {
+                    b.Property<Guid>("GamesId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PlayersId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("GamesId", "PlayersId");
+
+                    b.HasIndex("PlayersId");
+
+                    b.ToTable("GamePlayers", (string)null);
+                });
+
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.Deck", b =>
                 {
                     b.Property<Guid>("Id")
@@ -101,26 +131,6 @@ namespace RukusRummy.DataAccess.Migrations
                     b.ToTable("Games");
                 });
 
-            modelBuilder.Entity("RukusRummy.DataAccess.Entities.GamePlayer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("GameId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("PlayerId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id", "GameId", "PlayerId");
-
-                    b.HasIndex("GameId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("GamePlayers");
-                });
-
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.Player", b =>
                 {
                     b.Property<Guid>("Id")
@@ -137,26 +147,6 @@ namespace RukusRummy.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Players");
-                });
-
-            modelBuilder.Entity("RukusRummy.DataAccess.Entities.PlayerDeck", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("PlayerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("DeckId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id", "PlayerId", "DeckId");
-
-                    b.HasIndex("DeckId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("PlayerDecks");
                 });
 
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.Round", b =>
@@ -216,6 +206,36 @@ namespace RukusRummy.DataAccess.Migrations
                     b.ToTable("Votes");
                 });
 
+            modelBuilder.Entity("DeckPlayer", b =>
+                {
+                    b.HasOne("RukusRummy.DataAccess.Entities.Deck", null)
+                        .WithMany()
+                        .HasForeignKey("DecksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RukusRummy.DataAccess.Entities.Player", null)
+                        .WithMany()
+                        .HasForeignKey("PlayersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GamePlayer", b =>
+                {
+                    b.HasOne("RukusRummy.DataAccess.Entities.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RukusRummy.DataAccess.Entities.Player", null)
+                        .WithMany()
+                        .HasForeignKey("PlayersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.Game", b =>
                 {
                     b.HasOne("RukusRummy.DataAccess.Entities.Deck", "Deck")
@@ -225,40 +245,6 @@ namespace RukusRummy.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Deck");
-                });
-
-            modelBuilder.Entity("RukusRummy.DataAccess.Entities.GamePlayer", b =>
-                {
-                    b.HasOne("RukusRummy.DataAccess.Entities.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RukusRummy.DataAccess.Entities.Player", null)
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("RukusRummy.DataAccess.Entities.PlayerDeck", b =>
-                {
-                    b.HasOne("RukusRummy.DataAccess.Entities.Deck", "Deck")
-                        .WithMany()
-                        .HasForeignKey("DeckId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RukusRummy.DataAccess.Entities.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Deck");
-
-                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.Round", b =>

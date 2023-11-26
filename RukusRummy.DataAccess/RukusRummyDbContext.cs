@@ -11,9 +11,6 @@ public class RukusRummyDbContext : DbContext
     public DbSet<Round> Rounds { get; set; }
     public DbSet<Vote> Votes { get; set; }
 
-    public DbSet<GamePlayer> GamePlayers { get; set; }
-    public DbSet<PlayerDeck> PlayerDecks { get; set; }
-
     public RukusRummyDbContext(DbContextOptions<RukusRummyDbContext> options) 
         : base(options) { }
 
@@ -25,15 +22,10 @@ public class RukusRummyDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Entities
         Game.BuildModel(modelBuilder);
         Deck.BuildModel(modelBuilder);
         Player.BuildModel(modelBuilder);
         Round.BuildModel(modelBuilder);
         Vote.BuildModel(modelBuilder);
-
-        // Link Tables
-        GamePlayer.BuildModel(modelBuilder);
-        PlayerDeck.BuildModel(modelBuilder);
     }
 }

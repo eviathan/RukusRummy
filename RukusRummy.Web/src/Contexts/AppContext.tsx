@@ -4,6 +4,7 @@ import { Api } from "./ApiContext";
 import { IGame } from "../Models/Game";
 import { IPlayer, IPlayerPreferencesCache } from "../Models/Player";
 import { GameHubContext } from "./GameHubContext";
+import Loading from "../Components/Loading/Loading";
 
 export interface IAppFactory {
     revealCards(): unknown;
@@ -36,7 +37,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 	
 	const { connection } = useContext(GameHubContext);
 	
-	const [loading, setLoading] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(true);
 	const [game, setGame] = useState<IGame | undefined>();
 	const [playerId, setPlayerId] = useState<string | undefined>();
 	const [player, setPlayer] = useState<IPlayer | undefined>();
@@ -115,7 +116,12 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 				joinGame,
 				revealCards
 			}}>
-			{children}
+				<>
+					{ loading 
+						? <Loading />
+						: <>{children}</>
+					}
+				</>
 		</App.Provider>
 	);
 };
