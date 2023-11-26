@@ -4,6 +4,7 @@ import { IPlayer } from "../../Models/Player";
 import "./Table.scss";
 import { App } from "../../Contexts/AppContext";
 import { useContext } from "react";
+import { GameStateType } from "../../Models/Game";
 
 export type TablePlayer = {
 
@@ -47,6 +48,24 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
         app.revealCards();
     }
 
+    function renderCTO() {
+        const gameState: GameStateType = app.game?.state ?? GameStateType.RoundActive;
+
+        switch(gameState) {
+            default:
+            case GameStateType.RoundActive: {
+                return <button className="primary" onClick={revealCards}>Reveal cards</button>;
+            }
+            case GameStateType.RoundFinished: {
+                return <button className="tertiary" onClick={revealCards}>New voting</button>
+            }
+        }
+    }
+
+    function isActive() {
+        return app.game?.state === GameStateType.RoundActive;
+    }
+
     return (
         <div className="table">
             <div className="left-side">
@@ -63,8 +82,8 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
                     {getPlayedCard(7)}
                 </div>
                 {/* TODO: Add this to center "cards-on-table" when you have placed your card  */}
-                <div className="center cards-on-table">
-                    <button className="primary" onClick={revealCards}>Reveal cards</button>
+                <div className={`center ${isActive() ? "cards-on-table" : ""}`}>
+                    { renderCTO() }
                 </div>
                 <div className="bottom-side">
                     {getPlayedCard(13)}

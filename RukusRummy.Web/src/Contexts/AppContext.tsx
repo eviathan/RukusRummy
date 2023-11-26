@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { Api } from "./ApiContext";
-import { IGame } from "../Models/Game";
+import { GameStateType, IGame } from "../Models/Game";
 import { IPlayer, IPlayerPreferencesCache } from "../Models/Player";
 import { GameHubContext } from "./GameHubContext";
 import Loading from "../Components/Loading/Loading";
@@ -69,7 +69,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
             });
 
             connection.on("RevealCards", async (gameId: string) => {
-				console.log("Working reveal event?", gameId);
+				console.log("Working reveal event?");
 				var game = await api.game.get(gameId);
 				setGame(game);
             });
@@ -88,13 +88,33 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 	}
 
 	function playCard(card?: number) {
-		connection?.invoke("UpdateCard", game?.id, player?.id, card);
+
+		if(!player || !game || game.state === GameStateType.RoundFinished)
+			return;
+
+		const updatedGame = { ...game };
+		const latestRoundIndex = game.rounds.length - 1;
+
+		if(latestRoundIndex < 0)
+			return;
+		
+		const updatedLatesRound = {...updatedGame.rounds[latestRoundIndex]};
+
+		updatedLatesRound.votes = {
+			...updatedLatesRound.votes,
+			[player.id]: card
+		};
+		
+		updatedGame.rounds[latestRoundIndex] = updatedLatesRound;
+
+		setGame(updatedGame);
+		connection?.invoke("UpdateCard", game.id, player.id, card);
 	}
 	
 	async function revealCards() {
-		debugger;
-		if(game)
-			await api.game.revealCards(game?.id);
+		if(!!game) {
+			await api.game.revealCards(game.id);
+		}
 	}
 
 	async function joinGame(playerId: string, gameId: string): Promise<void> {

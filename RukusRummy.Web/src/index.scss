@@ -74,6 +74,12 @@ button.secondary:hover {
   opacity: 0.7;
 }
 
+button.tertiary {
+  background-color: gray;
+  border: none;
+  padding: 0 2rem;
+}
+
 #root {
   height: 100%;
 }

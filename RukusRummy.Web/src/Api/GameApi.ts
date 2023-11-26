@@ -16,8 +16,8 @@ export default class GameApi extends BaseApi {
 		return await this.getAsync();
 	}
 
-	async revealCards(id: string) {
-		this.postAsync(`/revealcards/${id}`);
+	async revealCards(id: string): Promise<void> {
+		this.postAsync(undefined, `/revealcards/${id}`);
 	}
 
 	async update(name: string, values: string): Promise<string> {

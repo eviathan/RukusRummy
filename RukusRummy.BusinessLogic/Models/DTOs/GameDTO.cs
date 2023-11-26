@@ -10,6 +10,8 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
     {
         public Guid Id { get; set; }
 
+        public GameStateType State { get; set; }
+
         public string Name { get; set; }
 
         public DeckDTO Deck { get; set; }
@@ -34,6 +36,7 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
         {
             Id = game.Id;
             Name = game.Name;
+            State = game.State;
             Deck = new DeckDTO(game.Deck);
             Players = game.Players.Select(x => new PlayerDTO(x)).ToList();
             Rounds = game.Rounds.Select(x => new RoundDTO(x)).ToList();

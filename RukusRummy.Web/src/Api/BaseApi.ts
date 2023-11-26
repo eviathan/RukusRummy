@@ -35,15 +35,13 @@ export default class BaseApi  {
         return this.parseResponse<TResponse>(response);
     }
 
-    protected async postAsync<TPayload>(payload: TPayload | undefined = undefined, url: string = ""): Promise<void> {
-        const response = await fetch(this.constructApi(url), { 
+    protected async postAsync<TPayload>(payload: TPayload | undefined = undefined, url: string = "") {
+        await fetch(this.constructApi(url), { 
             method: "POST",
             headers: this.defaultHeaders(),
             credentials: "include",
             body: JSON.stringify(payload)
         });
-        
-        return this.parseResponse<void>(response);
     }
 
     protected async postWithResponseAsync<TPayload, TResponse>(payload: TPayload | undefined = undefined, url: string = ""): Promise<TResponse> {

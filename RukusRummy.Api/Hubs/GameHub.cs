@@ -52,8 +52,12 @@ namespace RukusRummy.Api.Hubs
                     Value = card
                 });
 
-                await Clients.All.SendAsync($"GameUpdated", gameId);
+                await Clients.Others.SendAsync($"GameUpdated", gameId);
 
+                // TODO: Implement these: 
+                // - RoundUpdate to optimise the update
+                // - Fix the group connection so that it only sends updates to people in your group
+                // await Clients.Others.SendAsync($"RoundUpdated", gameId);
                 // await Clients.Group(gameId).SendAsync($"GameUpdated", gameId);
             }
             catch(Exception ex)

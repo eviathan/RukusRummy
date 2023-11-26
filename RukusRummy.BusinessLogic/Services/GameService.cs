@@ -73,6 +73,7 @@ namespace RukusRummy.BusinessLogic.Services
             var deck = await _deckRepository.GetAsync(dto.Deck.Id);
 
             game.Name = dto.Name;
+            game.State = dto.State;
             game.Deck = deck;
             game.AutoReveal = dto.AutoReveal;
             game.EnableFunFeatures = dto.EnableFunFeatures;

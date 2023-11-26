@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RukusRummy.Api.Hubs;
 using RukusRummy.BusinessLogic.Services;
 using RukusRummy.BusinessLogic.Models.DTOs;
+using RukusRummy.DataAccess.Entities;
 
 namespace RukusRummy.Api.Controllers;
 
@@ -85,7 +86,15 @@ public class GameController : ControllerBase
     [HttpPost("revealcards/{id}")]
     public async Task RevealCards(Guid id)
     {
-        await _hubContext.Clients.Group(id.ToString()).SendAsync("RevealCards");
+        // TODO: Move this into a service method
+        var game = await _gameService.GetAsync(id);
+        game.State = GameStateType.RoundFinished;
+        await _gameService.UpdateAsync(game);
+
+        await _hubContext.Clients.All.SendAsync("RevealCards", id);
+
+        // TODO: Fix the groups 
+        // await _hubContext.Clients.Group(id.ToString()).SendAsync("RevealCards");
     }
 
     [HttpGet("startnewround/{gameId}")]
