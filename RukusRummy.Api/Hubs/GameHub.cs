@@ -52,7 +52,9 @@ namespace RukusRummy.Api.Hubs
                     Value = card
                 });
 
-                await Clients.Group(gameId).SendAsync($"GameUpdated", gameId);
+                await Clients.All.SendAsync($"GameUpdated", gameId);
+
+                // await Clients.Group(gameId).SendAsync($"GameUpdated", gameId);
             }
             catch(Exception ex)
             {

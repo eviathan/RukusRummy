@@ -12,7 +12,7 @@ namespace RukusRummy.BusinessLogic.Models.DTOs
         public string? Result { get; set; }
         public DateTime StartDate { get; set; } = DateTime.UtcNow;
         public DateTime? EndDate { get; set; }
-        public Dictionary<Guid, int> Votes { get; set; } = new ();
+        public Dictionary<Guid, int?> Votes { get; set; } = new ();
 
         public RoundDTO(Round round)
         {

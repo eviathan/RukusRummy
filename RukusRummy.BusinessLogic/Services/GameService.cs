@@ -1,5 +1,3 @@
-using Microsoft.VisualBasic;
-using RukusRummy.BusinessLogic.Models;
 using RukusRummy.BusinessLogic.Models.DTOs;
 using RukusRummy.DataAccess.Entities;
 using RukusRummy.DataAccess.Repositories;
@@ -12,17 +10,20 @@ namespace RukusRummy.BusinessLogic.Services
         private readonly IRepository<Deck> _deckRepository;
         private readonly IRepository<Player> _playerRepository;
         private readonly IRepository<Round> _roundRepository;
+        private readonly IRepository<Vote> _voteRepository;
 
         public GameService(
             IRepository<Game> gameRepository, 
             IRepository<Deck> deckRepository,
             IRepository<Player> playerRepository,
-            IRepository<Round> roundRepository)
+            IRepository<Round> roundRepository,
+            IRepository<Vote> voteRepository)
         {
             _gameRepository = gameRepository;
             _deckRepository = deckRepository;
             _playerRepository = playerRepository;
             _roundRepository = roundRepository;
+            _voteRepository = voteRepository;
         }
 
         // TODO: Finish game creation logic
@@ -90,18 +91,31 @@ namespace RukusRummy.BusinessLogic.Services
 
         public async Task PickCardAsync(PickCardDTO dto)
         {
-            throw new NotImplementedException("This needs reimplementing");
+            var game = await _gameRepository.GetAsync(dto.GameId);
+            var player = await _playerRepository.GetAsync(dto.PlayerId);
+            var latestRound = game.Rounds.LastOrDefault();
 
-            // var game = await _gameRepository.GetAsync(dto.GameId);
-            // var latestRound = game.Rounds.LastOrDefault();
+            if(latestRound != null && latestRound.Votes != null)
+            {
+                var vote = latestRound.Votes.FirstOrDefault(x => x.Player.Id == dto.PlayerId);
 
-            // if(latestRound != null)
-            // {
-            //     latestRound.Votes.FirstOrDefault(x => x.Player.Id == dto.PlayerId).Value;
-            //     await _roundRepository.UpdateAsync(latestRound);
-
-            //     await _gameRepository.UpdateAsync(game);
-            // }
+                if(vote == null)
+                {
+                    await _voteRepository.CreateAsync(new Vote
+                        {
+                            Game = game,
+                            Player = player,
+                            Round = latestRound,
+                            Value = dto.Value
+                        }
+                    );
+                }
+                else
+                {
+                    vote.Value = dto.Value;
+                    await _voteRepository.UpdateAsync(vote);
+                }
+            }
         }
 
         public async Task StartNewRoundAsync(Guid gameId)

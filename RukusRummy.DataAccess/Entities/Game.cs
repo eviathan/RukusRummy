@@ -24,8 +24,7 @@ namespace RukusRummy.DataAccess.Entities
 
             modelBuilder.Entity<Game>()
                 .HasMany(game => game.Rounds)
-                .WithOne(round => round.Game)
-                .HasForeignKey(round => round.GameId);
+                .WithOne(round => round.Game);
                 
             modelBuilder.Entity<Game>()
                 .HasMany(x => x.Players)

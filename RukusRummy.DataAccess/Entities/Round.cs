@@ -8,11 +8,9 @@ public class Round : Entity
     public string? Result { get; set; }
     public DateTime StartDate { get; set; } = DateTime.UtcNow;
     public DateTime? EndDate { get; set; }
+    public Game Game { get; set; }
 
     public List<Vote> Votes { get; set; } = new ();
-
-    public Guid GameId { get; set; }
-    public Game Game { get; set; }
 
     public int VoteCount => Votes
         ?.Where(vote => vote.Value != null)
@@ -27,7 +25,6 @@ public class Round : Entity
 
         modelBuilder.Entity<Round>()
             .HasMany(x => x.Votes)
-            .WithOne(x => x.Round)
-            .HasForeignKey(x => x.RoundId);
+            .WithOne(x => x.Round);
     }
 }

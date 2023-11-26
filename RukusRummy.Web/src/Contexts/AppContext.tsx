@@ -48,7 +48,6 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 	useEffect(() => {
         const load = async () => {
             try {
-				// debugger
                 var currentPlayer = await api.player.getCurrentPlayer();
 				setPlayer(currentPlayer);
             } catch (e) { }

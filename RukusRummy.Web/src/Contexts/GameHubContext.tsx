@@ -26,6 +26,8 @@ export const GameHubProvider: React.FC<GameHubProviderProps> = ({ children }) =>
             .then(() => console.log('SignalR Connected'))
             .catch(err => console.error('SignalR Connection Error: ', err));
 
+        hubConnection.on("error", (message) => console.error(message));
+
         return () => {
             hubConnection.stop();
         };

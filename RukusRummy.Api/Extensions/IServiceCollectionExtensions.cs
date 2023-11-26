@@ -24,6 +24,7 @@ namespace RukusRummy.Api.Extensions
             serviceCollection.AddScoped<IRepository<Deck>, DeckRepository>();
             serviceCollection.AddScoped<IRepository<Player>, PlayerRepository>();
             serviceCollection.AddScoped<IRepository<Round>, RoundRepository>();
+            serviceCollection.AddScoped<IRepository<Vote>, VoteRepository>();
 
             serviceCollection.ConfigureAuth();
         }

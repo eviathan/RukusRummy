@@ -12,7 +12,7 @@ using RukusRummy.DataAccess;
 namespace RukusRummy.DataAccess.Migrations
 {
     [DbContext(typeof(RukusRummyDbContext))]
-    [Migration("20231126133116_Init")]
+    [Migration("20231126165009_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -195,7 +195,7 @@ namespace RukusRummy.DataAccess.Migrations
                     b.Property<Guid>("RoundId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Value")
+                    b.Property<int?>("Value")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

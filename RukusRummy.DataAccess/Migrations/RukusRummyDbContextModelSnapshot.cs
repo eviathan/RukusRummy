@@ -192,7 +192,7 @@ namespace RukusRummy.DataAccess.Migrations
                     b.Property<Guid>("RoundId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Value")
+                    b.Property<int?>("Value")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

@@ -1,16 +1,15 @@
+import { useParams } from "react-router-dom";
 import { useContext, useEffect } from "react";
 
 import ChooseYourNameModal from "../Components/Modal/ChooseYourNameModal";
 import Modal from "../Components/Modal/Modal";
 import Hand from "../Components/Hand/Hand";
+import Loading from "../Components/Loading/Loading";
 import Table, { TablePlayer } from "../Components/Table/Table";
 import { App } from "../Contexts/AppContext";
-import { useParams } from "react-router-dom";
 import { Api } from "../Contexts/ApiContext";
 
 import "./SessionPage.scss"
-import { IPlayer } from "../Models/Player";
-import Loading from "../Components/Loading/Loading";
 
 // TODO: Move this guff into the App Context
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
@@ -25,11 +24,10 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                     const game = await api.game.get(id);
 
                     if(game) {
-                        app.setGame(game);                    
+                        app.setGame(game);   
                     }
                 }
-            } catch (e) {
-            }
+            } catch (e) { }
         };
 
         load();

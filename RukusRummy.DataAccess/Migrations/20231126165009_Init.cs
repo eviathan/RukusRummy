@@ -142,7 +142,7 @@ namespace RukusRummy.DataAccess.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     PlayerId = table.Column<Guid>(type: "uuid", nullable: false),
                     GameId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Value = table.Column<int>(type: "integer", nullable: false),
+                    Value = table.Column<int>(type: "integer", nullable: true),
                     RoundId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>

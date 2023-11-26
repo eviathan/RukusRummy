@@ -25,7 +25,9 @@ namespace RukusRummy.DataAccess.Repositories
             return await _context.Games
                 .Include(x => x.Deck)
                 .Include(x => x.Players)
+                    .ThenInclude(x => x.Decks)
                 .Include(x => x.Rounds)
+                    .ThenInclude(x => x.Votes)
                 .SingleAsync(game => game.Id == id);
         }
 
