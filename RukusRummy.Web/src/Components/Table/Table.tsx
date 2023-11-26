@@ -111,7 +111,7 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
                 return <button className="primary" onClick={revealCards}>Reveal cards</button>;
             }
             case GameStateType.RoundFinished: {
-                return <button className="tertiary" onClick={() => app.startNewRound()}>New voting</button>
+                return <button className="tertiary" onClick={() => app.startNewRound()}>Start new vote</button>
             }
         }
     }
