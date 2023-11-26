@@ -10,6 +10,7 @@ import { App } from "../Contexts/AppContext";
 import { Api } from "../Contexts/ApiContext";
 
 import "./SessionPage.scss"
+import { IPlayer } from "../Models/Player";
 
 // TODO: Move this guff into the App Context
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
@@ -67,6 +68,12 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
             : undefined;
     }
 
+    function onDidCreatePlayer(player: IPlayer) {
+        if(app.game) {
+            api.game.addPlayer(app.game.id, player.id);
+        }
+    }
+
     return (
         <div className="session">
             {app?.player !== undefined
@@ -85,7 +92,7 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                 </>
                 : 
                 <Modal>
-                    <ChooseYourNameModal />
+                    <ChooseYourNameModal didCreatePlayer={onDidCreatePlayer} />
                 </Modal>
             }
             
