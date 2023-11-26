@@ -8,7 +8,7 @@ namespace RukusRummy.DataAccess.Entities
 
         public GameStateType State { get; set; }
 
-        public Guid Deck { get; set; }
+        public Deck Deck { get; set; }
 
         public ICollection<Player> Players { get; set; } = new List<Player>();
 

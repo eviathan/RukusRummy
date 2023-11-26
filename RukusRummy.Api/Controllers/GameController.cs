@@ -47,11 +47,11 @@ public class GameController : ControllerBase
     {
         try
         {
-            var id = await _gameService.CreateAsync(new CreateGameDTO
+            var game = await _gameService.CreateAsync(new CreateGameDTO
             {
                 Name = request.Name,
                 PlayerId = request.PlayerId,
-                Deck = request.Deck,
+                DeckId = request.Deck,
                 AutoCloseSession = request.AutoCloseSession,
                 AutoReveal = request.AutoReveal,
                 EnableFunFeatures = request.EnableFunFeatures,
@@ -59,7 +59,8 @@ public class GameController : ControllerBase
                 RevealCardsPermission = request.RevealCardsPermission,
                 ShowAverage = request.ShowAverage,
             });
-            return Ok(id);
+            
+            return Ok(game.Id);
         }
         catch(ArgumentNullException)
         {

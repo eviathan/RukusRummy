@@ -3,32 +3,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace RukusRummy.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Games",
+                name: "Decks",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    State = table.Column<int>(type: "integer", nullable: false),
-                    Deck = table.Column<Guid>(type: "uuid", nullable: false),
-                    AutoReveal = table.Column<bool>(type: "boolean", nullable: false),
-                    EnableFunFeatures = table.Column<bool>(type: "boolean", nullable: false),
-                    ShowAverage = table.Column<bool>(type: "boolean", nullable: false),
-                    AutoCloseSession = table.Column<bool>(type: "boolean", nullable: false),
-                    ManageIssuesPermission = table.Column<int>(type: "integer", nullable: false),
-                    RevealCardsPermission = table.Column<int>(type: "integer", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Values = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Games", x => x.Id);
+                    table.PrimaryKey("PK_Decks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,41 +40,50 @@ namespace RukusRummy.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rounds",
+                name: "Games",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Result = table.Column<string>(type: "text", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GameId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    State = table.Column<int>(type: "integer", nullable: false),
+                    DeckId = table.Column<Guid>(type: "uuid", nullable: false),
+                    AutoReveal = table.Column<bool>(type: "boolean", nullable: false),
+                    EnableFunFeatures = table.Column<bool>(type: "boolean", nullable: false),
+                    ShowAverage = table.Column<bool>(type: "boolean", nullable: false),
+                    AutoCloseSession = table.Column<bool>(type: "boolean", nullable: false),
+                    ManageIssuesPermission = table.Column<int>(type: "integer", nullable: false),
+                    RevealCardsPermission = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rounds", x => x.Id);
+                    table.PrimaryKey("PK_Games", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rounds_Games_GameId",
-                        column: x => x.GameId,
-                        principalTable: "Games",
+                        name: "FK_Games_Decks_DeckId",
+                        column: x => x.DeckId,
+                        principalTable: "Decks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Decks",
+                name: "PlayerDecks",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Values = table.Column<string>(type: "text", nullable: false),
-                    PlayerId = table.Column<Guid>(type: "uuid", nullable: false)
+                    PlayerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DeckId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Decks", x => x.Id);
+                    table.PrimaryKey("PK_PlayerDecks", x => new { x.Id, x.PlayerId, x.DeckId });
                     table.ForeignKey(
-                        name: "FK_Decks_Players_PlayerId",
+                        name: "FK_PlayerDecks_Decks_DeckId",
+                        column: x => x.DeckId,
+                        principalTable: "Decks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlayerDecks_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
@@ -107,6 +111,28 @@ namespace RukusRummy.DataAccess.Migrations
                         name: "FK_GamePlayers_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rounds",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Result = table.Column<string>(type: "text", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    GameId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rounds", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rounds_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -144,10 +170,15 @@ namespace RukusRummy.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Decks_PlayerId",
+            migrationBuilder.InsertData(
                 table: "Decks",
-                column: "PlayerId");
+                columns: new[] { "Id", "Name", "Values" },
+                values: new object[,]
+                {
+                    { new Guid("81c7eaec-93aa-4f3c-9560-fa77e7063890"), "Fibonacci", "1,2,3,5,8,13,21,34,55,?,☕️" },
+                    { new Guid("bc20b8ca-a484-4342-ad04-6f23e0426ac5"), "T-Shirt Sizes", "XS,S,M,L,XL,?,☕️" },
+                    { new Guid("c8efe067-ce91-4f4f-9c25-cb8c65d9b150"), "Days", "0.5,1,1.5,2,2.5,3,>3,?,☕️" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_GamePlayers_GameId",
@@ -157,6 +188,21 @@ namespace RukusRummy.DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_GamePlayers_PlayerId",
                 table: "GamePlayers",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Games_DeckId",
+                table: "Games",
+                column: "DeckId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerDecks_DeckId",
+                table: "PlayerDecks",
+                column: "DeckId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerDecks_PlayerId",
+                table: "PlayerDecks",
                 column: "PlayerId");
 
             migrationBuilder.CreateIndex(
@@ -184,10 +230,10 @@ namespace RukusRummy.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Decks");
+                name: "GamePlayers");
 
             migrationBuilder.DropTable(
-                name: "GamePlayers");
+                name: "PlayerDecks");
 
             migrationBuilder.DropTable(
                 name: "Votes");
@@ -200,6 +246,9 @@ namespace RukusRummy.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Games");
+
+            migrationBuilder.DropTable(
+                name: "Decks");
         }
     }
 }

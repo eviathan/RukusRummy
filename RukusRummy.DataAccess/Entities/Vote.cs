@@ -15,7 +15,7 @@ public class Vote : Entity
 
     internal static void BuildModel(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Round>()
-            .HasKey(round => round.Id);
+        modelBuilder.Entity<Vote>()
+            .HasKey(vote => vote.Id);
     }
 }

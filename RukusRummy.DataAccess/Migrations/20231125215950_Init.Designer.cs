@@ -12,8 +12,8 @@ using RukusRummy.DataAccess;
 namespace RukusRummy.DataAccess.Migrations
 {
     [DbContext(typeof(RukusRummyDbContext))]
-    [Migration("20231125001208_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231125215950_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,18 +35,33 @@ namespace RukusRummy.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("PlayerId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Values")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerId");
-
                     b.ToTable("Decks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c8efe067-ce91-4f4f-9c25-cb8c65d9b150"),
+                            Name = "Days",
+                            Values = "0.5,1,1.5,2,2.5,3,>3,?,☕️"
+                        },
+                        new
+                        {
+                            Id = new Guid("81c7eaec-93aa-4f3c-9560-fa77e7063890"),
+                            Name = "Fibonacci",
+                            Values = "1,2,3,5,8,13,21,34,55,?,☕️"
+                        },
+                        new
+                        {
+                            Id = new Guid("bc20b8ca-a484-4342-ad04-6f23e0426ac5"),
+                            Name = "T-Shirt Sizes",
+                            Values = "XS,S,M,L,XL,?,☕️"
+                        });
                 });
 
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.Game", b =>
@@ -61,7 +76,7 @@ namespace RukusRummy.DataAccess.Migrations
                     b.Property<bool>("AutoReveal")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("Deck")
+                    b.Property<Guid>("DeckId")
                         .HasColumnType("uuid");
 
                     b.Property<bool>("EnableFunFeatures")
@@ -83,6 +98,8 @@ namespace RukusRummy.DataAccess.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DeckId");
 
                     b.ToTable("Games");
                 });
@@ -125,24 +142,42 @@ namespace RukusRummy.DataAccess.Migrations
                     b.ToTable("Players");
                 });
 
+            modelBuilder.Entity("RukusRummy.DataAccess.Entities.PlayerDeck", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("DeckId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id", "PlayerId", "DeckId");
+
+                    b.HasIndex("DeckId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("PlayerDecks");
+                });
+
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.Round", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("GameId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Result")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("StartDate")
@@ -184,15 +219,15 @@ namespace RukusRummy.DataAccess.Migrations
                     b.ToTable("Votes");
                 });
 
-            modelBuilder.Entity("RukusRummy.DataAccess.Entities.Deck", b =>
+            modelBuilder.Entity("RukusRummy.DataAccess.Entities.Game", b =>
                 {
-                    b.HasOne("RukusRummy.DataAccess.Entities.Player", "Player")
-                        .WithMany("Decks")
-                        .HasForeignKey("PlayerId")
+                    b.HasOne("RukusRummy.DataAccess.Entities.Deck", "Deck")
+                        .WithMany()
+                        .HasForeignKey("DeckId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Player");
+                    b.Navigation("Deck");
                 });
 
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.GamePlayer", b =>
@@ -208,6 +243,25 @@ namespace RukusRummy.DataAccess.Migrations
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RukusRummy.DataAccess.Entities.PlayerDeck", b =>
+                {
+                    b.HasOne("RukusRummy.DataAccess.Entities.Deck", "Deck")
+                        .WithMany()
+                        .HasForeignKey("DeckId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RukusRummy.DataAccess.Entities.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Deck");
+
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.Round", b =>
@@ -251,11 +305,6 @@ namespace RukusRummy.DataAccess.Migrations
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.Game", b =>
                 {
                     b.Navigation("Rounds");
-                });
-
-            modelBuilder.Entity("RukusRummy.DataAccess.Entities.Player", b =>
-                {
-                    b.Navigation("Decks");
                 });
 
             modelBuilder.Entity("RukusRummy.DataAccess.Entities.Round", b =>

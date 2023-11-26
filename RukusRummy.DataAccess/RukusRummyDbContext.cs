@@ -9,8 +9,10 @@ public class RukusRummyDbContext : DbContext
     public DbSet<Deck> Decks { get; set; }
     public DbSet<Player> Players { get; set; }
     public DbSet<Round> Rounds { get; set; }
-    public DbSet<GamePlayer> GamePlayers { get; set; }
     public DbSet<Vote> Votes { get; set; }
+
+    public DbSet<GamePlayer> GamePlayers { get; set; }
+    public DbSet<PlayerDeck> PlayerDecks { get; set; }
 
     public RukusRummyDbContext(DbContextOptions<RukusRummyDbContext> options) 
         : base(options) { }
@@ -18,7 +20,7 @@ public class RukusRummyDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder
-            .UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=Password123!");
+            .UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=Password123!;Include Error Detail=true;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,5 +34,6 @@ public class RukusRummyDbContext : DbContext
 
         // Link Tables
         GamePlayer.BuildModel(modelBuilder);
+        PlayerDeck.BuildModel(modelBuilder);
     }
 }

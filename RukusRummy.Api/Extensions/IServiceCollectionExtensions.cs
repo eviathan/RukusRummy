@@ -46,7 +46,7 @@ namespace RukusRummy.Api.Extensions
         {
             // TODO: Swap this out for SQL if need be
             serviceCollection.AddDbContext<RukusRummyDbContext>(options => 
-                options.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=Password123!")
+                options.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=Password123!;Include Error Detail=true;")
             );
         }
     }

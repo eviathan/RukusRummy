@@ -10,12 +10,14 @@ public class Deck : Entity
     // TODO: Custom back images
     // public string BackDesignImageUrl { get; set; }
 
-    public Guid PlayerId { get; set; }
-    public Player Player { get; set; }
+    public ICollection<Player> Players { get; set; } = new List<Player>();
 
     internal static void BuildModel(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Deck>()
             .HasKey(deck => deck.Id);
+
+        modelBuilder.Entity<Deck>()
+            .HasData(Defaults.DefaultDecks);
     }
 }

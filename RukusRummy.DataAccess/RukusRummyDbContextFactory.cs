@@ -11,7 +11,7 @@ namespace RukusRummy.DataAccess
             var optionsBuilder = new DbContextOptionsBuilder<RukusRummyDbContext>();
 
             optionsBuilder
-                .UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=Password123!");
+                .UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=Password123!;Include Error Detail=true;");
 
             return new RukusRummyDbContext(optionsBuilder.Options);
         }

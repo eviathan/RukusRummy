@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic;
 using RukusRummy.BusinessLogic.Models;
 using RukusRummy.BusinessLogic.Models.DTOs;
 using RukusRummy.DataAccess.Entities;
@@ -27,29 +28,30 @@ namespace RukusRummy.BusinessLogic.Services
         // TODO: Finish game creation logic
         public async Task<Game> CreateAsync(CreateGameDTO model)
         {
-            var initalRound = new Round
-            {
-                Id = Guid.NewGuid(),
-                StartDate = DateTime.Now
-            };
-
-            await _roundRepository.CreateAsync(initalRound);
-
             var player = await _playerRepository.GetAsync(model.PlayerId);
+            var deck = await _deckRepository.GetAsync(model.DeckId);
 
             var game = new Game 
             {
                 Name = model.Name,
-                Deck = model.Deck,
-                Rounds = [ initalRound ],
+                Deck = deck,
                 Players = [ player ],
                 AutoReveal = model.AutoReveal,
                 EnableFunFeatures = model.EnableFunFeatures,
                 ManageIssuesPermission = model.ManageIssuesPermission,
                 RevealCardsPermission = model.RevealCardsPermission
             };
+
+            await _gameRepository.CreateAsync(game);
+
+            var initialRound = await _roundRepository.CreateAsync(
+                new Round
+                {
+                    Game = game,
+                }
+            );
             
-            return await _gameRepository.CreateAsync(game);            
+            return game;
         }
 
         public async Task<GameDTO> GetAsync(Guid id)
@@ -118,7 +120,7 @@ namespace RukusRummy.BusinessLogic.Services
             {
                 Id = dto.Id,
                 Name = dto.Name,
-                Deck = dto.Deck.Id,
+                Deck = dto.Deck,
                 AutoReveal = dto.AutoReveal,
                 EnableFunFeatures = dto.EnableFunFeatures,
                 ManageIssuesPermission = dto.ManageIssuesPermission,
@@ -130,13 +132,11 @@ namespace RukusRummy.BusinessLogic.Services
 
         private async Task<GameDTO> MapToDTO(Game game)
         {
-            var deck = await _deckRepository.GetAsync(game.Deck);
-            
             return new GameDTO
             {
                 Id = game.Id,
                 Name = game.Name,
-                Deck = deck,
+                Deck = game.Deck,
                 AutoReveal = game.AutoReveal,
                 EnableFunFeatures = game.EnableFunFeatures,
                 ManageIssuesPermission = game.ManageIssuesPermission,
