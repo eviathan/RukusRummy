@@ -89,22 +89,13 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
     function revealCards() {
         app.revealCards();
     }
-
-    function hasVotes(): boolean {
-        const rounds = app.game?.rounds ?? [];
-        var lastRound = rounds.at(-1);
-        const votes = Object.entries(lastRound?.votes ?? {});
-
-        const hasVotes = votes.filter(([playerId, value]) => value !== undefined).length > 0;
-        return hasVotes;
-    }
-
+    
     function renderCTO() {
         if(!app?.countdownFinished && (!hasVotes() || isCountingDown))
-            return <p className="cta">{getCtaText()}</p>
-
+        return <p className="cta">{getCtaText()}</p>
+        
         const gameState: GameStateType = app.game?.state ?? GameStateType.RoundActive;
-
+        
         switch(gameState) {
             default:
             case GameStateType.RoundActive: {
@@ -115,9 +106,19 @@ export const Table: React.FC<React.PropsWithChildren<IProps>> = ({ players, flip
             }
         }
     }
-
+        
     function isActive() {
         return app.game?.state === GameStateType.RoundActive;
+    }
+        
+
+    function hasVotes(): boolean {
+        const rounds = app.game?.rounds ?? [];
+        var lastRound = rounds.at(-1);
+        const votes = Object.entries(lastRound?.votes ?? {});
+        const votesWithoutValues = votes.filter(([playerId, value]) => value !== null && value !== undefined);
+        const hasVotes = votesWithoutValues.length > 0;
+        return hasVotes;
     }
 
     return (
