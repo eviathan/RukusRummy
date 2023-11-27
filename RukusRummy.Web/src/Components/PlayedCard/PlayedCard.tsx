@@ -5,9 +5,10 @@ interface IProps {
     name?: string;
     value?: string;
     spectator: boolean;
+    hidden?: boolean;
 }
 
-export const PlayedCard: React.FC<React.PropsWithChildren<IProps>> = ({ flipped, name, value, spectator }) => {
+export const PlayedCard: React.FC<React.PropsWithChildren<IProps>> = ({ flipped, name, value, spectator, hidden }) => {
 
     const getCSSClass = (): string => {
 
@@ -22,13 +23,16 @@ export const PlayedCard: React.FC<React.PropsWithChildren<IProps>> = ({ flipped,
 
     return (
         <>
-        { !!name  
+        { !hidden  
             ?
                 <div className='played-card'>
                     <div className={getCSSClass()}>
                         {value}
                     </div>
-                    <p>{name}</p>
+                    { !!name 
+                        ? <p>{name}</p>
+                        : <></>
+                    }
                 </div>
             : 
                 null

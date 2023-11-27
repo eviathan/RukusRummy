@@ -19,6 +19,8 @@ export const GameHubProvider: React.FC<GameHubProviderProps> = ({ children }) =>
             .withUrl("http://localhost:5001/hubs/gamehub")
             .configureLogging(LogLevel.Information)
             .build();
+        
+        hubConnection.serverTimeoutInMilliseconds = 60000 * 60;
 
         setConnection(hubConnection);
 

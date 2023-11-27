@@ -5,7 +5,9 @@ using RukusRummy.Api.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(hubOptions => {
+    hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(60);
+});
 builder.Services.AddServices();
 
 builder.Services.AddCors(options =>

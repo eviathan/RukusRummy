@@ -1,0 +1,61 @@
+@import '../../variables.scss';
+
+.results {
+    position: fixed;
+    bottom: 0%;
+    left: 0;
+    // height: 250px;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    transition: all 0.16s linear;
+    
+    &.hidden {
+        bottom: -30%;
+    }
+    
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+        .top-section {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+
+            div:first-of-type {
+                padding-right: 40px;
+            }
+            
+            p:first-of-type {
+                font-size: 1.1rem;
+                color: lightgray;
+                font-weight: 600;
+            }
+
+            p > strong {
+                font-size: 1.6rem;
+                font-weight: 800;
+            }
+        }
+
+        ul,li {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            list-style: none;
+            flex-direction: column;
+
+            .card {
+                height: 64px;
+                width: 40px;
+            }
+
+            p {
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+}

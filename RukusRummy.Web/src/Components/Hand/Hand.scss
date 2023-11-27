@@ -22,6 +22,7 @@
         .cards {
             display: flex;
             width: 100%;
+            justify-content: center;
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
@@ -41,6 +42,7 @@
                 transition: all .1s linear;
                 height: calc(8rem / 1.5);
                 width: calc(4.8rem / 1.5);
+                min-width: 50px;
 
                 &:hover {
                     margin-top: -0.35rem;

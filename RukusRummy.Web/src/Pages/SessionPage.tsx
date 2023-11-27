@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import ChooseYourNameModal from "../Components/Modal/ChooseYourNameModal";
 import Modal from "../Components/Modal/Modal";
@@ -11,12 +11,14 @@ import { Api } from "../Contexts/ApiContext";
 
 import "./SessionPage.scss"
 import { IPlayer } from "../Models/Player";
+import Results from "../Components/Results/Results";
 
 // TODO: Move this guff into the App Context
 export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
     const api = useContext(Api);
     const app = useContext(App);
     const { id } = useParams();
+    const [showResults, setShowResults] = useState<boolean>(false);
 
     useEffect(() => {
         const load = async () => {
@@ -76,6 +78,7 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
 
     return (
         <div className="session">
+            <button onClick={() => setShowResults(!showResults)}>show/hide results</button>
             {app?.player !== undefined
                 ? 
                 <>
@@ -87,6 +90,9 @@ export const SessionPage: React.FC<React.PropsWithChildren<{}>> = () => {
                             selectedCard={getSelectedCard()}
                             deck={app.game.deck}
                             onSelectCard={ (card) => app.playCard(card) }
+                        />
+                        <Results
+                            visible={showResults}
                         />
                     </div>
                 </>
