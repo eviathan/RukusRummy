@@ -1,11 +1,17 @@
+using System.Collections.Concurrent;
 using System.Security.Claims;
 using Microsoft.AspNetCore.SignalR;
+using RukusRummy.BusinessLogic.Models;
+using RukusRummy.BusinessLogic.Models.DTOs;
 using RukusRummy.BusinessLogic.Services;
 
 namespace RukusRummy.Api.Hubs
 {
     public class GameHub : Hub
     {
+        public static readonly ConcurrentDictionary<Guid, string> UserConnectionMap = new ConcurrentDictionary<Guid, string>();
+
+        private readonly IPlayer _player;
         private readonly GameService _gameService;
 
         public GameHub(GameService gameService)
@@ -13,11 +19,17 @@ namespace RukusRummy.Api.Hubs
             _gameService = gameService;
         }
 
-        // public override Task OnConnectedAsync()
-        // {
-        //     // Clients.Others.SendAsync("UserConnected", Context.ConnectionId);
-        //     return base.OnConnectedAsync();
-        // }
+        public override Task OnConnectedAsync()
+        {
+            var claims = Context.GetHttpContext().User.Claims.ToList();
+            var playerId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            // var playerId = _player.Id;
+            var connectionId = Context.ConnectionId;
+
+            UserConnectionMap.AddOrUpdate(new Guid(playerId), connectionId, (key, oldValue) => connectionId);
+
+            return base.OnConnectedAsync();
+        }
 
         // public override Task OnDisconnectedAsync(Exception exception)
         // {
@@ -46,7 +58,7 @@ namespace RukusRummy.Api.Hubs
                 var gameIdGuid = new Guid(gameId);
                 var _ = await _gameService.GetAsync(gameIdGuid);
                 
-                await _gameService.PickCardAsync(new BusinessLogic.Models.DTOs.PickCardDTO {
+                await _gameService.PickCardAsync(new PickCardDTO {
                     GameId = gameIdGuid,
                     PlayerId = new Guid(playerId),
                     Value = card

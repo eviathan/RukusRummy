@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using RukusRummy.BusinessLogic.Models;
 using RukusRummy.BusinessLogic.Services;
 using RukusRummy.DataAccess;
 using RukusRummy.DataAccess.Entities;
 using RukusRummy.DataAccess.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace RukusRummy.Api.Extensions
 {
@@ -49,6 +52,32 @@ namespace RukusRummy.Api.Extensions
             serviceCollection.AddDbContext<RukusRummyDbContext>(options => 
                 options.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=Password123!;Include Error Detail=true;")
             );
+        }
+
+        public static IServiceCollection SetupAccessManagement(this IServiceCollection services)        
+        {
+            services.AddScoped<IPlayer>(ctx =>
+            {
+                var httpContext = ctx.GetRequiredService<IHttpContextAccessor>();
+                var playerId = httpContext?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (playerId == null || !Guid.TryParse(playerId, out Guid id))
+                {
+                    return new LoggedOutPlayer();
+                }
+
+                try
+                {
+                    return new AuthenticatedPlayer(ctx.GetRequiredService<PlayerService>(), id);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    httpContext?.HttpContext?.Response.Redirect("/");
+                    return new LoggedOutPlayer();
+                }
+            });
+
+            return services;
         }
     }
 }

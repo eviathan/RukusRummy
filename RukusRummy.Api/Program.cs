@@ -5,10 +5,12 @@ using RukusRummy.Api.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSignalR(hubOptions => {
     hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(60);
 });
 builder.Services.AddServices();
+builder.Services.SetupAccessManagement();
 
 builder.Services.AddCors(options =>
 {

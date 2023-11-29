@@ -77,7 +77,14 @@ export const CreateGamePage: React.FC = () => {
                                 <CreateACustomDeckModal 
                                     onCancel={() => setIsCreatingDeck(false)} 
                                     onContinue={async (deck) => { 
-                                        await api.deck.create(deck.name, deck.values);
+                                        const response = await api.deck.create(deck.name, deck.values);
+
+                                        if(app.player?.id)
+                                            await api.player.addDeck({
+                                                playerId: app?.player?.id,
+                                                deckId: response.id
+                                            });
+
                                         setIsCreatingDeck(false);
                                     }} 
                                 />

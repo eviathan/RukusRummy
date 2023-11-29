@@ -77,6 +77,12 @@ export const AppProvider: React.FC<React.PropsWithChildren<IAppProviderProps>> =
 				setGame(game);
             });
 
+            connection.on("PlayerUpdated", async (playerId: string) => {
+				console.log("Player updated:", playerId);
+				var player = await api.player.get(playerId);
+				setPlayer(player);
+            });
+
             connection.on("RevealCards", async (gameId: string) => {
 				var game = await api.game.get(gameId);
 				setGame(game);

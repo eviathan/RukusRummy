@@ -4,7 +4,7 @@ import BaseApi from "./BaseApi";
 export default class DeckApi extends BaseApi {
 	protected apiUrl: string = "/deck";
 
-	async create(name: string, values: string): Promise<string> {
+	async create(name: string, values: string): Promise<IDeck> {
 		return await this.postWithResponseAsync({
 			name,
 			values

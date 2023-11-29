@@ -1,3 +1,4 @@
+using RukusRummy.BusinessLogic.Models;
 using RukusRummy.BusinessLogic.Models.DTOs;
 using RukusRummy.DataAccess;
 using RukusRummy.DataAccess.Entities;
@@ -7,20 +8,28 @@ namespace RukusRummy.BusinessLogic.Services
 {
     public class PlayerService
     {
+        private readonly IPlayer _player;
         private readonly IRepository<Player> _playerRepository;
         private readonly IRepository<Game> _gameRepository;
         private readonly IRepository<Deck> _deckRepository;
 
         public PlayerService(
+            IPlayer player,
             IRepository<Player> playerRepository,
             IRepository<Game> gameRepository,
             IRepository<Deck> deckRepository)
         {
+            _player = player ?? throw new ArgumentNullException(nameof(player));
             _playerRepository = playerRepository ?? throw new ArgumentNullException(nameof(playerRepository));
             _gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
             _deckRepository = deckRepository ?? throw new ArgumentNullException(nameof(deckRepository));
         }
 
+        public async Task<PlayerDTO> GetAsync(Guid id)
+        {
+            var player =  await _playerRepository.GetAsync(id);
+            return new PlayerDTO(player);
+        }
 
         public async Task<PlayerDTO> AddPlayerToGameAsync(AddPlayerDTO dto)
         {
@@ -67,6 +76,15 @@ namespace RukusRummy.BusinessLogic.Services
         {
             var player = await _playerRepository.GetAsync(id);
             return new PlayerDTO(player);
+        }
+
+        public async Task AddDeckAsync(AddDeckToPlayerRequestDTO request)
+        {
+            var player = await _playerRepository.GetAsync(request.PlayerId);
+            var deck = await _deckRepository.GetAsync(request.DeckId);
+
+            player.Decks.Add(deck);
+            await _playerRepository.UpdateAsync(player);
         }
     }
 }

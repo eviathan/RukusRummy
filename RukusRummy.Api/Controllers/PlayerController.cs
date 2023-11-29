@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.ComponentModel.DataAnnotations;
 using RukusRummy.DataAccess.Entities;
 using RukusRummy.BusinessLogic.Models.DTOs;
+using RukusRummy.BusinessLogic.Models;
 
 namespace RukusRummy.Api.Controllers;
 
@@ -15,6 +16,7 @@ namespace RukusRummy.Api.Controllers;
 [Route("api/[controller]")]
 public class PlayerController : ControllerBase
 {
+    // private readonly IPlayer _player;
     private readonly ILogger<GameController> _logger;
     private readonly PlayerService _playerService;
     private readonly GameService _gameService; 
@@ -22,11 +24,13 @@ public class PlayerController : ControllerBase
 
 
     public PlayerController(
+        // IPlayer player,
         ILogger<GameController> logger,
         PlayerService playerService,
         GameService gameService,
         IHubContext<GameHub> hubContext)
     {
+        // _player = player;
         _logger = logger;
         _playerService = playerService;
         _gameService = gameService;
@@ -102,35 +106,18 @@ public class PlayerController : ControllerBase
         }
     }
 
-    [HttpPost("{playerId}/deck/{deckId}")]  
-    public async Task<ActionResult<Guid>> AddDeckToPlayer(Guid playerId, Guid deckId)  
+    [HttpPost("deck")]  
+    public async Task<ActionResult> AddDeckToPlayer(AddDeckToPlayerRequestDTO request)  
     {
+        throw new NotImplementedException();
+        // await _playerService.AddDeckAsync(request);
 
-        await Task.Delay(1);
-        return Guid.Empty;
+        // if (GameHub.UserConnectionMap.TryGetValue(_player.Id, out var connectionId))
+        // {
+        //     await _hubContext.Clients.Client(connectionId).SendAsync("PlayerUpdated", _player.Id);
+        // }
         
-        // try
-        // {
-        //     var game = await _gameService.GetAsync(gameId);
-
-        //     if(!game.Players.Any(x => x.Id == playerId))
-        //     {
-        //         var player = await _playerService.GetPlayerAsync(playerId);
-        //         game.Players.Add(player);
-        //         await _gameService.UpdateAsync(game);
-        //     }
-
-        //     var group = _hubContext.Clients.Group(gameId.ToString());
-            
-            
-        //     await _hubContext.Clients.User .Clients.Group().All.SendAsync("PlayerUpdated", gameId);
-
-        //     return Ok(gameId);
-        // }
-        // catch(ArgumentNullException)
-        // {
-        //     return BadRequest();
-        // }
+        // return Ok();
     }
 
 

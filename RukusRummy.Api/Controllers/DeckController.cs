@@ -4,6 +4,7 @@ using RukusRummy.Api.Hubs;
 using RukusRummy.BusinessLogic.Models.DTOs;
 using RukusRummy.BusinessLogic.Services;
 using Microsoft.AspNetCore.Authorization;
+using RukusRummy.BusinessLogic.Models;
 
 namespace RukusRummy.Api.Controllers;
 
@@ -12,30 +13,31 @@ namespace RukusRummy.Api.Controllers;
 [Route("api/[controller]")]
 public class DeckController : ControllerBase
 {
+    private readonly IPlayer _player;
     private readonly ILogger<DeckController> _logger;
-
     private readonly DeckService _deckService;
-
     private readonly IHubContext<GameHub> _hubContext;
 
-
     public DeckController(
+        IPlayer player,
         ILogger<DeckController> logger,
         DeckService deckService,
         IHubContext<GameHub> hubContext)
     {
+        _player = player;
         _logger = logger;
         _deckService = deckService;
         _hubContext = hubContext;
     }
 
     [HttpPost]  
-    public async Task<ActionResult<Guid>> Create(DeckDTO deck)  
+    public async Task<ActionResult<DeckDTO>> Create(CreateDeckRequestDTO request)  
     {
         try
         {
-            var id = await _deckService.CreateAsync(deck.Name, deck.Values);
-            return Ok(id);
+            var deck = await _deckService.CreateAsync(request);
+            await _hubContext.Clients.All.SendAsync("PlayerUpdated", _player.Id.ToString());
+            return Ok(deck);
         }
         catch(ArgumentNullException)
         {

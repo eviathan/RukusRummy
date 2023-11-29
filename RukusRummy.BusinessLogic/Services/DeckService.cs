@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using RukusRummy.BusinessLogic.Models.DTOs;
 using RukusRummy.DataAccess.Entities;
 using RukusRummy.DataAccess.Repositories;
@@ -13,15 +14,16 @@ namespace RukusRummy.BusinessLogic.Services
             _deckRepository = deckRepository;
         }
 
-        public async Task<Deck> CreateAsync(string name, string values)
+        public async Task<DeckDTO> CreateAsync(CreateDeckRequestDTO model)
         {
-            throw new NotImplementedException();
-            // if(string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(values))
-            //     throw new ArgumentNullException();
+            var sanitisedValues = SanitisedValues(model.Values);
+            var deck = await _deckRepository.CreateAsync(new Deck
+            {
+                Name = model.Name,
+                Values = sanitisedValues
+            });
 
-            // var sanitisedValues = SanitisedValues(values);
-            // var dto = new DeckDTO(name, sanitisedValues);
-            // return await _deckRepository.CreateAsync(MapFromDTO(dto));
+            return new DeckDTO(deck);
         }
 
         public async Task<DeckDTO> GetAsync(Guid id)
